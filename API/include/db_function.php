@@ -3,11 +3,12 @@ include_once('constant.php');
 class DB_Function extends DB {
 		
 		// protected $conn;
+		public $sql ='';
+		public $mysqli_error ='';
 		
 		
 		// constructor
 		// function __construct() {
-			// echo 123;
 			// echo $this->checkResponse_Impl();
 			// require_once 'DB_Connect.php';
 			// // connecting to database
@@ -18,7 +19,8 @@ class DB_Function extends DB {
 		
 		// destructor
 		function __destruct() {
-			
+			// $mysqli = $this->Db_Connect();
+			// $mysqli->close();
 		}
 	
 				
@@ -26,7 +28,7 @@ class DB_Function extends DB {
             $db = new DB();
 			$conn = $db->Db_Connect();
 			// $conn = $this->Db_Connect();
-            $ComSql = "SElECT * from companies where `id`='$id'";
+            $ComSql = "SELECT * from companies where `id`='$id'";
             $Cquery = $conn->query($ComSql);
             if($Cquery->num_rows>0){
                 $row = $Cquery->fetch_assoc();
@@ -37,12 +39,6 @@ class DB_Function extends DB {
                 return '';
             }
         }
-		public function connectme()
-		{
-			global $mysqli;
-			return $mysqli;
-		}
-	
 		//$link = connectme();
 	   public function echoPrint($data)
 		{
@@ -56,26 +52,14 @@ class DB_Function extends DB {
 			print_r($data);
 			echo "</pre>";
 		}
-	   public function debugSql($query = '', $sql = '')
+	   public function debugSql()
 		{
-			global $mysqli;
-			//echo "<br><br>A>: ".$mysqli -> info;
-			if (isset($_SESSION['sql'])) {
-				echo "<br><br>B>: " . $_SESSION['sql'] . "<br>";
-			}
-			//echo "<br><br>C>: ".$mysqli -> host_info;
-			echo "<br><br>D>: " . echoVar($mysqli->get_charset());
-			//echo "<br><br>E>: ".$mysqli -> server_info;
-			//echo "<br><br>F>: ".mysqli_dump_debug_info($mysqli);   
-			if ($mysqli->error) {
-				echo "<br>G>: Error description: " . $mysqli->error;
-			} else {
-				echo '<br>G>: !!!No Error Found!!!<br>';
-			}
+			echo "<br>".$this->sql;
+			echo "<br>".$this->mysqli_error;
 		}
 	   public function escapeString($s)
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			return $mysqli->real_escape_string($s);
 		}
 	
@@ -88,8 +72,9 @@ class DB_Function extends DB {
 	
 	   public function getAffectedRowCount($sql)
 		{
-			// $mysqli = $this->Db_Connect();
-			$query =  $this->Db_Connect()->$sql;
+			$mysqli = $this->Db_Connect();
+			$query =  $mysqli->query($sql);
+			$this->sql = $sql; //store for debug
 			return $query->num_rows;
 		}
 	   public function executeQuery($sql)
@@ -110,18 +95,17 @@ class DB_Function extends DB {
 			}
 			return $row;
 		}
-	   public function getSingleResult($sql)
-		{
-			global $mysqli;
-			$row = array();
-			$query = $mysqli->query($sql);
-			if ($query->num_rows > 0) {
-				while ($result = mysqli_fetch_assoc($query)) {
-					$row = $result;
+	public  function getSingleResult($sql){
+				$mysqli = $this->Db_Connect();
+				$row = array();
+				$query = $mysqli->query($sql);
+				if ($query->num_rows > 0) {
+					while ($result = mysqli_fetch_assoc($query)) {
+						$row = $result;
+					}
 				}
+				return $row;
 			}
-			return $row;
-		}
 		//public function getSingleResultArray($sql){ 
 		// 	global $mysqli;
 		// 	 $query =  $mysqli->query($sql);
@@ -133,8 +117,9 @@ class DB_Function extends DB {
 		// }
 	   public function executeInsert($table, $data, $onduplicatekey = array())
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			$dataStr = '';
+			$duplicaterow ='';
 			if (strlen($table) > 0) {
 				$dataStr = 'INSERT INTO ' . $table;
 				if (count($data) > 0) {
@@ -153,13 +138,12 @@ class DB_Function extends DB {
 					$dataStr = $dataStr . ' ON DUPLICATE KEY UPDATE ' . $duplicaterownew;
 				}
 			}
-			// echo $dataStr;
-			$_SESSION['sql'] = $dataStr;
+			//echo $dataStr;
+			$this->sql = $dataStr;
 			mysqli_set_charset($mysqli, 'utf8');
 			$err = $mysqli->query($dataStr);
 			if ($mysqli->error) {
-				// debugSql();
-				//echo "<br>Error description: " . $mysqli->error;
+				$this->mysqli_error = "Error description: " . $mysqli->error;
 			}
 			$result = $mysqli->insert_id;
 			$mysqli->close();

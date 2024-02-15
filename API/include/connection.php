@@ -5,11 +5,11 @@ class DB {
     // public $conf = NULL;
     
     public function __construct() {
-        //$this->db_Connect(); // Initiate Database connection
+        $this->mysqli = $this->db_Connect(); // Initiate Database connection store in variable
     }
     protected function Db_Connect() {
         require_once ("../config.php");
-        return $this->mysqli = new mysqli("localhost","root","","psoft_crm_demo");
+        return $this->mysqli = new mysqli("localhost","root","","client_bollyhood");
         //$this->mysqli = new mysqli(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_);
         //$this->mysqli->query('SET CHARACTER SET utf8');
 

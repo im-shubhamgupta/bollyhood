@@ -1,7 +1,8 @@
 <?php
 // make isValidImg()
-//<!-- use sxrf for safe hit by session & check-->     
+   
 $response = array('check'=>'error' , 'msg'=>'Access Denied');
+if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 $submit_action = isset($_POST['submit_action']) ? escapeStringTrim($_POST['submit_action']) : '';
 switch($submit_action){
 	case 'add_document':
@@ -94,7 +95,7 @@ switch($submit_action){
 if(empty($_POST['submit_action'])){
 	echo json_encode($response);
 }
-
+}
 //redirect('home',$msg);//you can set comma paramenter sessio flush
 
 

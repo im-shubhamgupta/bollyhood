@@ -1,29 +1,25 @@
 <?php
 include_once('constant.php');
-//set controller in other side
+
 $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 switch($controller){	
 	case 'auth_controller':
 		include_once('controller/auth_controller.php');
 	break;
-}	
-if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
-	switch($controller){	
-		case 'auth_controller':
-			include_once('controller/auth_controller.php');
-		break;
-		case 'form-controller':
-			include_once('controller/form-controller.php');
-		break;
-		case 'doc_controller':
-			include_once('controller/document_controller.php');
-		break;
-	}
+	case 'form-controller':
+		include_once('controller/form-controller.php');
+	break;
+	case 'doc_controller':
+		include_once('controller/document_controller.php');
+	break;
 }
-// echoPrint($_REQUEST);
-include_once(DIR.'/layout/header.php');
-include_once(DIR.'/layout/sidebar.php');
 
+include_once(DIR.'/layout/header.php');
+
+if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
+
+	include_once(DIR.'/layout/sidebar.php');
+}
 
 if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 	switch ($action){
@@ -48,8 +44,15 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'category':
 			include_once('action/all_category.php');
 		break;
+		case 'mod_category':
+			include_once('action/mod_category.php');
+		break;
 		default :
-			include_once('action/analytical.php');
+			if(isset($_GET['action']) && empty($_GET['action'])){
+				die("no action found");
+			}else{
+				include_once('action/analytical.php');
+			}
 		break;
 	}
 }else{

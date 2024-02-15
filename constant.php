@@ -24,11 +24,19 @@ const CAT = array(
 );
 
 
-// class payment{
-//     const merchantId = 'PGTESTPAYUAT';
-//     const apiKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
-//     const RAZORPAY_KEY = 'rzp_test_NqotmWC1EGbE3A';
-// }
+class admin{
+    const name = 'Admin';
+    const image = 'Admin';
+    const logo = 'Admin';
+    const company_name = 'BollyHood';
+    const email = 'bollyhoodapp@gmail.com';
+    const address = 'Bokaro';
+    const mobile = '7777777788';
+    // const copyright =  admin::company_name;
+    //$msg = date('Y') ;
+    const copyright = " © ".admin::company_name;
+    // const copyright =  date('Y') ." © ".admin::company_name. " ShubhamGupta" ;
+}
 // class mailer{
 //     const host = 'smtp.gmail.com';
 //     const port = '587';

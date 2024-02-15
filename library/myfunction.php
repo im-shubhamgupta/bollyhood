@@ -1,4 +1,11 @@
 <?php
+function sessionSet($set){
+	if(is_array($set)){
+
+		
+	}
+
+}
 function url($path){
 	return SITE_URL.$path;
 }

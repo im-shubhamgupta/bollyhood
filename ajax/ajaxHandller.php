@@ -1,32 +1,22 @@
 <?php
 include('../constant.php');
-// 
-//if(isset($_POST['get_all_category_data']) && $_POST['get_all_category_data'] != 'get_all_category_data'){
-//	echoPrint($_REQUEST);
-//}
 $ajax_action = isset($_POST['ajax_action']) ? $_POST['ajax_action'] :'';
 switch($ajax_action){
-	case 'fetch_all_data':
-		// echoPrint($_POST);
+	case 'fetch_all_category':
 		$requestData= $_REQUEST;
 		// $table ='';
 		$columns = array( 
 			0 =>'id',
-			1 =>'category',
-			2 =>'text',
-			3 =>'source',
-			4 =>'create_date',
+			1 =>'category_name',
+			2 =>'create_date',
 		);
-		$sql="SELECT * from record_data where 1 "; 
+		$sql="SELECT * from category where 1 "; 
 		$totalData = getAffectedRowCount($sql);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
+		$totalFiltered = $totalData;  
 
 		if($requestData['search']['value'] ) {  
-
 			$sql.=" AND ( 1 ";
-			$sql.=" OR `text` LIKE '%".$requestData['search']['value']."%' ";
-			$sql.=" OR `source` LIKE '%".$requestData['search']['value']."%' ";
-			$sql.=" OR `category` LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR `category_name` LIKE '%".$requestData['search']['value']."%' ";
 			$sql.= " )";
 		}
 		$totalFiltered = getAffectedRowCount($sql); 
@@ -38,16 +28,12 @@ switch($ajax_action){
 		$arr = executeQuery($sql);
 		foreach($arr as $list) {  // preparing an array
 			$td = array();
-			// print_r($list);
-			//$date=date('d-m-Y H:i:s ',strtotime($Row["notice_datetime"]));
 			$td[] = $list['id'];
-			$td[] = CAT[$list['category']] ?? 'N/A';
-			$td[] = $list['text'];
-			$td[] = $list['source'];
-			$td[] = '<span><a href="'.urlAction('form&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed">
+			$td[] = $list['category_name'];
+			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
+			$td[] = '<span><a href="'.urlAction('mod_category&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed">
                             <i class="fal fa-edit"></i>
                                                     </a></span>';
-
 			$data[] = $td;
 			$i ++;
 		}

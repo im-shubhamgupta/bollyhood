@@ -18,8 +18,26 @@ switch($submit_action){
 		}
 		$password = escapeStringTrim($_POST['password']);
 
-		$data = executeSelectSingle('backend_users',array(),$temp);
+		$data = executeSelectSingle('users',array(),$temp);
 		if(count($data) > 0){
+			//put value in session
+			// $json_data = array(
+			// 	"login_token" => uniqid(),
+			// 	"login_timestamp" => date('Y-m-d H:i:s'),
+			// );
+
+			// $json_data[uniqid().'_'.$data['id']] = array(
+			// 	"login_token" => uniqid(),
+			// 	"login_timestamp" => date('Y-m-d H:i:s'),
+			// ) ;
+			// $jsonData = json_encode($json_data);
+			// $filePath = DIR.'/library/json/authentication.json';
+			// // unlink($filePath);
+			
+			// $token = file_put_contents($filePath, $jsonData);
+
+			$_SESSION['login_token'] = $json_data['login_token'];
+			$_SESSION['login_timestamp'] = $json_data['login_timestamp'];
 			$_SESSION['user_id'] = $data['id'];
 			$_SESSION['email'] =  $data['email'];
 			$_SESSION['login'] =  'y';
@@ -30,7 +48,9 @@ switch($submit_action){
 			$response['msg'] = 'Please Enter correct Credentials';
 		}
 		// debugSql();
-		redirect('home',$response);
+		// echoPrint($_SESSION);
+		$url = !empty($_POST['get_action']) ? $_POST['get_action'] : '';
+		redirect($url,$response);
         die;
     break;
 	case 'log_out':

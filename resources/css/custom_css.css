@@ -1,3 +1,4 @@
+/*css for admin panel*/
 aside.page-sidebar {
     width: 14.875rem;
     max-width: 14.875rem;
@@ -51,4 +52,8 @@ span.multi_img:hover {
    zoom:110%;
     /* border-radius: 12px; */
 }
-
+/*css custom*/
+.form_error {
+    display: inline-block;
+    color: red;
+}

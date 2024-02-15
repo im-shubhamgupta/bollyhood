@@ -1,6 +1,14 @@
-// function ajax_url(){
-// 	return
-// }
+function ajax_url(url){
+	return site_url+url;
+}
+function valid(val){
+    console.log(val.length);
+    if(val=='' || val==null || val == undefined || val.length <= 0){
+        return false;
+    }else{
+        return true;
+    }
+}
 // "use strict"; 
 $(document).ready(function(){
     //login form validate
@@ -30,7 +38,18 @@ $(document).ready(function(){
             });
     });
     
-});        
+}); 
+
+$(document).on('submit',"#mod_category",function(e){
+    //add action for safety
+    // e.preventDefault();
+    var cat = $('#category_name').val();
+    if(!valid(cat)){
+        $("#cat_error").html("*Category field required");
+        return false;
+    }
+
+});
 	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({
@@ -171,83 +190,37 @@ function all_data_datatable(){
 }
 
 function fetch_all_category(){
-        /*var columnSet = [{
-            title: "id",
-            id: "id",
-            data: "id",
-            type: "text"
-        },
-        {
-            title: "category",
-            id: "category",
-            data: "category",
-            type: "text",
-            placeholderMsg: "Enter Category Name",
-            unique: true,
-            // "visible": false,
-            // "searchable": false,
-            // type: "readonly"
-            required: true,
-            uniqueMsg: "This category is already used"
-        },
-        {
-            title: "type",
-            id: "type",
-            data: "type",
-            type: "select",
-            "options": [
-                "form",
-                "document",
-            ]
-        },
-        ]*/
-
-    var myTable = $('#category_datatable').dataTable({
-            dom: "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'B>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
-            'order':[0,'DESC'],
-            
-            responsive: true,
-            // lengthChange: false,
-            "processing": true,
+    $('#category_datatable').dataTable({
+        "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
+        'order':[0,'DESC'],
+        responsive: true,
+        lengthChange: false,
+        dom:
+            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "columnDefs": [
+            {"className": "text-center", "targets": "_all"}
+            ],
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Print',
+                titleAttr: 'Print Table',
+                className: 'btn-outline-primary btn-sm'
+            }
+        ],
+        "processing": true,
             "serverSide": true,
-            // "scrollX": true,
+            "scrollX": true,
             "ajax":{
                 'url' :site_url + 'ajax/ajaxHandller.php', 
                 'type': "post",
                 'data' : {
-                    'ajax_action' : 'get_all_category_data' 
+                    'ajax_action' : 'fetch_all_category' 
                 }
-            }, 
-            // ajax: "library/server-demo.json",
-            // columns: columnSet,
-            select: 'single',
-            altEditor: true,
-            responsive: true,
-            buttons: [
-            {
-                extend: 'selected',
-                text: '<i class="fal fa-edit mr-1"></i> Edit',
-                name: 'edit',
-                className: 'btn-primary btn-sm mr-1'
-            },
-            {
-                text: '<i class="fal fa-plus mr-1"></i> Add',
-                name: 'add',
-                className: 'btn-success btn-sm mr-1'
-            },
-            ],
-            onAddRow: function(dt, rowdata, success, error){
-                add_category(rowdata);
-                    //events.prepend('<p class="text-success fw-500">' + JSON.stringify(rowdata, null, 4) + '</p>');
-            },
-            onEditRow: function(dt, rowdata, success, error){
-                add_category(rowdata);
-                //events.prepend('<p class="text-info fw-500">' + JSON.stringify(rowdata, null, 4) + '</p>');
-            },
-        });
+        },
+    });
 }
 function add_category(data){
     var form_data = new FormData($("form[name=altEditor-form]")[0]);

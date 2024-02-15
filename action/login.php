@@ -7,7 +7,7 @@
                             <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0">
                                 <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
                                     <img src="img/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
-                                    <span class="page-logo-text mr-1">Document Container</span>
+                                    <span class="page-logo-text mr-1"><?=admin::company_name?></span>
                                 </a>
                             </div>
                             <!-- <a href="page_register.html" class="btn-link text-white ml-auto">
@@ -82,11 +82,12 @@
                                     <div class="card p-4 rounded-plus bg-faded">
                                         <form  action="<?=urlController('auth_controller')?>" method="post" id="js-login" novalidate="">
                                             <input type="hidden" name="submit_action" value="log_in"> 
+                                            <input type="hidden" name="get_action" value="<?=isset($_GET['action']) ? $_GET['action'] : ''?>"> 
                                             <div class="form-group">
                                                 <label class="form-label" for="username">Username</label>
-                                                <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="your id or email"  required>
+                                                <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="your mobile or email"  required>
                                                 <div class="invalid-feedback">No, you missed this one.</div>
-                                                <div class="help-block">Your unique username to app</div>  
+                                                <!-- <div class="help-block">Your unique username to app</div>   -->
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label" for="password">Password</label>
@@ -94,16 +95,13 @@
                                                 <div class="invalid-feedback">Sorry, you missed this one.</div>
                                                 <div class="help-block">Your password</div>
                                             </div>
-                                            <div class="form-group text-left">
+                                            <!-- <div class="form-group text-left">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="rememberme">
                                                     <label class="custom-control-label" for="rememberme"> Remember me for the next 30 days</label>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="row no-gutters">
-                                                <!-- <div class="col-lg-6 pr-lg-1 my-2">
-                                                    <button type="submit" class="btn btn-info btn-block btn-lg">Sign in with <i class="fab fa-google"></i></button>
-                                                </div> -->
                                                 <div class="col-lg-6 pl-lg-1 my-2">
                                                     <!-- <button id="js-login-btn" type="submit" class="btn btn-danger btn-block btn-lg">Secure login</button> -->
                                                     <!-- <input id="js-login-btn" type="submit" class="btn btn-danger btn-block btn-lg" value="Secure login"> -->
@@ -115,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
-                                2020 © SmartAdmin by&nbsp;<a href='https://www.gotbootstrap.com/' class='text-white opacity-40 fw-500' title='gotbootstrap.com' target='_blank'>gotbootstrap.com</a>
+                            <?=date('Y') .' '.admin::copyright?>&nbsp;<a href='#' class='text-white opacity-40 fw-500' title='' target='_blank'></a>
                             </div>
                         </div>
                     </div>

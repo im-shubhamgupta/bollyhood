@@ -22,7 +22,7 @@ function debugSql($query='',$sql=''){
 		echo "<br><br>B>: ".$_SESSION['sql']."<br>";
 	}
 	//echo "<br><br>C>: ".$mysqli -> host_info;
-	echo "<br><br>D>: ".echoVar($mysqli -> get_charset());
+	// echo "<br><br>D>: ".echoVar($mysqli -> get_charset());
 	//echo "<br><br>E>: ".$mysqli -> server_info;
 	//echo "<br><br>F>: ".mysqli_dump_debug_info($mysqli);   
 	if($mysqli->error){
@@ -84,6 +84,7 @@ function getResultAsArray($sql){
 // }
 function executeInsert($table, $data, $onduplicatekey = array()){ 
 	global $mysqli; 
+	$duplicaterow ='';
 	$dataStr = '';
 	 if (strlen($table) > 0){
     	  $dataStr = 'INSERT INTO '.$table;
