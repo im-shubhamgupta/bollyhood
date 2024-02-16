@@ -7,10 +7,7 @@ if(isset($_GET['debug'])){
 }
 session_start();
 
-define("DB_HOSTNAME", "localhost" );
-define("DB_USERNAME", "root" );
-define("DB_PASSWORD", "" );
-define("DB_", "client_bollyhood" );
+
 
 // $json_path = __DIR__."/library/json/authentication.json";
 // $token = array();
@@ -32,7 +29,10 @@ define("DB_", "client_bollyhood" );
 // }
 
 
-
+define("DB_HOSTNAME", "localhost" );
+define("DB_USERNAME", "root" );
+define("DB_PASSWORD", "" );
+define("DB_", "client_bollyhood" );
 
 
 
@@ -51,5 +51,15 @@ $actual_link = ((empty($_SERVER['HTTPS'])) ? 'http' : 'https') . "://$_SERVER[HT
 
 
 define("SITE_URL",$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/client/Github/bollyhood/');
+
+//
+// echo SITE_URL;
+// echo "<pre>";
+// print_r($_SERVER);
+if(isset($_SESSION['url']) && (SITE_URL !== $_SESSION['url'])){
+
+  die("Invalid url");
+}
+// elseif(SITE_URL !== $_)
 
 ?>

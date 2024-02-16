@@ -1,4 +1,3 @@
-
         <div class="page-wrapper auth">
             <div class="page-inner bg-brand-gradient">
                 <div class="page-content-wrapper bg-transparent m-0">

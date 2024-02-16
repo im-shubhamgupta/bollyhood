@@ -14,13 +14,14 @@ switch($controller){
 	break;
 }
 
+
 include_once(DIR.'/layout/header.php');
 
-if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
+//if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 
 	include_once(DIR.'/layout/sidebar.php');
-}
-
+//}
+//echo 123445; die;
 if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 	switch ($action){
 		// case 'login':
@@ -51,6 +52,7 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 			if(isset($_GET['action']) && empty($_GET['action'])){
 				die("no action found");
 			}else{
+				echo "hello";
 				include_once('action/analytical.php');
 			}
 		break;

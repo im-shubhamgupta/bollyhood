@@ -1,24 +1,25 @@
 <?php
 $response = array('check'=>'error' , 'msg'=>'Access Denied');
-$submit_action = isset($_REQUEST['submit_action']) ? escapeStringTrim($_REQUEST['submit_action']) : '';
+$db = new DB_Function();
+$submit_action = isset($_REQUEST['submit_action']) ? $db->escapeStringTrim($_REQUEST['submit_action']) : '';
 switch($submit_action){
 	case 'log_in':
 		$response = array('check' => 'failed' , 'msg'=>'Something error Please try again' );
 		$temp = array(
-			'password' => escapeStringTrim($_POST['password'])
+			'password' => $db->escapeStringTrim($_POST['password'])
 		);
 		if(is_numeric($_POST['username'])){
-			$temp['mobile'] = escapeStringTrim($_POST['username']);
+			$temp['mobile'] = $db->escapeStringTrim($_POST['username']);
 		}else{
-			$temp['email'] = escapeStringTrim($_POST['username']);
+			$temp['email'] = $db->escapeStringTrim($_POST['username']);
 			if (!filter_var($_POST['username'], FILTER_VALIDATE_EMAIL)) {
 				$response['msg'] = "Invalid email format";
 				redirect('',$response);
 			}
 		}
-		$password = escapeStringTrim($_POST['password']);
+		$password = $db->escapeStringTrim($_POST['password']);
 
-		$data = executeSelectSingle('users',array(),$temp);
+		$data = $db->executeSelectSingle('users',array(),$temp);
 		if(count($data) > 0){
 			//put value in session
 			// $json_data = array(
@@ -41,6 +42,7 @@ switch($submit_action){
 			$_SESSION['user_id'] = $data['id'];
 			$_SESSION['email'] =  $data['email'];
 			$_SESSION['login'] =  'y';
+			$_SESSION['url'] =  SITE_URL;
 			// $response = '';
 			$response['check'] = 'success';
             $response['msg'] = 'Login Successfully';

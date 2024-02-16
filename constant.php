@@ -59,10 +59,10 @@ class mailer{
 // $url = 'http://learner.com/learningphp.php?lid=1348';
 // $file_name = basename(parse_url($url, PHP_URL_PATH));
 
-
+include_once(DIR."/db/sessionHandller.php");
 include_once(DIR."/db/db.php");
 include_once(DIR."/library/myfunction.php");
-// include_once(DIR."/db/mail.php");
-// include_once(DIR."/db/DBcontroller.php");
+
+
 
 

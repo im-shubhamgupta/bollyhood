@@ -1,10 +1,26 @@
 <?php
 function sessionSet($set){
 	if(is_array($set)){
+		foreach($set as $key => $value){
+			if(isset($_SESSION)){
+				// $_SESSION['']
+			}
 
+		}
 		
 	}
-
+}
+function echoPrint($data)
+{
+	echo "<pre>";
+	print_r($data);
+	echo "</pre>";
+}
+function echoVar($data)
+{
+	echo "<pre>";
+	print_r($data);
+	echo "</pre>";
 }
 function url($path){
 	return SITE_URL.$path;
