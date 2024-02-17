@@ -1,26 +1,23 @@
 <?php
 
+
 class DB_Function {
 		
 	// global $mysqli;
-
+	// 
 	public $sql ='';
-	public $conn = global $mysqli;
+	public $conn = '';
 	public $mysqli_error ='';
 	
-	// function __construct() {
-		// echo $this->checkResponse_Impl();
-		// require_once 'DB_Connect.php';
-		// // connecting to database
-		// $db = new DB();
-		// $conn = $db->Db_Connect();
-		// $conn = $this->Db_Connect();
-	// }
+	function __construct() {
+		global $mysqli;
+		$this->conn = $mysqli;
+	}
 	
 	// destructor
 	function __destruct() {
-		// $mysqli = $this->Db_Connect();
-		// $mysqli->close();
+		
+		$this->conn->close();
 	}
 	//$link = connectme();
    	public function debugSql()
@@ -36,25 +33,25 @@ class DB_Function {
 
    	public function escapeStringTrim($s, $t = ' ')
 	{
-		return $this->$conn->real_escape_string(trim($s, $t));
+		return $this->conn->real_escape_string(trim($s, $t));
 	}
 
    	public function getAffectedRowCount($sql)
 	{
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		$query =  $mysqli->query($sql);
 		$this->sql = $sql; //store for debug
 		return $query->num_rows;
 	}
    	public function executeQuery($sql)
 	{ //direct use with foreach
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		return $mysqli->query($sql);
 	}
 
    	public function getResultAsArray($sql)
 	{
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		$row = array();
 		$query = $mysqli->query($sql);
 		if ($query->num_rows > 0) {
@@ -77,7 +74,7 @@ class DB_Function {
 		}
    	public function executeInsert($table, $data, $onduplicatekey = array())
 	{
-		$mysqli = $this->$conn;;
+		$mysqli = $this->conn;;
 		$dataStr = '';
 		$duplicaterow ='';
 		if (strlen($table) > 0) {
@@ -100,7 +97,7 @@ class DB_Function {
 		}
 		//echo $dataStr;
 		$this->sql = $dataStr;
-		mysqli_set_charset($mysqli, 'utf8');
+		$mysqli->set_charset('utf8');
 		$err = $mysqli->query($dataStr);
 		if ($mysqli->error) {
 			$this->mysqli_error = "Error description: " . $mysqli->error;
@@ -112,7 +109,7 @@ class DB_Function {
 
     public function executeUpdate($table, $data, $clause)
 	{
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		$dataStr = '';
 		if (strlen($table) > 0) {
 			if (count($data) > 0) {
@@ -188,7 +185,7 @@ class DB_Function {
 
     public function executeSelectSingle($table_name, $fields = array(), $conditions = array(), $orderby = "")
 	{
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		$data = array();
 		if (strlen($table_name) > 0) {
 			$sql = "";
@@ -220,7 +217,7 @@ class DB_Function {
 
     public function executeDelete($table, $clause)
 	{
-		$mysqli = $this->$conn;
+		$mysqli = $this->conn;
 		$row_clause = '';
 		$clause_array = array();
 		if (strlen($table) > 0) {
@@ -239,7 +236,7 @@ class DB_Function {
 
    	public function executeTruncate($table)
 	{
-		$mysql_connection = $this->$conn;
+		$mysql_connection = $this->conn;
 		if (strlen($table) > 0) {
 			$result = mysqli_query($mysql_connection, "TRUNCATE TABLE " . $table);
 			return $result;

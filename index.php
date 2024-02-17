@@ -19,10 +19,13 @@ include_once(DIR.'/layout/header.php');
 
 //if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 
-	include_once(DIR.'/layout/sidebar.php');
-//}
+	
+// }
 //echo 123445; die;
+// echoPrint($_SESSION);  
 if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
+	include_once(DIR.'/layout/sidebar.php');
+	$db = new DB_Function();
 	switch ($action){
 		// case 'login':
 		// 	include_once('action/login.php');

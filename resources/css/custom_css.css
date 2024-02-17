@@ -57,3 +57,6 @@ span.multi_img:hover {
     display: inline-block;
     color: red;
 }
+.input_focus{
+    border:1px solid red !important;
+}

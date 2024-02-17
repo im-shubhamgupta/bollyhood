@@ -29,7 +29,6 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 					$response['msg'] = "Data Inserted Sucessfully";
 				}
 			}		
-			// debugSql();
 			redirect('category',$response);
 			die;	
 		break;

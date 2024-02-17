@@ -1,19 +1,18 @@
 function ajax_url(url){
-	return site_url+url;
+	return site_url+"/ajax/"+url;
 }
 function valid(val){
-    console.log(val.length);
+    console.log(val);
     if(val=='' || val==null || val == undefined || val.length <= 0){
         return false;
     }else{
         return true;
     }
 }
-// "use strict"; 
+"use strict"; 
 $(document).ready(function(){
-    //login form validate
+
     $("#js-login-btn").click(function(event){
-        // Fetch form to apply custom Bootstrap validation
         var form = $("#js-login")
         if (form[0].checkValidity() === false)
         {
@@ -39,16 +38,61 @@ $(document).ready(function(){
     });
     
 }); 
+function category_exist(id,cat){
+    var formData = new FormData();
+    formData.append('category_name', cat);
+    formData.append('id', id);
+    formData.append('ajax_action', "check_category_exist");
+    // var arr = [];
+    // arr.push(data);
+    fetch(ajax_url('ajaxHandller.php'),{
+        method : "POST",
+        body: formData, 
+        header:{
+          'Content-Type' : 'application/x-www-form-urlencoded'
+        },
+    })
+    .then(response=> response.json())
+    .then(function(data){
+        console.log(data);
+        var res = data;
+        
+    })
+    .catch(function(error){//return server error
+        alert(error);
+        // return false;
+    });
+    if(res.check == 'already'){
+        return false;
+    }else{
+        return true;
+    }
+}
 
 $(document).on('submit',"#mod_category",function(e){
-    //add action for safety
     // e.preventDefault();
     var cat = $('#category_name').val();
+    var id = $('#id').val();
+    if(!valid(id)){
+        id = 0;
+    }    
     if(!valid(cat)){
         $("#cat_error").html("*Category field required");
         return false;
     }
-
+    console.log("1232");
+    console.log(category_exist(id,cat));
+    if(category_exist(id,cat)){
+        alert(1233);
+        $("#category_name").removeClass("input_foucs");
+        $("#cat_error").html();
+       
+    }else{
+        
+        $("#category_name").addClass("input_focus");
+        $("#cat_error").html("*Category Already exist");
+        return false;
+    }
 });
 	
 function all_documents_datatable(){
@@ -97,7 +141,7 @@ function all_documents_datatable(){
             "serverSide": true,
             "scrollX": true,
             "ajax":{
-                'url' :site_url + 'ajax/ajaxHandller.php', 
+                'url' :ajax_url('ajaxDatatable.php'), 
                 'type': "post",
                 'data' : {
                     'ajax_action' : 'fetch_document_data' 
@@ -214,7 +258,7 @@ function fetch_all_category(){
             "serverSide": true,
             "scrollX": true,
             "ajax":{
-                'url' :site_url + 'ajax/ajaxHandller.php', 
+                'url' :ajax_url('ajaxDatatable.php'), 
                 'type': "post",
                 'data' : {
                     'ajax_action' : 'fetch_all_category' 

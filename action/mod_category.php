@@ -1,7 +1,7 @@
 <?php
 // if(isset($_GET['id'])){
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$data = executeSelectSingle('category',array(),array('id' => $id));
+$data = $db->executeSelectSingle('category',array(),array('id' => $id));
 
 // $category_name =  $data['category_name'];
 ?>
@@ -51,7 +51,7 @@ $data = executeSelectSingle('category',array(),array('id' => $id));
                     <div class="panel-content">
                         <form action="<?=url('?controller=form-controller')?>" method="POST" id="mod_category"  >
                             <input type="hidden" name='submit_action' value="add_category">
-                            <input type="hidden" name='id' value="<?=$id?>">
+                            <input type="hidden" name='id' id="id" value="<?=$id?>">
 
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Text</label>
