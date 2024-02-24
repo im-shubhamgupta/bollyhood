@@ -85,7 +85,7 @@ class DB_Function extends DB {
 	
 	   public function getResultAsArray($sql)
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			$row = array();
 			$query = $mysqli->query($sql);
 			if ($query->num_rows > 0) {
@@ -107,7 +107,7 @@ class DB_Function extends DB {
 				return $row;
 			}
 		//public function getSingleResultArray($sql){ 
-		// 	global $mysqli;
+		// 	$mysqli = $this->Db_Connect();
 		// 	 $query =  $mysqli->query($sql);
 		// 	 if($query->num_rows > 0){
 		// 	 	return $query->fetch_assoc();
@@ -152,7 +152,7 @@ class DB_Function extends DB {
 	
 	   public function executeUpdate($table, $data, $clause)
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			$dataStr = '';
 			if (strlen($table) > 0) {
 				if (count($data) > 0) {
@@ -182,7 +182,7 @@ class DB_Function extends DB {
 	
 	   public function executeSelect($table, $data = array(), $clause = array(), $orderby = "", $limit = array())
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			$dataStr = 'SELECT';
 			$datanew = '';
 			if (strlen($table) > 0) {
@@ -217,7 +217,7 @@ class DB_Function extends DB {
 					$dataStr = $dataStr . ' LIMIT ' . $datalimit;
 				}
 			}
-			$_SESSION['sql'] = $dataStr;
+			//$_SESSION['sql'] = $dataStr;
 			$report = mysqli_query($mysqli, $dataStr);
 			$result = array();
 			while ($queryreturn = mysqli_fetch_assoc($report)) {
@@ -228,7 +228,7 @@ class DB_Function extends DB {
 	
 	   public function executeSelectSingle($table_name, $fields = array(), $conditions = array(), $orderby = "")
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 			$data = array();
 			if (strlen($table_name) > 0) {
 				$sql = "";
@@ -260,7 +260,7 @@ class DB_Function extends DB {
 	
 	   public function executeDelete($table, $clause)
 		{
-			global $mysqli;
+			$mysqli = $this->Db_Connect();
 	
 			$row_clause = '';
 			$clause_array = array();

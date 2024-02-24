@@ -29,7 +29,8 @@ class DB_Controller extends DB_Function{
     }
     public function login($data){
         //$conn = $this->Db_Connect();
-        $sql = "SELECT * from users where mobile='".$data['id']."' AND password = '".$data['password']."' ";
+        $check_sql = is_numeric($data['id']) ? " AND mobile='".$data['id']."'" : " AND email='".$data['id']."'"  ; 
+        $sql = "SELECT * from users where status=1 $check_sql ";
         $result = $this->getSingleResult($sql);
         if(!empty($result)){
             $temp = array(
@@ -44,6 +45,18 @@ class DB_Controller extends DB_Function{
         }
         return '';
     }
+    public function send_otp($data){
+        $user = $this->executeSelectSingle('users',array(),array('id' => $data['uid']));
+        if(count($user) > 0){
+            $temp = array(
+                'otp' => 111222,
+            );
+            return $temp;
+        }else{
+            return '';
+        }    
+    }
+
     public function sign_up($data){
         $res= array('check' => 'failed', 'msg'=> '-');
         $check_mobile =  $this->getAffectedRowCount("SELECT `id` from users where  `mobile` = '".$data['mobile']."'");
@@ -54,7 +67,6 @@ class DB_Controller extends DB_Function{
         if($check_email > 0){
             $error_note = "Email id already exist";
         }
-       
         if(!isset($error_note)){
             $data['create_date'] = date("Y-m-d H:i:s");
             $result = $this->executeInsert('users',$data);
@@ -65,5 +77,13 @@ class DB_Controller extends DB_Function{
             $res['msg'] = $error_note;
         }
         return $res;
+    }
+    public function category_list(){
+        $cat = $this->executeSelect('category',array(),array(),'category_name');
+        if(count($cat) > 0){
+            return $cat;
+        }else{
+            return '';
+        }    
     }
 }

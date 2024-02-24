@@ -4,19 +4,17 @@ require_once 'include/db_controller.php';
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['id'])) {
+if (isset($_REQUEST['uid'])) {
 
     $data= array(
-        'id' => $db->escapeStringTrim($_REQUEST['id']),
-        // 'password' => $db->escapeStringTrim($_REQUEST['password']),
+        'uid' => $db->escapeStringTrim($_REQUEST['uid']),
     );
-    if(empty($data['id'])){
-        $error_msg = "Id required";
+    if(empty($data['uid'])){
+        $error_msg = "uid required";
     }
-   
 
     if(!isset( $error_msg)){
-        $Result = $db->login($data);
+        $Result = $db->send_otp($data);
 
         if (!empty($Result)) {
             $response["status"] = '1';
@@ -24,12 +22,12 @@ if (isset($_REQUEST['id'])) {
             $response["msg"] = 'success';
 
         } else {
-            $response["msg"] = 'Please check Login Credential ';
+            $response["msg"] = 'Please check uid ';
         }
     }else{
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter id";
+    $response["msg"] = "Required parameter uid";
 }
 echo json_encode($response);
