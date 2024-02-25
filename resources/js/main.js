@@ -1,9 +1,9 @@
 function ajax_url(url){
-	return site_url+url;
+    console.log(site_url);
+	return site_url+'/ajax/'+url;
 }
-function valid(val){
-    console.log(val.length);
-    if(val=='' || val==null || val == undefined || val.length <= 0){
+function is_valid(val){
+    if(val=='' || val==null || val == undefined || val.length < 0 || isNaN(val)==true) {
         return false;
     }else{
         return true;
@@ -44,12 +44,51 @@ $(document).on('submit',"#mod_category",function(e){
     //add action for safety
     // e.preventDefault();
     var cat = $('#category_name').val();
-    if(!valid(cat)){
+    if(!is_valid(cat)){
         $("#cat_error").html("*Category field required");
         return false;
     }
 
 });
+function add_user(self){
+   var formData = new FormData($('#add_user')[0]);
+   formData.append("ajax_action",'add_user');
+   var btn_name = $(this).text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $(this).html("please wait...").attr("disabled", true);  
+            },
+            complete: function() {
+                $(this).html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                    if(data.check == 'success' ){
+                    swal({
+                        title: "Success",
+                        text: "Now, you can Create your Meeting with Doctor ",
+                        type: "success"
+                    },function(){
+                         // window.location.href = "index.php?payment_status=success";
+                         // window.location.href = data.url;
+                    });
+                }else{
+                    swal({
+                        title: "Warning!",
+                        text: data.msg,
+                        type: "error",
+                        // timer: 2000,
+                    });
+                }
+            }
+    });
+}   
 	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({
@@ -111,25 +150,13 @@ function all_documents_datatable(){
     
 }    
 
-function all_data_datatable(){
+function all_users_datatable(){
     $('#datas_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
         'order':[0,'DESC'],
         responsive: true,
         lengthChange: false,
         dom:
-            /*  --- Layout Structure 
-                --- Options
-                l   -   length changing input control
-                f   -   filtering input
-                t   -   The table!
-                i   -   Table information summary
-                p   -   pagination control
-                r   -   processing display element
-                B   -   buttons
-                R   -   ColReorder
-                S   -   Select                          
-                */
             "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
@@ -142,30 +169,6 @@ function all_data_datatable(){
                 className: 'mr-sm-3'
             },*/
             {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                titleAttr: 'Generate PDF',
-                className: 'btn-outline-danger btn-sm mr-1'
-            },
-            {
-                extend: 'excelHtml5',
-                text: 'Excel',
-                titleAttr: 'Generate Excel',
-                className: 'btn-outline-success btn-sm mr-1'
-            },
-            {
-                extend: 'csvHtml5',
-                text: 'CSV',
-                titleAttr: 'Generate CSV',
-                className: 'btn-outline-primary btn-sm mr-1'
-            },
-            {
-                extend: 'copyHtml5',
-                text: 'Copy',
-                titleAttr: 'Copy to clipboard',
-                className: 'btn-outline-primary btn-sm mr-1'
-            },
-            {
                 extend: 'print',
                 text: 'Print',
                 titleAttr: 'Print Table',
@@ -176,15 +179,11 @@ function all_data_datatable(){
             "serverSide": true,
             "scrollX": true,
             "ajax":{
-                'url' :site_url + 'ajax/ajaxHandller.php', 
+                'url' :site_url + 'ajax/ajaxDatatable.php', 
                 'type': "post",
                 'data' : {
-                    'ajax_action' : 'fetch_all_data' 
+                    'ajax_action' : 'fetch_all_users' 
                 }
-                // 'data': function(d){
-                // // // ClassType: classtype,
-                // // d.custom = custom_params() 
-                // },
         },
     });
 }
@@ -214,7 +213,7 @@ function fetch_all_category(){
             "serverSide": true,
             "scrollX": true,
             "ajax":{
-                'url' :site_url + 'ajax/ajaxHandller.php', 
+                'url' :site_url + 'ajax/ajaxDatatable.php', 
                 'type': "post",
                 'data' : {
                     'ajax_action' : 'fetch_all_category' 

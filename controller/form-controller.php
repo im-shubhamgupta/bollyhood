@@ -31,6 +31,35 @@ switch($submit_action){
 		redirect('category',$response);
 		die;	
 	break;
+	case 'add_category':
+		$response = array('check' => 'failed' , 'msg'=>'Something error Please try again' );
+		$data = array(
+			'name' => escapeStringTrim($_POST['name']),
+			'email' => escapeStringTrim($_POST['name']),
+			'email' => escapeStringTrim($_POST['name']),
+			'mobile' => escapeStringTrim($_POST['name']),
+			'name' => escapeStringTrim($_POST['name']),
+		);
+		if($_POST['id'] > 0){
+			$id = escapeStringTrim($_POST['id']);
+			// $data['modify_date'] = date("Y-m-d H:i:s");
+
+			$res = executeUpdate('category',$data,array('id' => $id));
+			if($res){
+				$response['check'] = 'success';
+				$response['msg'] = "Data Inserted Sucessfully";
+			}	
+		}else{
+			$res = executeInsert('category',$data);
+			if($res){
+				$response['check'] = 'success';
+				$response['msg'] = "Data Inserted Sucessfully";
+			}
+		}		
+		// debugSql();
+		redirect('category',$response);
+		die;	
+	break;
 	default : 
 		$response['check'] = 'error';
 		$response['msg'] = 'Bad Request';

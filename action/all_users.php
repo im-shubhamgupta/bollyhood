@@ -1,5 +1,5 @@
 <?php
-$arrData = executeSelect('record_data',array(),array(),'id desc');
+//$arrData = executeSelect('users',array(),array(),'id desc');
 ?>
                     <!-- the #js-page-content id is needed for some plugins to initialize -->
                     <main id="js-page-content" role="main" class="page-content">
@@ -17,7 +17,7 @@ $arrData = executeSelect('record_data',array(),array(),'id desc');
                                 </small>
                             </h1>
                             <div>
-                                <a href="<?=urlAction('form')?>" class="btn btn-info waves-effect waves-themed">Add Data</a>
+                                <a href="<?=urlAction('mod_user')?>" class="btn btn-info waves-effect waves-themed">Add Data</a>
                             </div>
                         </div>
                         <div class="row">
@@ -43,33 +43,25 @@ $arrData = executeSelect('record_data',array(),array(),'id desc');
                                             <table id="datas_datatable" class="table table-bordered table-hover table-striped w-100">
                                                 <thead>
                                                     <tr>
-                                                        <th>#ID</th>
-                                                         <th>Category</th>
-                                                        <th>Text</th>
-                                                        <th>value</th>
+                                                        <th>Sl</th>
+                                                         <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Mobile</th>
+                                                        <th>Status</th>
+                                                        <th>Create At</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php
-                                                    foreach($arrData as $val){
-                                                       echo "<tr>
-                                                        <td>".$val['id']."</td>
-                                                        <td>".$val['category']."</td>
-                                                        <td>".$val['text']."</td>
-                                                        <td>".$val['source']."</td>
-                                                        <td></td>
-                                                        </tr>";
-
-                                                    }
-                                                    ?>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>#ID</th>
-                                                         <th>Category</th>
-                                                        <th>Text</th>
-                                                        <th>value</th>
+                                                        <th>Sl</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Mobile</th>
+                                                        <th>Status</th>
+                                                        <th>Create At</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </tfoot>
@@ -83,8 +75,7 @@ $arrData = executeSelect('record_data',array(),array(),'id desc');
                     </main>
                     <!-- this overlay is activated only when mobile menu is triggered -->
 <script>
-    //
     document.addEventListener("DOMContentLoaded", function(event) { 
-        all_data_datatable();
+        all_users_datatable();
     });
 </script>                    

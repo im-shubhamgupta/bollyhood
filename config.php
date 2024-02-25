@@ -11,9 +11,6 @@ define("DB_USERNAME", "root" );
 define("DB_PASSWORD", "" );
 define("DB_", "client_bollyhood" );
 
-
-
-
 $mysqli = new mysqli(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_);
 // Check connection
 if ($mysqli -> connect_errno) {

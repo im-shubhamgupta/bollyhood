@@ -29,8 +29,11 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'home':
 			include_once('action/analytical.php');
 		break;
-		case 'all_data':
-			include_once('action/all_data.php');
+		case 'users':
+			include_once('action/all_users.php');
+		break;
+		case 'mod_user':
+			include_once('action/mod_user.php');
 		break;
 		case 'form':
 			include_once('action/add_data.php');

@@ -48,8 +48,8 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="<?=urlAction('all_data')?>" title="Add Data" data-filter-tags="application intel marketing dashboard">
-                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Datas </span>
+                            <a href="<?=urlAction('users')?>" title="All Users" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Users </span>
                             </a>
                         </li>
                         <li class="">
