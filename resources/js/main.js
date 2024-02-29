@@ -11,6 +11,23 @@ function is_valid(val){
 }
 // "use strict"; 
 $(document).ready(function(){
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
     //login form validate
     $("#js-login-btn").click(function(event){
         // Fetch form to apply custom Bootstrap validation
@@ -50,8 +67,10 @@ $(document).on('submit',"#mod_category",function(e){
     }
 
 });
-function add_user(self){
-   var formData = new FormData($('#add_user')[0]);
+// function add_user(self){
+$(document).on('submit',"#add_user",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
    formData.append("ajax_action",'add_user');
    var btn_name = $(this).text(); 
    $.ajax({
@@ -69,26 +88,16 @@ function add_user(self){
                 $(this).html(btn_name).attr("disabled", false); 
             },
             success:function(data) {
-                    if(data.check == 'success' ){
-                    swal({
-                        title: "Success",
-                        text: "Now, you can Create your Meeting with Doctor ",
-                        type: "success"
-                    },function(){
-                         // window.location.href = "index.php?payment_status=success";
-                         // window.location.href = data.url;
-                    });
+                if(data.check == 'success' ){
+                    // toastr.options.onHidden = function() { alert(123); }
+                    toastr["success"](data.msg);
+                    
                 }else{
-                    swal({
-                        title: "Warning!",
-                        text: data.msg,
-                        type: "error",
-                        // timer: 2000,
-                    });
+                    Command: toastr["error"](data.msg);
                 }
             }
     });
-}   
+})  
 	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({

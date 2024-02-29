@@ -5,7 +5,6 @@ $data = executeSelectSingle('users',array(),array('id' => $id));
 $category = executeSelect('category',array(),array(),'category_name');
 
 ?>
-
 <main id="js-page-content" role="main" class="page-content">
                         
     <div class="row">
@@ -47,7 +46,6 @@ $category = executeSelect('category',array(),array(),'category_name');
                   
                     <div class="panel-content">
                         <form  method="POST" id="add_user" >
-                            <input type="hidden" name='submit_action' value="add_user">
                             <input type="hidden" name='id' value="<?=$id?>">
 
                             <div class="form-group">
@@ -56,7 +54,7 @@ $category = executeSelect('category',array(),array(),'category_name');
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Email</label>
-                                <input required type="text" id="email" name="email"  placeholder="Enter Email"  class="form-control" value="<?=isset($data['email']) ? $data['email'] : ''?>">
+                                <input required type="email" id="email" name="email"  placeholder="Enter Email"  class="form-control" value="<?=isset($data['email']) ? $data['email'] : ''?>">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Mobile</label>
@@ -87,7 +85,7 @@ $category = executeSelect('category',array(),array(),'category_name');
                             </div>
                             <div class="form-group mb-0">
                                 <div class="">
-                                    <button type="button" class="btn btn-primary waves-effect waves-themed" onclick="add_user(this)"  id="customFile">Submit</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-themed"   id="customFile">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -97,23 +95,3 @@ $category = executeSelect('category',array(),array(),'category_name');
         </div>
     </div>
 </main>
-
-<script> 
-    function validateForm() {
-        alert(456);
-            // Retrieve form inputs
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-            
-            // Basic validation example
-            if (name === '' || email === '') {
-                alert('Name and email are required');
-                return false; // Prevent form submission
-            }
-            // You can add more complex validation logic here
-            
-            // If validation passes, allow form submission
-            return false;
-        }
-
-</script>

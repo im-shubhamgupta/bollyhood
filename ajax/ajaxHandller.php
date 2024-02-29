@@ -13,12 +13,23 @@ switch($ajax_action){
 			'create_date' => date("Y-m-d H:i:s")
 		);
 
-		$insert = executeInsert('category',$temp);
+		$name = executeSelectSingle('users',array('id'),array('mobile' => $temp['mobile']));
+		if(!empty($name)){
+			$response['check'] = 'already';
+			$response['msg'] = 'Mobile no Already Exist';
+		}
+		$email = executeSelectSingle('users',array('id'),array('email' => $temp['email']));
+		if(!empty($email)){
+			$response['check'] = 'already';
+			$response['msg'] = 'Email Already Exist';
+		}
 
-		// $data = executeSelectSingle('category',array(),$temp);
-		if(!empty($insert) > 0){	
-			$response['check'] = 'success';
-            $response['msg'] = 'Data Inserted Successfully';
+		if($response['check'] != 'already'){
+			$insert = executeInsert('users',$temp);
+			if(!empty($insert) > 0){	
+				$response['check'] = 'success';
+				$response['msg'] = 'Data Inserted Successfully';
+			}
 		}
 		// debugSql();
 		

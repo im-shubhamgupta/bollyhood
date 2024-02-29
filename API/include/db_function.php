@@ -175,7 +175,7 @@ class DB_Function extends DB {
 					$clausenew = implode(" AND ", $clause_array);
 				}
 			}
-			$_SESSION['sql'] = "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}";
+			// echo "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}";
 			$result = mysqli_query($mysqli, "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}");
 			return $result;
 		}

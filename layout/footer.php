@@ -7,7 +7,9 @@
 <script type="text/javascript" src="<?= RESOURCE_URL ?>/js/app.bundle.js"></script>
 <script type="text/javascript" src="<?= RESOURCE_URL ?>/js/datagrid/datatables/datatables.bundle.js"></script>
 <script type="text/javascript" src="<?= RESOURCE_URL ?>/js/datagrid/datatables/datatables.export.js"></script>
-<script type="text/javascript" src="<?= RESOURCE_URL ?>/js/sweet-alert/sweetalert2.bundle.js"></script>
+<!-- <script type="text/javascript" src="<?= RESOURCE_URL ?>/js/sweet-alert/sweetalert2.bundle.js"></script> -->
+<script type="text/javascript" src="<?= RESOURCE_URL ?>/js/notifications/toastr/toastr.js"></script>
+
 <!-- <script type="text/javascript" src="<?= RESOURCE_URL ?>/js/light-gallery/lightgallery.bundle.js"></script> -->
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->

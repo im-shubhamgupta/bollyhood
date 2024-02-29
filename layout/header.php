@@ -25,6 +25,7 @@
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/datagrid/datatables/datatables.bundle.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/datagrid/datatables/datatables.bundle.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/sweet-alert/sweetalert2.bundle.css')?>">
+    <link rel="stylesheet" media="screen, print" href="<?=asset('css/notifications/toastr/toastr.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/light-gallery/lightgallery.bundle.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('/css/custom_css.css')?>">
         <!-- <script src="<?=asset('/js/header_setting.js')?>"></script> -->
