@@ -3,7 +3,7 @@ include_once('constant.php');
 class DB_Function extends DB {
 		
 		// protected $conn;
-		public $sql ='';
+		public $exeutedSql ='';
 		public $mysqli_error ='';
 		
 		
@@ -54,7 +54,7 @@ class DB_Function extends DB {
 		}
 	   public function debugSql()
 		{
-			echo "<br>".$this->sql;
+			echo "<br>".$this->exeutedSql;
 			echo "<br>".$this->mysqli_error;
 		}
 	   public function escapeString($s)
@@ -74,7 +74,7 @@ class DB_Function extends DB {
 		{
 			$mysqli = $this->Db_Connect();
 			$query =  $mysqli->query($sql);
-			$this->sql = $sql; //store for debug
+			$this->exeutedSql = $sql; //store for debug
 			return $query->num_rows;
 		}
 	   public function executeQuery($sql)
@@ -139,7 +139,7 @@ class DB_Function extends DB {
 				}
 			}
 			//echo $dataStr;
-			$this->sql = $dataStr;
+			$this->exeutedSql = $dataStr;
 			mysqli_set_charset($mysqli, 'utf8');
 			$err = $mysqli->query($dataStr);
 			if ($mysqli->error) {
@@ -175,7 +175,7 @@ class DB_Function extends DB {
 					$clausenew = implode(" AND ", $clause_array);
 				}
 			}
-			// echo "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}";
+			$this->exeutedSql= "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}";
 			$result = mysqli_query($mysqli, "UPDATE {$table} SET {$dataStr} WHERE {$clausenew}");
 			return $result;
 		}
@@ -217,7 +217,7 @@ class DB_Function extends DB {
 					$dataStr = $dataStr . ' LIMIT ' . $datalimit;
 				}
 			}
-			//$_SESSION['sql'] = $dataStr;
+			$this->exeutedSql = $dataStr;
 			$report = mysqli_query($mysqli, $dataStr);
 			$result = array();
 			while ($queryreturn = mysqli_fetch_assoc($report)) {
@@ -249,7 +249,7 @@ class DB_Function extends DB {
 					$sql = $sql . ' ORDER BY ' . $orderby;
 				}
 				$sql .= " LIMIT 1";
-				$_SESSION['sql'] = $sql;
+				$this->exeutedSql = $sql;
 				$query = mysqli_query($mysqli, $sql);
 				if (mysqli_num_rows($query) > 0) {
 					$data = mysqli_fetch_assoc($query);

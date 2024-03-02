@@ -34,4 +34,4 @@
    
 <div class="page-wrapper">
     <div class="page-inner">
-    <!-- div close on footer -->
+    <!--Both  div close on footer -->

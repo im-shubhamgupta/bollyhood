@@ -30,19 +30,21 @@ class DB_Controller extends DB_Function{
     public function login($data){
         //$conn = $this->Db_Connect();
         $check_sql = is_numeric($data['id']) ? " AND mobile='".$data['id']."'" : " AND email='".$data['id']."'"  ; 
-        $sql = "SELECT * from users where status=1 $check_sql ";
+        $sql = "SELECT *,CONCAT('".USER_IMAGE_PATH."', `image`) as user_image from users where status = 1 $check_sql ";
         $result = $this->getSingleResult($sql);
+        $otp = str_pad(substr(str_shuffle(mt_rand(111111,999999)),0,6), 6, '0', STR_PAD_LEFT);
         if(!empty($result)){
             $temp = array(
-                'otp' => 111222,
+                'otp' => $otp,
+                'image' => $result['user_image'],
             );
-            //$up = executeUpdate('users',array('otp'=>$data['otp']),array('id'=>$result['id']));
+            $up = $this->executeUpdate('users',array('otp'=>$otp),array('id'=>$result['id']));
             return $temp;
         }
         return '';
     }
     public function send_otp($data){
-        $result = $this->executeSelectSingle('users',array(),array('mobile' => $data['mobile']));//also check otp
+        $result = $this->executeSelectSingle('users',array(),array('mobile' => $data['mobile'],'otp'=>$data['otp']));
         if(!empty($result)){
             $temp = array(
                 'id' => $result['id'],
@@ -90,9 +92,10 @@ class DB_Controller extends DB_Function{
     }
     public function forgot_password($data){
         $user = $this->executeSelect('users',array(),array('mobile'=>$data['mobile']));
+        $otp = str_pad(substr(str_shuffle(mt_rand(111111,999999)),0,6), 6, '0', STR_PAD_LEFT);
         if(count($user) > 0){
             $temp = array(
-                'otp' => 111222,
+                'otp' => $otp,
             );
             return $temp;
         }else{
@@ -135,7 +138,7 @@ class DB_Controller extends DB_Function{
     }
     public function get_profile($data){
         $res['check'] = 'failed';
-        $user = $this->executeSelectSingle('users',array(),array('id'=>$data['id']));
+        $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=>$data['id']));
         if(!empty($user)){
             return $user;
         }else{
@@ -153,8 +156,30 @@ class DB_Controller extends DB_Function{
             $error_note = "Email id already exist";
         }
         if(!isset($error_note)){
+            $image_flag = 0;
+            if(isset($_FILES['image']) && !empty(($_FILES['image']['name']) )){
+                $imageFileType = strtolower(pathinfo(basename($_FILES['image']['name']),PATHINFO_EXTENSION));
+                $valid_imgname = date('Y_m_d_His')."_".rand('1000','9999').".".$imageFileType; 
+                if(in_array($imageFileType, VALID_IMG_EXT)){
+                    $image_flag = 1;
+                }else{
+                    //echo $msg  = "Accept only .png, .jpg, .jpeg Extension Image only";
+                }   
+            }
+            if($image_flag == 1) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], '../resources/image/users/'.$valid_imgname)) {
+                    //echo "image uploaded";   
+                }else{
+                    //echo "can,t upload Image"; 
+                }
+            }
             $data['modify_date'] = date("Y-m-d H:i:s");
-            $result = $this->executeUpdate('users',$data,array('id'=>$data['id']));
+            $data['image'] = !empty($valid_imgname) ? $valid_imgname : 'no_image.png' ;
+            $uid= $data['id'];
+            unset($data['id']);
+            // print_r($data);
+            $result = $this->executeUpdate('users',$data,array('id'=>$uid));
+            // $this->debugSql;
             if($result){
                 $res['check'] = 'success';
             }

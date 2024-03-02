@@ -1,5 +1,4 @@
-<?php 
-//if(isset($_SESSION['login']) && $_SESSION['login']=='y'){?>
+
 <!-- BEGIN Left Aside -->
     <aside class="page-sidebar">
         <div class="page-logo">
@@ -42,39 +41,19 @@
                         <span class="nav-link-text" data-i18n="nav.application_intel">Application Intel</span>
                     </a>
                     <ul>
-                        <li class="">
-                            <a href="<?=urlAction('form')?>" title="Add Data" data-filter-tags="application intel analytics dashboard">
-                                <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">Add Data</span>
-                            </a>
-                        </li>
-                        <li class="">
+                        <li class="<?=($action =='users') ? 'active' : '' ?>">
                             <a href="<?=urlAction('users')?>" title="All Users" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Users </span>
                             </a>
                         </li>
-                        <li class="">
-                            <a href="<?=urlAction('all_document')?>" title="Add Document" data-filter-tags="application intel marketing dashboard">
-                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Documents </span>
+                        <li class="<?=($action =='banner') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('banner')?>" title="All Users" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Banners </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li class="<?=($action =='category') ? 'active' : '' ?>">
                             <a href="<?=urlAction('category')?>" title="Add Category" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Category </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="js-nav-menu" class="nav-menu">
-                <li class="active open">
-                    <a href="#" title="Master" data-filter-tags="Master">
-                        <i class="fal fa-info-circle"></i>
-                        <span class="nav-link-text" data-i18n="nav.application_intel">Master</span>
-                    </a>
-                    <ul>
-                        <li class="">
-                            <a href="<?=urlAction('category')?>" title="Category" data-filter-tags="application intel analytics dashboard">
-                                <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">Category</span>
                             </a>
                         </li>
                     </ul>
@@ -85,11 +64,7 @@
         <!-- END PRIMARY NAVIGATION -->
     </aside>
      <!-- END Left Aside -->
-<?php //}?>
    
-
-<?php 
-//if(isset($_SESSION['login']) && $_SESSION['login']=='y'){?>
 <div class="page-content-wrapper"> <!-- div close on footer -->
     <!-- BEGIN Page Header -->
     <header class="page-header" role="banner">
@@ -134,7 +109,7 @@
                     <i class="fal fa-search"></i>
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a href="#" class="header-icon" data-toggle="dropdown" title="My Apps">
                     <i class="fal fa-cube"></i>
                 </a>
@@ -299,7 +274,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- app user menu -->
             <div>
                 <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
@@ -337,5 +312,5 @@
     </header>
     <!-- END Page Header -->
     <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
-<?php// }?>    
+    
                     

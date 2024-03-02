@@ -21,10 +21,10 @@ if (isset($_REQUEST['id'])) {
         if (!empty($Result)) {
             $response["status"] = '1';
             $response["result"] = $Result;
-            $response["msg"] = 'success';
+            $response["msg"] = 'Login Sucessfully';
 
         } else {
-            $response["msg"] = 'Please check Login Credential ';
+            $response["msg"] = 'User is not exist';
         }
     }else{
         $response["msg"] = $error_msg;

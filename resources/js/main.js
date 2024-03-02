@@ -3,13 +3,24 @@ function ajax_url(url){
 	return site_url+'/ajax/'+url;
 }
 function is_valid(val){
+    console.log(val);
     if(val=='' || val==null || val == undefined || val.length < 0 || isNaN(val)==true) {
-        return false;
-    }else{
         return true;
+    }else{
+        return false;
     }
 }
-// "use strict"; 
+function is_valid_number(val){
+    if(Number.isInteger(val)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+function redirect(action_val){
+    window.location.href=site_url+'?action='+action_val;
+}
+"use strict"; 
 $(document).ready(function(){
     toastr.options = {
         "closeButton": true,
@@ -58,12 +69,15 @@ $(document).ready(function(){
 }); 
 
 $(document).on('submit',"#mod_category",function(e){
-    //add action for safety
-    // e.preventDefault();
+    
     var cat = $('#category_name').val();
-    if(!is_valid(cat)){
+    // if(is_valid(cat)){
+    if(cat == '' || cat.length < 0){
         $("#cat_error").html("*Category field required");
         return false;
+    }else{
+        // e.preventDefault();
+        
     }
 
 });
@@ -89,8 +103,11 @@ $(document).on('submit',"#add_user",function(e){
             },
             success:function(data) {
                 if(data.check == 'success' ){
-                    // toastr.options.onHidden = function() { alert(123); }
                     toastr["success"](data.msg);
+                    // toastr.options.onHidden = function() {
+                    //      alert(123);
+                    // }
+                    redirect('users');
                     
                 }else{
                     Command: toastr["error"](data.msg);
@@ -98,6 +115,69 @@ $(document).on('submit',"#add_user",function(e){
             }
     });
 })  
+
+$(document).on('submit',"#mod_banner",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'add_banner');
+   var btn_name = $(this).text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $(this).html("Uploading...").attr("disabled", true);  
+            },
+            complete: function() {
+                $(this).html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    // toastr.options.onHidden = function() { alert(123); }
+                    toastr["success"](data.msg);
+                    redirect('banner');
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
+function delete_banner(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_banner"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        location.reload();
+                        // toastr.options.onHidden = function() {
+                        // }
+                        //$('#banner_Datatable').DataTable().destroy();
+                        // $('#banner_Datatable').dataTable().fnDestroy();
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
+
+
+
+} 
 	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({

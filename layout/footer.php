@@ -15,7 +15,7 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
 <script type="text/javascript" src="<?= asset('js/main.js') ?>"></script>
-<!-- BEGIN Page Footer -->
+
 <?php
 if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { ?>
     <footer class="page-footer" role="contentinfo">
@@ -23,19 +23,15 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { ?>
             <span class="hidden-md-down fw-700"><?= date('Y').' '. admin::copyright?><a href='#' class='text-primary fw-500' title='' target='_blank'></a></span>
         </div>
     </footer>
-    <!-- END Page Footer -->
 
-<!-- BEGIN Color profile -->
-<!-- END Color profile -->
-
-</div>
+    </div><!-- div start on sidebar -->
 <?php } ?>
-</div>
-</div>
+
+ <!--Both  div start on header -->
+    </div></div>
+    
 <?php
 if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { ?>
-<!-- END Page Wrapper -->
-<!-- if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { -->
     <nav class="shortcut-menu d-none d-sm-block">
         <input type="checkbox" class="menu-open" name="menu-open" id="menu_open" />
         <label for="menu_open" class="menu-open-button ">
@@ -53,18 +49,21 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { ?>
         <a href="#" class="menu-item btn" data-action="app-print" data-toggle="tooltip" data-placement="left" title="Print page">
             <i class="fal fa-print"></i>
         </a>
-        <!-- <a href="#" class="menu-item btn" data-action="app-voice" data-toggle="tooltip" data-placement="left" title="Voice command">
-            <i class="fal fa-microphone"></i>
-        </a> -->
     </nav>
-    <?php } ?>
+<?php } ?>
 <!-- END Quick Menu -->
-
-
 </body>
 <?php
 //if no any use of session flash then its clear automatically
 sessionFlashClear();
 ?>
+
+
+<script>
+
+
+
+    
+</script>
 
 </html>

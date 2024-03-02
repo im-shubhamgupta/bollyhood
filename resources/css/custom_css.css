@@ -34,23 +34,13 @@ aside > .page-logo {
         padding-left: 14.875rem;
     }
 }
+@media (min-width: 992px){
+    .page-content {
+        padding: 1.5rem 1rem;
+    }
+}
 .swal2-actions {
     margin: 0 auto 0;
-}
-span.multi_img {
-    padding: 5px;
-    transition: width 20s, height 40s;
-    /* transition: .1s; */
-}
-span.multi_img img{
-    padding: 5px;
-    /* transition: width 20s, height 40s; */
-    /* transition: 5s; */
-}
-span.multi_img:hover {
-    /* transition: .5s; */
-   zoom:110%;
-    /* border-radius: 12px; */
 }
 /*css custom*/
 .form_error {

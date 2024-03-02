@@ -1,4 +1,5 @@
 <?php
+//verify OTP by this api 
 require_once 'include/db_controller.php';
 
 $db = new DB_Controller();

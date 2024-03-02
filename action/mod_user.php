@@ -3,6 +3,7 @@
 $id = isset($_GET['id']) ? escapeString($_GET['id']) : '';
 $data = executeSelectSingle('users',array(),array('id' => $id));
 $category = executeSelect('category',array(),array(),'category_name');
+// print_R($data);
 
 ?>
 <main id="js-page-content" role="main" class="page-content">
@@ -51,6 +52,13 @@ $category = executeSelect('category',array(),array(),'category_name');
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Name</label>
                                 <input required type="text" id="category_name" name="name"  placeholder="Enter Name" class="form-control" value="<?=isset($data['name']) ? $data['name'] : ''?>">
+                            </div>
+                            <div class="form-group">
+                            <label class="form-label" for="simpleinput">Image</label>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="custom-file-input" id="image" >
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Email</label>

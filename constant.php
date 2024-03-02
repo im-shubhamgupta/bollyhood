@@ -8,13 +8,13 @@ define("DIR",__DIR__);//constant path
 define("FILE_NAME", basename(parse_url($actual_link)['path'],'.php') );//remove.php
 
 
-// const PAYMENT_STATUS = array(
-//     0 => 'pending', 
-//     1 => 'process' , 
-//     2 => 'complete'
-// );
+define("IMAGE_PATH",SITE_URL.'resources/image/');
+define("BANNER_IMAGE_PATH",SITE_URL.'resources/image/banners/');
+define("USER_IMAGE_PATH",SITE_URL.'resources/image/users/');
 
-// define('MEETING_URL', SITE_URL."/library/video/meeting.php");
+
+define("VALID_IMG_EXT", array('png','jpg','jpeg','PNG','JPG','JPEG'));
+
 define('IMAGE_URL',DIR."/resources/css/img/");
 
 const CAT = array(
