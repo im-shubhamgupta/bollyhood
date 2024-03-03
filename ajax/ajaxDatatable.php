@@ -37,9 +37,10 @@ switch($ajax_action){
 			$td[] = $list['mobile'];
 			$td[] = $list['status'] == '1' ? 'Active' : 'Deactive' ;
 			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
-			$td[] = '<span><a href="'.urlAction('mod_user&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed">
-                            <i class="fal fa-edit"></i>
-                                                    </a></span>';
+			
+			$action ='<span><a href="'.urlAction('mod_user&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
+			$action .= '  <span><a href="#" onclick="delete_user(this)" data-id="'.$list['id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';	
+			$td[] = $action;									
 			$data[] = $td;
 			$i ++;
 		}
@@ -82,9 +83,10 @@ switch($ajax_action){
 			$td[] = $i;
 			$td[] = $list['category_name'];
 			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
-			$td[] = '<span><a href="'.urlAction('mod_category&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed">
-                            <i class="fal fa-edit"></i>
-                                                    </a></span>';
+			$action = '<span><a href="'.urlAction('mod_category&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
+			
+			$action .= '  <span><a href="#" onclick="delete_category(this)" data-id="'.$list['id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';
+			$td[] = $action;
 			$data[] = $td;
 			$i ++;
 		}

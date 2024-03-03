@@ -118,6 +118,34 @@ switch($ajax_action){
 		}else{
 			$response['msg'] = 'Delete id not found';
 		}
+	break;
+	case "delete_user":
+		$id = escapeString($_POST['id']);
+		if(!empty($id)){
+			$del = executeDelete('users',array('id'=>$id));
+			if($del){
+				$response['check'] = 'success';
+				$response['msg'] = 'Delete Successfully';
+			}else{
+				$response['msg'] = 'Error Happend';
+			}
+		}else{
+			$response['msg'] = 'Delete id not found';
+		}
+	break;
+	case "delete_category":
+		$id = escapeString($_POST['id']);
+		if(!empty($id)){
+			$del = executeDelete('category',array('id'=>$id));
+			if($del){
+				$response['check'] = 'success';
+				$response['msg'] = 'Delete Successfully';
+			}else{
+				$response['msg'] = 'Error Happend';
+			}
+		}else{
+			$response['msg'] = 'Delete id not found';
+		}
 	break;	
 	default:
 		echo json_encode(array('check' => 'failed' , 'msg'=>'Bad Request' ));
