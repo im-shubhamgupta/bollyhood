@@ -23,7 +23,7 @@ $data = executeSelectSingle('category',array(),array('id' => $id));
                 </div>
                 
                         <!--  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong><?=$_SESSION['msg']?></strong>
+                                <strong><//$_SESSION['msg']?></strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div> -->
 

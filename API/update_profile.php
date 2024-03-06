@@ -43,6 +43,7 @@ if (isset($_REQUEST['uid']) && isset($_REQUEST['name']) && isset($_REQUEST['mobi
         if ($Result['check'] == 'success') {
             $response["status"] = '1';
             $response["msg"] = 'Profile udpated Successfully';
+            $response["result"] = $Result['result'];
         } else {
             $response["msg"] = $Result['msg'];
         }

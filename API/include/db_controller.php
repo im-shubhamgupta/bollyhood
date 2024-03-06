@@ -179,9 +179,12 @@ class DB_Controller extends DB_Function{
             unset($data['id']);
             // print_r($data);
             $result = $this->executeUpdate('users',$data,array('id'=>$uid));
+            $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=> $uid));
+            
             // $this->debugSql;
             if($result){
                 $res['check'] = 'success';
+                $res['result'] = $user;
             }
         }else{
             $res['msg'] = $error_note;
