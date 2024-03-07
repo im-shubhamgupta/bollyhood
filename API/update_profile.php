@@ -10,7 +10,6 @@ if (isset($_REQUEST['uid']) && isset($_REQUEST['name']) && isset($_REQUEST['mobi
         'name' => $db->escapeStringTrim($_REQUEST['name']),
         'mobile' => $db->escapeStringTrim($_REQUEST['mobile']),
         'email' => $db->escapeStringTrim($_REQUEST['email']),
-        'image' => isset($_POST['image']) ? $_POST['image']  : '',
         'cat_id' => $db->escapeStringTrim($_REQUEST['cat_id']),
     );
     if($_SERVER['REQUEST_METHOD'] != 'POST'){

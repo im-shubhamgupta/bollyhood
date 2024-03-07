@@ -1,41 +1,31 @@
 <?php
-//verify OTP by this api 
 require_once 'include/db_controller.php';
-
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['mobile']) && isset($_REQUEST['otp'])  ) {
+if (isset($_REQUEST['mobile'])) {
 
     $data= array(
         'mobile' => $db->escapeStringTrim($_REQUEST['mobile']),
-        'otp' => $db->escapeStringTrim($_REQUEST['otp']),
     );
     if(empty($data['mobile'])){
         $error_msg = "Mobile no required";
     }
-    if(empty($data['otp'])){
-        $error_msg = "otp required";
-    }
-    if(strlen($data['otp']) != '6'){
-        $error_msg = "otp must br in 6 digits";
-    }
-
     if(!isset( $error_msg)){
-        $Result = $db->send_otp($data);
+        $Result = $db->forgot_password($data);
 
         if (!empty($Result)) {
             $response["status"] = '1';
             $response["result"] = $Result;
-            $response["msg"] = 'Login Sucessfully';
+            $response["msg"] = 'success';
 
         } else {
-            $response["msg"] = 'Please check Mobile no or otp ';
+            $response["msg"] = 'Please check Mobile no. ';
         }
     }else{
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter mobile , otp";
+    $response["msg"] = "Required parameter mobile no";
 }
 echo json_encode($response);

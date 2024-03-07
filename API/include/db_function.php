@@ -301,6 +301,27 @@ class DB_Function extends DB {
 			}
 			return $result;
 		}
+		public function detect_separator($string) {
+			if (strpos($string, '/') !== false) {
+				return '/';
+			} elseif (strpos($string, '\\') !== false) {
+				return '\\';
+			}else{
+				return '/';
+			}
+		}
+		public static function remove_last_words_from_url($url, $parse) {
+			// Split the URL into individual words
+			$fn = new DB_Function();//obj
+			$seperator = $fn->detect_separator($url);
+			$words = explode($seperator, $url);
+			// Remove the last two words
+			if (count($words) >= $parse) {
+				array_splice($words, -$parse);
+			}
+			$new_url = implode('/', $words);
+			return $new_url;
+		}
 }		
 			
 ?>
