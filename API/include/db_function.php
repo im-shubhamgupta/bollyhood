@@ -65,9 +65,12 @@ class DB_Function extends DB {
 	
 	   public function escapeStringTrim($s, $t = ' ')
 		{
-			// $mysqli = $this->Db_Connect();
-			// global $conn;
 			return $this->Db_Connect()->real_escape_string(trim($s, $t));
+		}
+		public function escapeStringTrimSpace($s, $t = ' ')
+		{
+			// preg_replace('/\s+/', ' ', trim(escapeString($_POST['medicine_name'])));
+			return preg_replace('/\s+/', ' ', $this->Db_Connect()->real_escape_string(trim($s, $t)));
 		}
 	
 	   public function getAffectedRowCount($sql)
@@ -87,6 +90,7 @@ class DB_Function extends DB {
 		{
 			$mysqli = $this->Db_Connect();
 			$row = array();
+			$this->exeutedSql = $sql;
 			$query = $mysqli->query($sql);
 			if ($query->num_rows > 0) {
 				while ($result = mysqli_fetch_assoc($query)) {
@@ -138,7 +142,7 @@ class DB_Function extends DB {
 					$dataStr = $dataStr . ' ON DUPLICATE KEY UPDATE ' . $duplicaterownew;
 				}
 			}
-			//echo $dataStr;
+			// echo $dataStr;
 			$this->exeutedSql = $dataStr;
 			mysqli_set_charset($mysqli, 'utf8');
 			$err = $mysqli->query($dataStr);
@@ -210,6 +214,7 @@ class DB_Function extends DB {
 					$dataStr = $dataStr . ' ORDER BY ' . $orderby;
 				}
 				if (count($limit) > 0) {
+					$datalimit = '';
 					foreach ($limit as $key => $value) {
 						$datalimit .= " {$value},";
 					}
@@ -293,9 +298,7 @@ class DB_Function extends DB {
 		{
 			$result = array();
 			if (mysqli_num_rows($res) > 0) {
-	
 				while ($row = mysqli_fetch_assoc($res)) {
-	
 					$result[] = $row;
 				}
 			}
@@ -322,6 +325,73 @@ class DB_Function extends DB {
 			$new_url = implode('/', $words);
 			return $new_url;
 		}
+		public function separator_to_array($string, $separator = ','){
+			//Explode on comma
+			$vals = explode($separator, $string);
+			//Trim whitespace
+			foreach($vals as $key => $val) {
+				$vals[$key] = trim($val);
+			}
+			//Return empty array if no items found
+			return array_diff($vals, array(""));
+		}
+
+		public function uploadSingleImage($FILES,$params=array()){
+			// echo "<pre>";
+			// print_r($FILES);
+			// print_r($params);
+			$result['check'] = false;
+			$result['msg'] = "Something error";
+			$result = array();
+			if(!empty($FILES)){
+				// echo $FILES['name'];
+				$imageFileType = strtolower(pathinfo(basename($FILES['name']),PATHINFO_EXTENSION));
+				$valid_imgname = date('YmdHis')."_".rand('1000','9999').".".$imageFileType;
+		
+				$result['file_ext'] = !empty($imageFileType) ? $imageFileType : '';
+				$result['img_name'] = !empty($valid_imgname) ? $valid_imgname : '';
+				$result['file_size'] = !empty($FILES['size']) ? $FILES['size'] : '0';
+		
+				if(isset($params['file_type']) && !empty($params['file_type'])){
+					if(in_array($imageFileType, $params['file_type'])){
+						$result['check'] = true;
+						$result['msg'] = $imageFileType." Extension Matched";
+						$result['file_type'] = array(
+							'check' => true,
+							'msg' => $imageFileType." Extension Matched",
+						);
+					}else{
+						$result['file_type'] = array(
+							'check' => false,
+							'msg' => "Accept only ".implode(', ',$params['file_type'])." Extension Image only",
+						);
+						$result['check'] = false;
+						$result['msg'] = "Accept only ".implode(', ',$params['file_type'])." Extension Image only";
+					}	
+				}
+				if(isset($params['file_upload']) && !empty($params['file_upload']) && ($result['check']) && !empty($valid_imgname)){
+					if (move_uploaded_file($FILES["tmp_name"], $params['file_upload'].$valid_imgname)){
+						$result['check'] = true;
+						$result['msg'] = "File Uploaded";
+						$result['file_upload'] = array(
+							'check' => true,
+							'msg' => "File Uploaded",
+						);
+					}else{
+						$result['file_upload'] = array(
+							'check' => false,
+							'msg' => "Problem on Image uploading",
+						);
+						$result['check'] = false;
+						$result['msg'] = "Image not Uploaded";
+					}	
+				}
+				// $result['file_tmp_name'] = !empty($FILES['tmp_name']) ? $FILES['tmp_name'] : '';
+				if(!empty($result['file_type']) && !empty($result['img_name']) && !empty($result['file_size'])){
+					$result['check'] = true;
+				}
+			}
+			return $result;
+		}
 }		
-			
 ?>

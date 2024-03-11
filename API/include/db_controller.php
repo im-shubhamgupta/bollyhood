@@ -84,14 +84,92 @@ class DB_Controller extends DB_Function{
         }
         return $res;
     }
-    public function category_list(){
-        $cat = $this->executeSelect('category',array(),array(),'category_name');
+    public function category_list($data){
+        $total_records=0;
+        // print_R($data);
+        if(!empty($data['current_page'])){ //pagination
+            $c_page=$data['per_page'] * ($data['current_page']-1);  
+        }else{
+            $c_page=0;
+        }
+        $per_page = $data['per_page'];
+        $total_records = $this->getAffectedRowCount("select `id` from category");
+
+        $cat = $this->executeSelect('category',array(),array(),'category_name',array($c_page => $per_page));
         if(count($cat) > 0){
-            return $cat;
+            $map_cat = array_map(function($item){
+                $item['category_image'] = !empty($item['category_image']) ? CATEGORY_IMAGE_PATH.$item['category_image'] : '';
+                return $item;
+            },$cat);
+
+            $response['current_page'] = $data['current_page'];
+			$response['per_page'] = $per_page;
+			$response['total_page'] = ceil($total_records/$per_page);
+			$response['total_records']=$total_records;
+			$response['data']=$map_cat;
+            return $response ;
+
+        }else{
+            $response['current_page'] = $data['current_page'];
+			$response['per_page'] = $per_page;
+			$response['total_page'] = 0;
+			$response['total_records'] = 0 ;
+            return '';
+        }    
+    }
+    public function category_recent_list(){
+        $cat = $this->executeSelect('category',array(),array(),'category_name',array('0'=>'3'));
+        if(count($cat) > 0){
+            $map_cat = array_map(function($item){
+                $item['category_image'] = !empty($item['category_image']) ? CATEGORY_IMAGE_PATH.$item['category_image'] : '';
+                return $item;
+            },$cat);
+            return $map_cat;
         }else{
             return '';
         }    
     }
+    public function get_expertise_profile($data){
+        $exp = $this->executeSelect('expertise',array(),array('id'=>$data['id']));
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
+                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
+                $item['work_links'] = $this->separator_to_array($item['work_links']);
+                return $item;
+            },$exp);
+            return $map_exp;
+        }else{
+            return '';
+        }
+    }
+    public function expertise_list(){
+        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories'),array(),'name');
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
+                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
+                return $item;
+            },$exp);
+            return $map_exp;
+        }else{
+            return '';
+        }
+    }
+    public function recent_expertise_list(){
+        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories'),array(),'name',array('0'=>'3'));
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
+                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
+                return $item;
+            },$exp);
+            return $map_exp;
+        }else{
+            return '';
+        }
+    }
+    
     public function forgot_password($data){
         $user = $this->executeSelect('users',array(),array('mobile'=>$data['mobile']));
         $otp = str_pad(substr(str_shuffle(mt_rand(111111,999999)),0,6), 6, '0', STR_PAD_LEFT);
@@ -204,5 +282,38 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }    
+    } 
+    public function get_bookmarks($data){
+        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,
+        CASE
+            WHEN e.user_image = '' THEN ''
+            WHEN e.user_image != '' THEN CONCAT('".CATEGORY_IMAGE_PATH."',e.user_image) 
+            ELSE ''
+        END AS `user_image`
+        from bookmark as b INNER JOIN expertise e ON b.expertise_id = e.id INNER JOIN users ON  users.id = b.uid where b.uid = '".$data['id']."' ");
+        // $this->debugSql();
+        if(count($cat) > 0){
+            return $cat;
+        }else{
+            return '';
+        }    
     }
+    public function mod_bookmark($data){
+        $response = array('check' => 'failed', 'msg'=> 'Error Happend');
+        if($data['bookmark_mode'] == 1){
+            $res = $this->getAffectedRowCount("SELECT * from bookmark where `uid`='".$data['uid']."' and expertise_id = '".$data['expertise_id']."' ");
+            if($res < 1){  
+                $this->executeInsert('bookmark', array('uid'=>$data['uid'],'expertise_id'=>$data['expertise_id'],'date_added'=>date('Y-m-d H:i:s')));
+            }
+            $response['check'] = 'success';
+            $response['msg'] = 'Bookmarked Successfully';
+        }elseif($data['bookmark_mode'] == 2){
+            $this->executeDelete('bookmark', array('uid'=>$data['uid'],'expertise_id'=>$data['expertise_id']));
+            $response['check'] = 'success';
+            $response['msg'] = 'Removed Successfully';
+        }
+        return $response;
+    }
+    
+    
 }

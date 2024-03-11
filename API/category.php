@@ -4,16 +4,23 @@ require_once 'include/db_controller.php';
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
+if (isset($_REQUEST['current_page']) && isset($_REQUEST['per_page']) ) {
 
-$Result = $db->category_list();
+$data['current_page'] = !empty($_REQUEST['current_page']) ? $_REQUEST['current_page'] : '0';
+$data['per_page'] = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : '15';
 
-if (!empty($Result)) {
-    $response["status"] = '1';
-    $response["result"] = $Result;
-    $response["msg"] = 'success';
+    $Result = $db->category_list($data);
 
-} else {
-    $response["msg"] = 'Not found';
+    if (!empty($Result)) {
+        $response["status"] = '1';
+        $response["result"] = $Result;
+        $response["msg"] = 'success';
+
+    } else {
+        $response["msg"] = 'Not found';
+    }
+}else{
+    $response["msg"] = "Required parameter current_page,per_page";
 }
 
 echo json_encode($response);
