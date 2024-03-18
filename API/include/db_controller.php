@@ -54,6 +54,7 @@ class DB_Controller extends DB_Function{
                 'mobile' => $result['mobile'],
                 'status' => $result['status'],
                 'is_verify' => $result['is_verify'],
+                'user_type' => $result['user_type'],
                 'image' => ($result['image']== 'no_image.png' || empty($result['image']))  ? '': USER_IMAGE_PATH.$result['image']  ,
             );
             return $temp;
@@ -95,25 +96,25 @@ class DB_Controller extends DB_Function{
         $per_page = $data['per_page'];
         $total_records = $this->getAffectedRowCount("select `id` from category");
 
-        $cat = $this->executeSelect('category',array(),array(),'category_name',array($c_page => $per_page));
+        $cat = $this->executeSelect('category',array(),array(),'category_name',array());//$c_page => $per_page
         if(count($cat) > 0){
             $map_cat = array_map(function($item){
                 $item['category_image'] = !empty($item['category_image']) ? CATEGORY_IMAGE_PATH.$item['category_image'] : '';
                 return $item;
             },$cat);
 
-            $response['current_page'] = $data['current_page'];
-			$response['per_page'] = $per_page;
-			$response['total_page'] = ceil($total_records/$per_page);
-			$response['total_records']=$total_records;
-			$response['data']=$map_cat;
-            return $response ;
+            // $response['current_page'] = $data['current_page'];
+			// $response['per_page'] = $per_page;
+			// $response['total_page'] = ceil($total_records/$per_page);
+			// $response['total_records']=$total_records;
+			// $response['data']=$map_cat;
+            return $map_cat ;
 
         }else{
-            $response['current_page'] = $data['current_page'];
-			$response['per_page'] = $per_page;
-			$response['total_page'] = 0;
-			$response['total_records'] = 0 ;
+            // $response['current_page'] = $data['current_page'];
+			// $response['per_page'] = $per_page;
+			// $response['total_page'] = 0;
+			// $response['total_records'] = 0 ;
             return '';
         }    
     }
@@ -130,7 +131,17 @@ class DB_Controller extends DB_Function{
         }    
     }
     public function get_expertise_profile($data){
-        $exp = $this->executeSelect('expertise',array(),array('id'=>$data['id']));
+        // $exp = $this->executeSelect('expertise',array(),array('id'=>$data['id']));
+        $exp = $this->getResultAsArray("SELECT e.*, 
+        CASE
+            WHEN (select `id` from bookmark b where b.expertise_id= `e`.id  and b.uid = ".$data['uid'].") > 0 THEN '1' 
+            ELSE '0'
+        END AS `is_bookmark`,
+        CASE
+            WHEN (select `id` from expertise_book eb where eb.expertise_id= `e`.id  and eb.uid = ".$data['uid'].") > 0 THEN '1'
+            ELSE '0'
+        END AS is_booked
+         from expertise e where e.`id`= '".$data['id']."' ");
         if(count($exp) > 0){
             $map_exp = array_map(function($item){
                 $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
@@ -146,6 +157,7 @@ class DB_Controller extends DB_Function{
     public function expertise_list(){
         $exp = $this->executeSelect('expertise',array('id','name','user_image','categories'),array(),'name');
         if(count($exp) > 0){
+            
             $map_exp = array_map(function($item){
                 $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
                 $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
@@ -313,6 +325,32 @@ class DB_Controller extends DB_Function{
             $response['msg'] = 'Removed Successfully';
         }
         return $response;
+    }
+    public function expertise_book($data){
+        $response = array('check' => 'failed', 'msg'=> 'Error Happend');
+        $res = $this->getAffectedRowCount("SELECT * from expertise_book where `uid`='".$data['uid']."' and expertise_id = '".$data['expertise_id']."' ");
+        if($res < 1){  
+            $this->executeInsert('expertise_book', array('uid'=>$data['uid'],'expertise_id'=>$data['expertise_id'],'date_added'=>date('Y-m-d H:i:s')));
+        }
+        $response['check'] = 'success';
+        $response['msg'] = 'Booked Successfully';
+        
+        return $response;
+    }
+    public function get_all_expertise_book($data){
+        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,
+        CASE
+            WHEN e.user_image = '' THEN ''
+            WHEN e.user_image != '' THEN CONCAT('".CATEGORY_IMAGE_PATH."',e.user_image) 
+            ELSE ''
+        END AS `user_image`
+        from expertise_book as eb INNER JOIN expertise e ON eb.expertise_id = e.id INNER JOIN users ON  users.id = eb.uid where eb.uid = '".$data['id']."' ");
+        // $this->debugSql();
+        if(count($cat) > 0){
+            return $cat;
+        }else{
+            return '';
+        } 
     }
     
     

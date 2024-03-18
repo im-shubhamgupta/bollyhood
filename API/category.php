@@ -1,10 +1,10 @@
-<?php
+<?php  
 require_once 'include/db_controller.php';
 
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['current_page']) && isset($_REQUEST['per_page']) ) {
+// if (isset($_REQUEST['current_page']) && isset($_REQUEST['per_page']) ) {
 
 $data['current_page'] = !empty($_REQUEST['current_page']) ? $_REQUEST['current_page'] : '0';
 $data['per_page'] = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : '15';
@@ -19,8 +19,8 @@ $data['per_page'] = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : '15'
     } else {
         $response["msg"] = 'Not found';
     }
-}else{
-    $response["msg"] = "Required parameter current_page,per_page";
-}
+// }else{
+//     $response["msg"] = "Required parameter current_page,per_page";
+// }
 
 echo json_encode($response);

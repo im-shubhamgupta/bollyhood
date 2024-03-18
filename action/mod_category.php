@@ -49,7 +49,7 @@ $data = executeSelectSingle('category',array(),array('id' => $id));
                     <!-- url('controller/form-controller.php') -->
                     <!--  -->
                     <div class="panel-content">
-                        <form action="<?=url('?controller=form-controller')?>" method="POST" id="mod_category"  >
+                        <form action="<?=url('?controller=form-controller')?>" method="POST" enctype="multipart/form-data" id="mod_category"  >
                             <input type="hidden" name='submit_action' value="add_category">
                             <input type="hidden" name='id' value="<?=$id?>">
 
@@ -57,6 +57,14 @@ $data = executeSelectSingle('category',array(),array('id' => $id));
                                 <label class="form-label" for="simpleinput">Text</label>
                                 <input required type="text" id="category_name" name="category_name" class="form-control" value="<?=isset($data['category_name']) ? $data['category_name'] : ''?>">
                                 <span class="form_error" id="cat_error"></span>
+                            </div>
+                            <div class="form-group">
+                            <label class="form-label" for="simpleinput">Image</label>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="custom-file-input" id="image" >
+                                    <input type="hidden" name="category_image" class="custom-file-input" id="category_image" value="<?=isset($data['category_image']) ? $data['category_image'] : ''?>" >
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                             </div>
                             <div class="form-group mb-0">
                                 <div class="">

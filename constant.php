@@ -11,6 +11,8 @@ define("FILE_NAME", basename(parse_url($actual_link)['path'],'.php') );//remove.
 define("IMAGE_PATH",SITE_URL.'resources/image/');
 define("BANNER_IMAGE_PATH",SITE_URL.'resources/image/banners/');
 define("USER_IMAGE_PATH",SITE_URL.'resources/image/users/');
+define("EXPERTISE_IMAGE_PATH",SITE_URL.'resources/image/expertise/');
+define("CATEGORY_IMAGE_PATH",SITE_URL.'resources/image/category/');
 
 
 define("VALID_IMG_EXT", array('png','jpg','jpeg','PNG','JPG','JPEG'));

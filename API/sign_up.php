@@ -3,7 +3,7 @@ require_once 'include/db_controller.php';
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['email']) && isset($_REQUEST['password']) && isset($_REQUEST['cat_id']) ) {
+if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['email']) && isset($_REQUEST['password']) && isset($_REQUEST['cat_id']) && isset($_REQUEST['user_type']) ) {
 
     $data= array(
         'name' => $db->escapeStringTrim($_REQUEST['name']),
@@ -11,6 +11,7 @@ if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['em
         'email' => $db->escapeStringTrim($_REQUEST['email']),
         'password' => $db->escapeStringTrim($_REQUEST['password']),
         'cat_id' => $db->escapeStringTrim($_REQUEST['cat_id']),
+        'user_type' => $db->escapeStringTrim($_REQUEST['user_type']),
     );
     if(empty($data['name'])){
         $error_msg = " Required name";
@@ -47,6 +48,6 @@ if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['em
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter name,email,mobile, password,cat_id";
+    $response["msg"] = "Required parameter name,email,mobile, password,cat_id,user_type";
 }
 echo json_encode($response);

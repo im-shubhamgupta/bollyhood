@@ -26,6 +26,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center">Sl No.</th>
+                                                                    <th>Image</th>
                                                                     <th>Category</th>
                                                                     <th>Created At</th>
                                                                     <th>Action</th>

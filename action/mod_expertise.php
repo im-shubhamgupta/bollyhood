@@ -1,9 +1,12 @@
 <?php
 // if(isset($_GET['id'])){
 $id = isset($_GET['id']) ? escapeString($_GET['id']) : '';
-$data = executeSelectSingle('users',array(),array('id' => $id));
-$category = executeSelect('category',array(),array(),'category_name');
+$data = executeSelectSingle('expertise',array(),array('id' => $id));
+$category = getResultAsArray("SELECT `id`,`category_name` from category where 1 ");
+
+//('category',array(),array(),'category_name');
 // print_R($data);
+// print_R($category);
 
 ?>
 <main id="js-page-content" role="main" class="page-content">
@@ -44,9 +47,8 @@ $category = executeSelect('category',array(),array(),'category_name');
             } ?>   
                 
                 <div class="panel-container show">
-                  
                     <div class="panel-content">
-                        <form  method="POST" id="add_user" >
+                        <form  method="POST" id="mod_expertise" >
                             <input type="hidden" name='id' value="<?=$id?>">
 
                             <div class="form-group">
@@ -57,26 +59,47 @@ $category = executeSelect('category',array(),array(),'category_name');
                             <label class="form-label" for="simpleinput">Image</label>
                                 <div class="custom-file">
                                     <input type="file" name="image" class="custom-file-input" id="image" >
-                                    <input type="hidden" name="user_image" class="custom-file-input" id="user_image" value="<?=isset($data['image']) ? $data['image'] : ''?>">
+                                    <input type="hidden" name="user_image" class="custom-file-input" id="user_image" value="<?=isset($data['user_image']) ? $data['user_image'] : ''?>" >
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" for="simpleinput">Email</label>
-                                <input required type="email" id="email" name="email"  placeholder="Enter Email"  class="form-control" value="<?=isset($data['email']) ? $data['email'] : ''?>">
-                            </div>
+                           
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Mobile</label>
                                 <input required type="number" id="mobile" name="mobile" class="form-control" placeholder="Enter Mobile" value="<?=isset($data['mobile']) ? $data['mobile'] : ''?>">
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="simpleinput">Reviews</label>
+                                        <input required type="text" id="reviews" name="reviews" class="form-control" placeholder="Enter reviews" value="<?=isset($data['reviews']) ? $data['reviews'] : ''?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="simpleinput">Jobs done</label>
+                                        <input required type="text" id="jobs_done" name="jobs_done" class="form-control" placeholder="Enter jobs_done" value="<?=isset($data['jobs_done']) ? $data['jobs_done'] : ''?>">
+                                    </div>
+                                </div>    
+                            </div>  
+                            <br>  
+                            <div class="form-group">
+                                <label class="form-label" for="simpleinput">Description</label>
+                                <textarea name="description" id="description" class="form-control " rows="4"><?=isset($data['description']) ? $data['description'] : ''?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="simpleinput">Work links</label>
+                                <textarea name="work_links" id="work_links" class="form-control " rows="4"><?=isset($data['work_links']) ? $data['work_links'] : ''?></textarea>
+                            </div>
                             <div class="form-group">
                                 <label class="form-label text-muted">Category</label>
-                                <select class="custom-select form-control" name="cat_id" required>
+                                <select class="custom-select form-control" name="cat_id[]" multiple required>
                                     <option selected value="">--Select Category--</option>
                                     <?php
                                     foreach($category as $val){
-                                        $selected = (isset($_GET['id']) &&  $val['id']==$data['cat_id']) ? 'selected' : ''; 
-                                        echo "<option value='".$val['id']."' ".$selected.">".$val['category_name']."</option>";
+                                        $selected = (isset($_GET['id']) &&  in_array($val['id'],explode(',',$data['categories']))) ? 'selected' : ''; 
+                                        $ca = getSingleResult("SELECT `id`,`category_name` from category where id = '".$val['id']."' ");
+                                        echo "<option value='".$val['id']."' ".$selected.">".$ca['category_name']."</option>";
                                     }
                                     ?>
                                 </select>

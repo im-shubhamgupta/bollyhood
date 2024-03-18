@@ -99,6 +99,39 @@ $(document).on('submit',"#add_user",function(e){
             }
     });
 })  
+$(document).on('submit',"#mod_expertise",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'mod_expertise');
+   var btn_name = $('button[type="submit"]').text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $('button[type="submit"]').html("please wait...").attr("disabled", true);  
+            },
+            complete: function() {
+                $('button[type="submit"]').html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    toastr["success"](data.msg);
+                    // toastr.options.onHidden = function() {
+                    //      alert(123);
+                    // }
+                    redirect('expertise');
+                    
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
 
 $(document).on('submit',"#mod_banner",function(e){
     e.preventDefault();    
@@ -210,7 +243,32 @@ function delete_category(self){
         });
     }    
 }
-	
+function delete_expertise(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_expertise"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        location.reload();
+                        
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
+}	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
@@ -338,6 +396,38 @@ function fetch_all_category(){
                 'type': "post",
                 'data' : {
                     'ajax_action' : 'fetch_all_category' 
+                }
+        },
+    });
+}
+function load_all_expertise_datatable(){
+    $('#expertise_datatable').dataTable({
+        "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
+        "ordering": false,
+        'order':[0,'DESC'],
+        responsive: true,
+        lengthChange: false,
+        dom:
+            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Print',
+                titleAttr: 'Print Table',
+                className: 'btn-outline-primary btn-sm'
+            }
+        ],
+        "processing": true,
+            "serverSide": true,
+            "scrollX": true,
+            "ajax":{
+                'url' :ajax_url('ajaxDatatable.php'), 
+                'type': "post",
+                'data' : {
+                    'ajax_action' : 'fetch_all_expertise' 
                 }
         },
     });

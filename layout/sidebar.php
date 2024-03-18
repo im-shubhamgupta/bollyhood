@@ -38,7 +38,7 @@
                 <li class="active open">
                     <a href="#" title="Application Intel" data-filter-tags="application intel">
                         <i class="fal fa-info-circle"></i>
-                        <span class="nav-link-text" data-i18n="nav.application_intel">Application Intel</span>
+                        <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
                     </a>
                     <ul>
                         <li class="<?=($action =='users') ? 'active' : '' ?>">
@@ -54,6 +54,11 @@
                         <li class="<?=($action =='category') ? 'active' : '' ?>">
                             <a href="<?=urlAction('category')?>" title="Add Category" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Category </span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='expertise') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('expertise')?>" title="All Expertise" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Expertise </span>
                             </a>
                         </li>
                     </ul>

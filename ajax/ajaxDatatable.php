@@ -80,7 +80,9 @@ switch($ajax_action){
 		$arr = executeQuery($sql);
 		foreach($arr as $list) {  // preparing an array
 			$td = array();
+			$img_path = "<img class='user_img' src='".CATEGORY_IMAGE_PATH.$list['category_image']."' >";
 			$td[] = $i;
+			$td[] = $img_path;
 			$td[] = $list['category_name'];
 			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
 			$action = '<span><a href="'.urlAction('mod_category&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
@@ -101,6 +103,61 @@ switch($ajax_action){
 		echo json_encode($json_data);  
 		die;
 	break; 
+	case 'fetch_all_expertise':
+		$requestData= $_REQUEST;
+		$columns = array( 
+			0 =>'id',
+			1 =>'category_name',
+			2 =>'create_date',
+		);
+		$sql="SELECT * from expertise where 1 "; 
+		$totalData = getAffectedRowCount($sql);
+		$totalFiltered = $totalData;  
+
+		if($requestData['search']['value'] ) {  
+			$sql.=" AND ( 1 ";
+			$sql.=" OR `name` LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR `description` LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR `mobile` LIKE '%".$requestData['search']['value']."%' ";
+			$sql.= " )";
+		}
+		$totalFiltered = getAffectedRowCount($sql); 
+
+		// 
+		if(isset($requestData['order'][0]['column'])){
+			$sql .=" ORDER BY ". $columns[$requestData['order'][0]['column']]."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		}else{
+			$sql .="ORDER BY id desc";
+		}	
+		$i=1;
+		$arr = executeQuery($sql);
+		foreach($arr as $list) {  // preparing an array
+			$td = array();
+			$img_path = "<img class='user_img' src='".EXPERTISE_IMAGE_PATH.$list['user_image']."' >";
+			$td[] = $i;
+			$td[] = $list['name'];
+			$td[] = $img_path;
+			$td[] = $list['mobile'];
+			$td[] = $list['description'];
+			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
+			
+			$action ='<span><a href="'.urlAction('mod_expertise&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
+			$action .= '  <span><a href="#" onclick="delete_expertise(this)" data-id="'.$list['id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';	
+			$td[] = $action;									
+			$data[] = $td;
+			$i ++;
+		}
+
+		$json_data = array(
+			"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside ,
+			"recordsTotal"    => intval( $totalData ),  // total number of records
+			"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+			"data"            => $data   // total data array
+		);
+
+		echo json_encode($json_data);  
+		die;
+	break;
  
 	default:
 		echo json_encode(array('check' => 'failed' , 'msg'=>'Bad Request' ));

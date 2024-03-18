@@ -40,6 +40,12 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'mod_category':
 			include_once('action/mod_category.php');
 		break;
+		case 'expertise':
+			include_once('action/all_expertise.php');
+		break;
+		case 'mod_expertise':
+			include_once('action/mod_expertise.php');
+		break;
 		default :
 			if(isset($_GET['action']) && empty($_GET['action'])){
 				die("no action found");

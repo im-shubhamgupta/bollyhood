@@ -47,3 +47,8 @@ aside > .page-logo {
     display: inline-block;
     color: red;
 }
+.user_img{
+    height: auto;
+    width:100px;
+
+}
