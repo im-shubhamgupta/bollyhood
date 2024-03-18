@@ -164,7 +164,7 @@ switch($ajax_action){
 			'jobs_done' => escapeStringTrim($_POST['jobs_done']),
 			'description' => escapeStringTrim($_POST['description']),
 			'work_links' => escapeStringTrim($_POST['work_links']),
-			'categories' => implode(',',$_POST['cat_id']),
+			'categories' => trim(implode(',',$_POST['cat_id']),','),
 			'modify_date' => date("Y-m-d H:i:s")
 		);
 		$temp['user_image'] = escapeStringTrim($_POST['user_image']);
