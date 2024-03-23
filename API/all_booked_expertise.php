@@ -14,7 +14,7 @@ if (isset($_REQUEST['uid'])) {
     }
    
     if(!isset( $error_msg)){
-        $Result = $db->get_all_expertise_book($data);
+        $Result = $db->all_booked_expertise($data);
         if (!empty($Result)) {
             $response["status"] = '1';
             $response["result"] = $Result;

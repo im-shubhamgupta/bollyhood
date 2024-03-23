@@ -3,6 +3,12 @@
 $id = isset($_GET['id']) ? escapeString($_GET['id']) : '';
 $data = executeSelectSingle('expertise',array(),array('id' => $id));
 $category = getResultAsArray("SELECT `id`,`category_name` from category where 1 ");
+if(!empty($data['id'])){
+    $worklinks = getResultAsArray("SELECT `worklink_id`,`worklink_name`,`worklink_url` from expertise_worklink where expertise_id = '".$data['id']."' ");
+}else{
+    $worklinks = array();
+}
+
 
 //('category',array(),array(),'category_name');
 // print_R($data);
@@ -87,10 +93,87 @@ $category = getResultAsArray("SELECT `id`,`category_name` from category where 1 
                                 <label class="form-label" for="simpleinput">Description</label>
                                 <textarea name="description" id="description" class="form-control " rows="4"><?=isset($data['description']) ? $data['description'] : ''?></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" for="simpleinput">Work links</label>
-                                <textarea name="work_links" id="work_links" class="form-control " rows="4"><?=isset($data['work_links']) ? $data['work_links'] : ''?></textarea>
+                            <div class="work_div">
+                           
+                                    
+                                    <?php 
+                                    if(!empty($id) && !empty($worklinks)){
+                                        $i=0;
+                                        foreach($worklinks as $val){
+                                            $i++;
+                                        ?>
+                                            <div class="row worklinks_row" id="worklink_row_<?=$i?>" >
+                                            
+                                                <div class="col-md-10 mt-3">
+                                                    <div class="row work_row ">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                            <input type="hidden" name="worklink_id[]" value="<?=$val['worklink_id']?>">
+                                                                <label class="form-label <?=($i>1)?'d-none':''?> " for="simpleinput">Worklink Name</label>
+                                                                <input required type="text" id="worklink_name_<?=$i?>" name="worklink_name[]" class="form-control" placeholder="Enter worklink Name" value="<?=$val['worklink_name']?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <label class="form-label <?=($i>1)?'d-none':''?> " for="simpleinput">Work links</label>
+                                                                <input required type="text" id="worklink_url_<?=$i?>" name="worklink_url[]" class="form-control" placeholder="Enter work links" value="<?=$val['worklink_url']?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            <?php
+                                            if($i == 1 ){
+                                                echo '<div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <button type="button" onclick="add_worklink_row()" class="btn btn-primary btn-sm waves-effect waves-themed mt-4"> Add More </button>
+                                                            </div>
+                                                        </div>';
+
+                                            }else{
+                                                echo '<div class="col-md-2 mt-3">
+                                                            <div class="form-group">
+                                                            <a href="javascript:void(0);" onclick="remove_worklink_row('.$i.')" data-sl="`+sl+`" class="btn btn-danger btn-icon rounded-circle waves-effect waves-themed">
+                                                            <i class="fal fa-times"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>';
+                                            }
+                                            echo '</div>';
+                                        }
+                                    
+                                    }else{?>
+                                        <div class="row worklinks_row" id="worklink_row_1" >
+                                    
+                                        <div class="col-md-10">
+                                            <div class="row work_row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="simpleinput">Worklink Name</label>
+                                                        <input required type="text" id="worklink_name_1" name="worklink_name[]" class="form-control" placeholder="Enter worklink Name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="simpleinput">Work links</label>
+                                                        <input required type="text" id="worklink_url_1" name="worklink_url[]" class="form-control" placeholder="Enter work links" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>        
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <button type="button" onclick="add_worklink_row()" class="btn btn-primary btn-sm waves-effect waves-themed mt-4"> Add More </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                     <?php        
+                                    }
+                                    ?>
+                                
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label class="form-label text-muted">Category</label>
                                 <select class="custom-select form-control" name="cat_id[]" multiple required>
@@ -104,18 +187,35 @@ $category = getResultAsArray("SELECT `id`,`category_name` from category where 1 
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Status</label>
-                                <select class="custom-select form-control" name="status" required>
-                                    <?php
-                                    if(!isset($_GET['id'])) echo "<option selected=''>--Select Status--</option>";
-                                    $selected = ($data['cat_id']== 1 ) ? 'selected' : '';
-                                    ?>
-                                        <option value='1' <?=(isset($data['status']) && $data['status']== 1 ) ? 'selected' : ''?>>Active</option>
-                                        <option value='0' <?=(isset($data['status']) && $data['status']== 0 ) ? 'selected' : ''?>>Deactive</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-0">
+                            <div class="row" >
+                                <div class="col-md-6" >
+                                    <div class="form-group">
+                                        
+                                        <!-- <input class="form-control" type ="checkbox" name="is_verify" id="is_verify" required>
+                                        <label class="form-label text-muted" id="is_verify">Status</label> -->
+                                         
+                                        <div class="custom-control custom-checkbox mt-4">
+                                            <input type="checkbox" class="" style="scale:2.5;" name="is_verify"  id="is_verify" <?=((isset($data['is_verify']) && $data['is_verify']==1) ? 'checked' : '' )?> >
+                                            <label class="" style="margin-left:20px;" for="is_verify">Is Verify</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="form-group">
+                                        <label class="form-label text-muted">Status</label>
+                                        <select class="custom-select form-control" name="status" required>
+                                            <?php
+                                            if(!isset($_GET['id'])) echo "<option selected=''>--Select Status--</option>";
+                                            $selected = ($data['cat_id']== 1 ) ? 'selected' : '';
+                                            ?>
+                                                <option value='1' <?=(isset($data['status']) && $data['status']== 1 ) ? 'selected' : ''?>>Active</option>
+                                                <option value='0' <?=(isset($data['status']) && $data['status']== 0 ) ? 'selected' : ''?>>Deactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="form-group mb-0 mt-4">
                                 <div class="">
                                     <button type="submit" class="btn btn-primary waves-effect waves-themed"   id="customFile">Submit</button>
                                 </div>

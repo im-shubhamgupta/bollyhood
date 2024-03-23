@@ -132,6 +132,39 @@ $(document).on('submit',"#mod_expertise",function(e){
             }
     });
 })
+$(document).on('submit',"#add_sub_category",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'add_sub_category');
+   var btn_name = $('button[type="submit"]').text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $('button[type="submit"]').html("please wait...").attr("disabled", true);  
+            },
+            complete: function() {
+                $('button[type="submit"]').html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    toastr["success"](data.msg);
+                    // toastr.options.onHidden = function() {
+                    //      alert(123);
+                    // }
+                    redirect('sub_category');
+                    
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
 
 $(document).on('submit',"#mod_banner",function(e){
     e.preventDefault();    
@@ -157,6 +190,36 @@ $(document).on('submit',"#mod_banner",function(e){
                     // toastr.options.onHidden = function() { alert(123); }
                     toastr["success"](data.msg);
                     redirect('banner');
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
+$(document).on('submit',"#mod_subscription_plan",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'mod_subscription_plan');
+   var btn_name = $('button[type="submit"]').text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $('button[type="submit"]').html("Uploading...").attr("disabled", true);  
+            },
+            complete: function() {
+                $('button[type="submit"]').html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    // toastr.options.onHidden = function() { alert(123); }
+                    toastr["success"](data.msg);
+                    redirect('plans');
                 }else{
                     Command: toastr["error"](data.msg);
                 }
@@ -268,6 +331,56 @@ function delete_expertise(self){
                 }
         });
     }    
+}
+function delete_sub_category(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_sub_category"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        location.reload();
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
+}
+function delete_subscription_plan(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_subscription_plan"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        location.reload();
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
 }	
 function all_documents_datatable(){
     $('#document_datatable').dataTable({
@@ -329,7 +442,7 @@ function all_documents_datatable(){
     
 }    
 
-function all_users_datatable(){
+function fetch_all_subscription_plans(){
     $('#datas_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
         'order':[0,'DESC'],
@@ -431,6 +544,43 @@ function load_all_expertise_datatable(){
                 }
         },
     });
+}
+function add_worklink_row(){
+
+    var sl_id_arr = $('.work_div .worklinks_row:last').attr('id').split("_");
+    var sl = parseInt(sl_id_arr[2]) + 1;
+
+    var html = '';
+    html += `   <div class="row worklinks_row mt-3" id="worklink_row_`+sl+`">
+                    <div class="col-md-10">
+                            <div class="row work_row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input required type="text" id="worklink_name_`+sl+`" name="worklink_name[]" class="form-control" placeholder="Enter Worklink Name" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input required type="text" id="worklink_url_`+sl+`" name="worklink_url[]" class="form-control" placeholder="Enter work links" value="">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" onclick="remove_worklink_row(`+sl+`)" data-sl="`+sl+`" class="btn btn-danger btn-icon rounded-circle waves-effect waves-themed">
+                                                        <i class="fal fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                </div>`;
+        $('.work_div').append(html);        
+}
+
+function remove_worklink_row(sl){
+
+    $('#worklink_row_'+sl).remove();
+
 }
 
 

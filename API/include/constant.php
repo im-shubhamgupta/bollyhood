@@ -1,5 +1,8 @@
 <?php
 include_once(__DIR__."/connection.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 header('Content-type: application/json; charset=utf-8');
 
 
@@ -13,6 +16,7 @@ define("IMAGE_PATH",PATH_URL.'resources/image/');
 define("BANNER_IMAGE_PATH",PATH_URL.'resources/image/banners/');
 define("USER_IMAGE_PATH",PATH_URL.'resources/image/users/');
 define("CATEGORY_IMAGE_PATH",PATH_URL.'resources/image/category/');
+define("EXPERTISE_IMAGE_PATH",PATH_URL.'resources/image/expertise/');
 define("VALID_IMG_EXT", array('png','jpg','jpeg','PNG','JPG','JPEG'));
 
 

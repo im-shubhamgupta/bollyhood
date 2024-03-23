@@ -25,6 +25,11 @@ const CAT = array(
     'company' => 'Company'
 );
 
+const PLANS = array(
+    'month' => 'Monthly',
+    'year' => 'Yearly',
+);
+
 
 class admin{
     const name = 'Admin';

@@ -107,7 +107,7 @@ function executeInsert($table, $data, $onduplicatekey = array()){
 		//echo "<br>Error description: " . $mysqli->error;
 	}	
 	$result = $mysqli->insert_id;
-	$mysqli->close();
+	// $mysqli->close();
  	return $result;
 }
 

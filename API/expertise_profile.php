@@ -7,7 +7,7 @@ $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 if (isset($_REQUEST['id']) && isset($_REQUEST['uid']) ) {
 
     $data= array(
-        'id' => $db->escapeStringTrim($_REQUEST['id']),
+        'id' => $db->escapeStringTrim($_REQUEST['id']),//expertise_id
         'uid' => $db->escapeStringTrim($_REQUEST['uid']),
     );
     if(empty($data['id'])){

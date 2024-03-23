@@ -30,12 +30,10 @@
                     <span class="d-inline-block text-truncate text-truncate-sm"><?= admin::address?></span>
                 </div>
                 <img src="<?=asset('/img/card-backgrounds/cover-2-lg.png')?>" class="cover" alt="cover">
-                <!-- <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
-                    <i class="fal fa-angle-down"></i>
-                </a> -->
+                
             </div>
             <ul id="js-nav-menu" class="nav-menu">
-                <li class="active open">
+                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','')) ? 'active open' : '' )?>">
                     <a href="#" title="Application Intel" data-filter-tags="application intel">
                         <i class="fal fa-info-circle"></i>
                         <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
@@ -51,19 +49,41 @@
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Banners </span>
                             </a>
                         </li>
-                        <li class="<?=($action =='category') ? 'active' : '' ?>">
-                            <a href="<?=urlAction('category')?>" title="Add Category" data-filter-tags="application intel marketing dashboard">
-                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Category </span>
-                            </a>
-                        </li>
+                        
                         <li class="<?=($action =='expertise') ? 'active' : '' ?>">
                             <a href="<?=urlAction('expertise')?>" title="All Expertise" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Expertise </span>
                             </a>
                         </li>
+                        <li class="<?=($action =='plans' ||$action == 'mod_plan') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('plans')?>" title="All Plans" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Plans </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
+                <li class="<?=(in_array($action,array('sub_category','mod_sub_category','category')) ? 'active open' : '' )?>">
+                    <a href="#" title="Application Intel" data-filter-tags="application intel">
+                        <i class="fal fa-info-circle"></i>
+                        <span class="nav-link-text" data-i18n="nav.application_intel">Master</span>
+                    </a>
+                    <ul>
+                        <li class="<?=($action =='category') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('category')?>" title="All category" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Category </span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='sub_category') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('sub_category')?>" title="All Sub Category" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Sub Category</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
             </ul>
+            
+           
             <div class="filter-message js-filter-message bg-success-600"></div>
         </nav>
         <!-- END PRIMARY NAVIGATION -->

@@ -44,7 +44,19 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 			include_once('action/all_expertise.php');
 		break;
 		case 'mod_expertise':
-			include_once('action/mod_expertise.php');
+			include_once('action/mod_expertise.php'); 
+		break;
+		case 'sub_category':
+			include_once('action/all_sub_category.php');
+		break;
+		case 'mod_sub_category':
+			include_once('action/mod_sub_category.php');
+		break;
+		case 'plans':
+			include_once('action/all_plans.php');
+		break;
+		case 'mod_plan':
+			include_once('action/mod_plan.php');
 		break;
 		default :
 			if(isset($_GET['action']) && empty($_GET['action'])){

@@ -118,8 +118,21 @@ class DB_Controller extends DB_Function{
             return '';
         }    
     }
+    public function sub_category_list($data){
+       
+        $total_records = $this->getAffectedRowCount("select `id` from category");
+        
+		$sql="SELECT sc.sub_cat_id,sc.category_id,sc.sub_cat_name from sub_category as sc inner join category c on c.id = sc.category_id where sc.category_id = '".$data['category_id']."' ";
+        $result = $this->getResultAsArray($sql);
+
+        if(count($result) > 0){
+            return $result ;
+        }else{
+            return '';
+        }    
+    }
     public function category_recent_list(){
-        $cat = $this->executeSelect('category',array(),array(),'category_name',array('0'=>'3'));
+        $cat = $this->executeSelect('category',array(),array(),'category_name',array('0'=>'4'));
         if(count($cat) > 0){
             $map_cat = array_map(function($item){
                 $item['category_image'] = !empty($item['category_image']) ? CATEGORY_IMAGE_PATH.$item['category_image'] : '';
@@ -132,6 +145,7 @@ class DB_Controller extends DB_Function{
     }
     public function get_expertise_profile($data){
         // $exp = $this->executeSelect('expertise',array(),array('id'=>$data['id']));
+        $uid = $data["uid"];
         $exp = $this->getResultAsArray("SELECT e.*, 
         CASE
             WHEN (select `id` from bookmark b where b.expertise_id= `e`.id  and b.uid = ".$data['uid'].") > 0 THEN '1' 
@@ -141,12 +155,17 @@ class DB_Controller extends DB_Function{
             WHEN (select `id` from expertise_book eb where eb.expertise_id= `e`.id  and eb.uid = ".$data['uid'].") > 0 THEN '1'
             ELSE '0'
         END AS is_booked
-         from expertise e where e.`id`= '".$data['id']."' ");
+         from expertise e  where e.`id`= '".$data['id']."' ");
         if(count($exp) > 0){
-            $map_exp = array_map(function($item){
-                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
-                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
-                $item['work_links'] = $this->separator_to_array($item['work_links']);
+            $map_exp = array_map(function($item) use ($uid){
+                //get all worklings
+                $wSql = "SELECT worklink_name,worklink_url from expertise_worklink where expertise_id = '".$item['id']."' ";
+
+                $item['user_image'] = !empty($item['user_image']) ? EXPERTISE_IMAGE_PATH.$item['user_image'] : '';
+                $item['categories'] = !empty($item['categories']) ? $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )") : array();
+                // $item['work_links'] = $this->separator_to_array($item['work_links']);
+                $item['work_links'] = array();
+                $item['new_work_links'] = $this->getResultAsArray($wSql);
                 return $item;
             },$exp);
             return $map_exp;
@@ -155,12 +174,13 @@ class DB_Controller extends DB_Function{
         }
     }
     public function expertise_list(){
-        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories'),array(),'name');
+        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories','is_verify'),array(),'name');
         if(count($exp) > 0){
             
             $map_exp = array_map(function($item){
-                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
-                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
+                $item['user_image'] = !empty($item['user_image']) ? EXPERTISE_IMAGE_PATH.$item['user_image'] : '';
+                    $item['categories'] = !empty($item['categories']) ? $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )") : array();
+               
                 return $item;
             },$exp);
             return $map_exp;
@@ -169,11 +189,11 @@ class DB_Controller extends DB_Function{
         }
     }
     public function recent_expertise_list(){
-        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories'),array(),'name',array('0'=>'3'));
+        $exp = $this->executeSelect('expertise',array('id','name','user_image','categories','is_verify'),array(),'name',array('0'=>'3'));
         if(count($exp) > 0){
             $map_exp = array_map(function($item){
-                $item['user_image'] = !empty($item['user_image']) ? CATEGORY_IMAGE_PATH.$item['user_image'] : '';
-                $item['categories'] = $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )");
+                $item['user_image'] = !empty($item['user_image']) ? EXPERTISE_IMAGE_PATH.$item['user_image'] : '';
+                    $item['categories'] = !empty($item['categories']) ?  $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )") : array();
                 return $item;
             },$exp);
             return $map_exp;
@@ -295,11 +315,11 @@ class DB_Controller extends DB_Function{
             return '';
         }    
     } 
-    public function get_bookmarks($data){
-        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,
+    public function all_bookmark($data){
+        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,e.is_verify,
         CASE
             WHEN e.user_image = '' THEN ''
-            WHEN e.user_image != '' THEN CONCAT('".CATEGORY_IMAGE_PATH."',e.user_image) 
+            WHEN e.user_image != '' THEN CONCAT('".EXPERTISE_IMAGE_PATH."',e.user_image) 
             ELSE ''
         END AS `user_image`
         from bookmark as b INNER JOIN expertise e ON b.expertise_id = e.id INNER JOIN users ON  users.id = b.uid where b.uid = '".$data['id']."' ");
@@ -337,14 +357,23 @@ class DB_Controller extends DB_Function{
         
         return $response;
     }
-    public function get_all_expertise_book($data){
-        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,
+    public function all_booked_expertise($data){
+        $cat = $this->getResultAsArray("SELECT expertise_id,e.name,e.is_verify,
         CASE
             WHEN e.user_image = '' THEN ''
-            WHEN e.user_image != '' THEN CONCAT('".CATEGORY_IMAGE_PATH."',e.user_image) 
+            WHEN e.user_image != '' THEN CONCAT('".EXPERTISE_IMAGE_PATH."',e.user_image) 
             ELSE ''
         END AS `user_image`
         from expertise_book as eb INNER JOIN expertise e ON eb.expertise_id = e.id INNER JOIN users ON  users.id = eb.uid where eb.uid = '".$data['id']."' ");
+        // $this->debugSql();
+        if(count($cat) > 0){
+            return $cat;
+        }else{
+            return '';
+        } 
+    }
+    public function all_subscription_plans(){
+        $cat = $this->getResultAsArray("SELECT * from subscription_plan");
         // $this->debugSql();
         if(count($cat) > 0){
             return $cat;
