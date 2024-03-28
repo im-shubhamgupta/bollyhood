@@ -35,6 +35,7 @@ function load_all_subscription_plans(){
     $('#plans_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
         // 'order':[0,'DESC'],
+        "ordering" : false,
         responsive: true,
         lengthChange: false,
         dom:

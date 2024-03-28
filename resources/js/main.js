@@ -39,6 +39,7 @@ $(document).ready(function(){
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
         }
+    $('#summernote').summernote();    
     //login form validate
     $("#js-login-btn").click(function(event){
         // Fetch form to apply custom Bootstrap validation
@@ -63,7 +64,6 @@ $(document).on('submit',"#mod_category",function(e){
         // e.preventDefault();
         
     }
-
 });
 // function add_user(self){
 $(document).on('submit',"#add_user",function(e){
@@ -93,6 +93,35 @@ $(document).on('submit',"#add_user",function(e){
                     // }
                     redirect('users');
                     
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
+$(document).on('submit',"#mod_cms_readme",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'mod_cms_readme');
+   var btn_name = $('button[type="submit"]').text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $('button[type="submit"]').html("please wait...").attr("disabled", true);  
+            },
+            complete: function() {
+                $('button[type="submit"]').html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    toastr["success"](data.msg);
+                    location.reload();
                 }else{
                     Command: toastr["error"](data.msg);
                 }
@@ -442,7 +471,7 @@ function all_documents_datatable(){
     
 }    
 
-function fetch_all_subscription_plans(){
+function all_users_datatable(){
     $('#datas_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
         'order':[0,'DESC'],

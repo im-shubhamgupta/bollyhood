@@ -54,6 +54,7 @@ class DB_Controller extends DB_Function{
                 'mobile' => $result['mobile'],
                 'status' => $result['status'],
                 'is_verify' => $result['is_verify'],
+                'is_subscription' => $result['is_subscription'],
                 'user_type' => $result['user_type'],
                 'image' => ($result['image']== 'no_image.png' || empty($result['image']))  ? '': USER_IMAGE_PATH.$result['image']  ,
             );
@@ -380,6 +381,25 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         } 
+    }
+    public function check_subscription($data){
+        $response['is_subscription'] = '0';
+        $total_records = $this->getAffectedRowCount("SELECT `id` from users where is_subscription = '1' and id='".$data['uid']."' ");
+        if($total_records > 0){
+            $response['is_subscription'] = '1';
+            return $response;
+        }else{
+            return $response;
+        }    
+    }
+    public function cms_readme_list($data){
+		$sql="SELECT `type`,`description` from cms_readme where type = '".$data['type']."' ";
+        $result = $this->getResultAsArray($sql);
+        if(count($result) > 0){
+            return $result ;
+        }else{
+            return '';
+        }    
     }
     
     

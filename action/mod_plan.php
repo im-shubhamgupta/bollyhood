@@ -40,7 +40,6 @@ $data = executeSelectSingle('subscription_plan',array(),array('plan_id'=>$id));
                     </div> 
                 <?php 
             } ?>   
-                
                 <div class="panel-container show">
                     <div class="panel-content">
                         <form  method="POST" id="mod_subscription_plan" >
@@ -57,6 +56,10 @@ $data = executeSelectSingle('subscription_plan',array(),array('plan_id'=>$id));
                                     }
                                     ?>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="simpleinput">Title</label>
+                                <input required type="text" id="title" name="title" class="form-control" placeholder="Enter Title" value="<?=isset($data['title']) ? $data['title'] : ''?>">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Price</label>

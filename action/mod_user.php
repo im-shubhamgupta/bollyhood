@@ -81,16 +81,28 @@ $category = executeSelect('category',array(),array(),'category_name');
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Status</label>
-                                <select class="custom-select form-control" name="status" required>
-                                    <?php
-                                    if(!isset($_GET['id'])) echo "<option selected=''>--Select Status--</option>";
-                                    $selected = ($data['cat_id']== 1 ) ? 'selected' : '';
-                                    ?>
-                                        <option value='1' <?=(isset($data['status']) && $data['status']== 1 ) ? 'selected' : ''?>>Active</option>
-                                        <option value='0' <?=(isset($data['status']) && $data['status']== 0 ) ? 'selected' : ''?>>Deactive</option>
-                                </select>
+                            <div class="row" >
+                                <div class="col-md-6" >
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mt-4">
+                                            <input type="checkbox" class="" style="scale:2.5;" name="is_subscription"  id="is_subscription" <?=((isset($data['is_subscription']) && $data['is_subscription']==1) ? 'checked' : '' )?> >
+                                            <label class="" style="margin-left:20px;" for="is_subscription">Is Subscription</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="form-group">
+                                        <label class="form-label text-muted">Status</label>
+                                        <select class="custom-select form-control" name="status" required>
+                                            <?php
+                                            if(!isset($_GET['id'])) echo "<option selected=''>--Select Status--</option>";
+                                            $selected = ($data['cat_id']== 1 ) ? 'selected' : '';
+                                            ?>
+                                                <option value='1' <?=(isset($data['status']) && $data['status']== 1 ) ? 'selected' : ''?>>Active</option>
+                                                <option value='0' <?=(isset($data['status']) && $data['status']== 0 ) ? 'selected' : ''?>>Deactive</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group mb-0">
                                 <div class="">

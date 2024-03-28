@@ -33,13 +33,13 @@
                 
             </div>
             <ul id="js-nav-menu" class="nav-menu">
-                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','')) ? 'active open' : '' )?>">
+                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','mod_user','mod_expertise','')) ? 'active open' : '' )?>">
                     <a href="#" title="Application Intel" data-filter-tags="application intel">
                         <i class="fal fa-info-circle"></i>
                         <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
                     </a>
                     <ul>
-                        <li class="<?=($action =='users') ? 'active' : '' ?>">
+                        <li class="<?=(in_array($action,array('users','mod_user'))? 'active' : '' )?>">
                             <a href="<?=urlAction('users')?>" title="All Users" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Users </span>
                             </a>
@@ -76,6 +76,29 @@
                         <li class="<?=($action =='sub_category') ? 'active' : '' ?>">
                             <a href="<?=urlAction('sub_category')?>" title="All Sub Category" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Sub Category</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="<?=(in_array($action,array('privacy-policy','terms-condition','about-us')) ? 'active open' : '' )?>">
+                    <a href="#" title="Application Intel" data-filter-tags="application intel">
+                        <i class="fal fa-info-circle"></i>
+                        <span class="nav-link-text" data-i18n="nav.application_intel">CMS</span>
+                    </a>
+                    <ul>
+                        <li class="<?=($action =='privacy-policy') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('privacy-policy')?>" title="All privacy-policy" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard"> Privacy Policy</span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='terms-condition') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('terms-condition')?>" title="All Sub Category" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard"> Terms Condition</span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='about-us') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('about-us')?>" title="All Sub Category" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">About us</span>
                             </a>
                         </li>
                     </ul>

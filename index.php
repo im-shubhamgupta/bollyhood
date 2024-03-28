@@ -58,6 +58,15 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'mod_plan':
 			include_once('action/mod_plan.php');
 		break;
+		case 'privacy-policy':
+			include_once('action/privacy-policy.php');
+		break;
+		case 'terms-condition':
+			include_once('action/terms-condition.php');
+		break;
+		case 'about-us':
+			include_once('action/about-us.php');
+		break;
 		default :
 			if(isset($_GET['action']) && empty($_GET['action'])){
 				die("no action found");

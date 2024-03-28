@@ -215,8 +215,11 @@ switch($ajax_action){
 		$requestData= $_REQUEST;
 		$columns = array( 
 			0 =>'plan_id',
-			1 =>'category_name',
-			2 =>'create_date',
+			1 =>'type',
+			2 =>'title',
+			3 =>'price',
+			4 =>'description',
+			5 =>'create_date',
 		);
 		// $sql="SELECT * from sub_category as sc inner join category c on c.id = sc.category_id where 1  "; 
 		$sql="SELECT * from subscription_plan where 1  "; 
@@ -226,6 +229,7 @@ switch($ajax_action){
 		if($requestData['search']['value'] ) {  
 			$sql.=" AND (  ";
 			$sql.="  `price` LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR `title` LIKE '%".$requestData['search']['value']."%' ";
 			$sql.=" OR `type` LIKE '%".$requestData['search']['value']."%' ";
 			$sql.=" OR `description` LIKE '%".$requestData['search']['value']."%' ";
 			// $sql.=" OR `mobile` LIKE '%".$requestData['search']['value']."%' ";
@@ -247,6 +251,7 @@ switch($ajax_action){
 			$td = array();
 			$td[] = $i;
 			$td[] = ucwords($list['type']);
+			$td[] = $list['title'];
 			$td[] = $list['price'];
 			$td[] = $list['description'];
 			

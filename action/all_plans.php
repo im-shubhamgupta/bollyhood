@@ -32,6 +32,7 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Type</th>
+                                    <th>Title</th>
                                     <th>Price</th>
                                     <th>Description</th>
                                     <th>Action</th>
@@ -43,6 +44,7 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Type</th>
+                                    <th>Title</th>
                                     <th>Price</th>
                                     <th>Description</th>
                                     <th>Action</th>

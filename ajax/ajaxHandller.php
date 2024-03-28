@@ -13,6 +13,7 @@ switch ($ajax_action) {
 			'status' => escapeStringTrim($_POST['status']),
 			'cat_id' => escapeStringTrim($_POST['cat_id']),
 			'image' => escapeStringTrim($_POST['user_image']),
+			'is_subscription' => (isset($_POST['is_subscription']) && $_POST['is_subscription'] == 'on') ? '1' : '0',
 			'modify_date' => date("Y-m-d H:i:s")
 		);
 		// $temp['image'] = 'no_image.png';
@@ -303,13 +304,14 @@ switch ($ajax_action) {
 		echo json_encode($response);
 		die;
 		break;
-		case 'mod_subscription_plan':
+	case 'mod_subscription_plan':
 			// echoPrint($_POST);
 			$plan_id = isset($_POST['id'])?  escapeString($_POST['id']) : '' ;
 			$temp = array(
-				'type' => escapeString($_POST['type']),
-				'price' => escapeString($_POST['price']),
-				'description' => escapeString($_POST['description']),
+				'type' => escapeStringTrim($_POST['type']),
+				'title' => escapeStringTrim($_POST['title']),
+				'price' => escapeStringTrim($_POST['price']),
+				'description' => escapeStringTrim($_POST['description']),
 			);
 			//  {
 				$temp['date_added'] = date('Y-m-d H:i:s');
@@ -322,6 +324,25 @@ switch ($ajax_action) {
 			echo json_encode($response);
 			die;
 			break;
+	case 'mod_cms_readme':
+		// echoPrint($_POST);
+		$type = isset($_POST['id'])?  escapeString($_POST['id']) : '' ;
+		$description = ($_POST['description']) ? escapeString($_POST['description']) : ''; 
+		
+		$check = executeSelectSingle('cms_readme',array(),array('type'=>$type));
+		// print_r($check);
+		if(empty($check)){
+			executeInsert('cms_readme',array('type'=>$type,'description'=> $description,'create_date'=>date('Y-m-d H:i:s'),'modify_date'=>date('Y-m-d H:i:s')));
+			$response['check'] = 'success';
+			$response['msg'] = 'Data Inserted Successfully';
+		}else{
+			executeUpdate('cms_readme',array('description'=> $description,'modify_date'=>date('Y-m-d H:i:s')),array('type'=>$type));
+			$response['check'] = 'success';
+			$response['msg'] = 'Data Updated Successfully';
+		}
+		echo json_encode($response);
+		die;
+		break;		
 	default:
 		echo json_encode(array('check' => 'failed', 'msg' => 'Bad Request'));
 		break;
