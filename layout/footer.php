@@ -17,6 +17,12 @@
 
 <script type="text/javascript" src="<?= asset('js/main.js') ?>"></script>
 <script type="text/javascript" src="<?= asset('js/dataTable.js') ?>"></script>
+<script>
+
+// $('#summernote').summernote(); 
+
+
+</script>
 
 <?php
 if (isset($_SESSION['login']) && $_SESSION['login'] == 'y') { ?>

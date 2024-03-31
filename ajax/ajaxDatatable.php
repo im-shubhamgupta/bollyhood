@@ -74,7 +74,6 @@ switch($ajax_action){
 		$totalFiltered = getAffectedRowCount($sql); 
 
 		//$sql .="ORDER BY id desc"; 
-
 		$sql .=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
 		$i=1;
 		$arr = executeQuery($sql);
@@ -83,6 +82,7 @@ switch($ajax_action){
 			$img_path = "<img class='user_img' src='".CATEGORY_IMAGE_PATH.$list['category_image']."' >";
 			$td[] = $i;
 			$td[] = $img_path;
+			$td[] = CATEGORY_TYPE[$list["type"]];
 			$td[] = $list['category_name'];
 			$td[] = $date=date('d-m-Y',strtotime($list["create_date"]));
 			$action = '<span><a href="'.urlAction('mod_category&id='.$list['id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
@@ -255,8 +255,9 @@ switch($ajax_action){
 			$td[] = $list['price'];
 			$td[] = $list['description'];
 			
+			$action ='<span><a href="'.urlAction('mod_plan&id='.$list['plan_id']).'" class="btn btn-success btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';
 			
-			$action = '  <span><a href="#" onclick="delete_subscription_plan(this)" data-id="'.$list['plan_id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';	
+			$action .= '  <span><a href="#" onclick="delete_subscription_plan(this)" data-id="'.$list['plan_id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';	
 			$td[] = $action;									
 			$data[] = $td;
 			$i ++;

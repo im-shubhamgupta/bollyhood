@@ -3,17 +3,23 @@ require_once 'include/db_controller.php';
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['email']) && isset($_REQUEST['password']) && isset($_REQUEST['cat_id']) && isset($_REQUEST['user_type']) ) {
+if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['email']) && isset($_REQUEST['password'])  && isset($_REQUEST['user_type']) && isset($_REQUEST['categories']) && isset($_REQUEST['sub_categories']) ) {
 
     $data= array(
         'name' => $db->escapeStringTrim($_REQUEST['name']),
         'mobile' => $db->escapeStringTrim($_REQUEST['mobile']),
         'email' => $db->escapeStringTrim($_REQUEST['email']),
         'password' => $db->escapeStringTrim($_REQUEST['password']),
-        'cat_id' => $db->escapeStringTrim($_REQUEST['cat_id']),
+        // 'cat_id' =>(isset($_REQUEST['cat_id']) && !empty($_REQUEST['cat_id']) )?  $db->escapeStringTrim($_REQUEST['cat_id']) : NULL,
+        // 'cat_id' => NULL,
         'user_type' => $db->escapeStringTrim($_REQUEST['user_type']),
+        'categories' => $db->escapeStringTrim($_REQUEST['categories']),
+        'sub_categories' => $db->escapeStringTrim($_REQUEST['sub_categories']),
     );
-    if(empty($data['name'])){
+    if($_SERVER['REQUEST_METHOD'] != 'POST'){
+        $error_msg = "This is POST API";
+    }
+    elseif(empty($data['name'])){
         $error_msg = " Required name";
     }
     elseif(empty($data['mobile'])){
@@ -30,9 +36,9 @@ if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['em
     }
     elseif(empty($data['password'])){
         $error_msg = "Required password";
-    }
-    elseif(empty($data['cat_id'])){
-        $error_msg = "Required cat_id";
+    } 
+    elseif(empty($_FILES['image']['name'])){
+        $error_msg = "Required User Image";
     }
 
     if(!isset( $error_msg)){
@@ -48,6 +54,6 @@ if (isset($_REQUEST['name']) &&isset($_REQUEST['mobile']) && isset($_REQUEST['em
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter name,email,mobile, password,cat_id,user_type";
+    $response["msg"] = "Required parameter name,email,mobile, password,user_type,categories,sub_categories";
 }
 echo json_encode($response);

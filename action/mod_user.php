@@ -3,6 +3,11 @@
 $id = isset($_GET['id']) ? escapeString($_GET['id']) : '';
 $data = executeSelectSingle('users',array(),array('id' => $id));
 $category = executeSelect('category',array(),array(),'category_name');
+if(!empty($data['id'])){
+    $worklinks = getResultAsArray("SELECT `worklink_id`,`worklink_name`,`worklink_url` from users_worklink where uid = '".$data['id']."' ");
+}else{
+    $worklinks = array();
+}
 // print_R($data);
 
 ?>
@@ -42,9 +47,7 @@ $category = executeSelect('category',array(),array(),'category_name');
                     </div> 
                 <?php 
             } ?>   
-                
                 <div class="panel-container show">
-                  
                     <div class="panel-content">
                         <form  method="POST" id="add_user" >
                             <input type="hidden" name='id' value="<?=$id?>">
@@ -69,6 +72,100 @@ $category = executeSelect('category',array(),array(),'category_name');
                                 <label class="form-label" for="simpleinput">Mobile</label>
                                 <input required type="number" id="mobile" name="mobile" class="form-control" placeholder="Enter Mobile" value="<?=isset($data['mobile']) ? $data['mobile'] : ''?>">
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="simpleinput">Reviews</label>
+                                        <input required type="text" id="reviews" name="reviews" class="form-control" placeholder="Enter reviews" value="<?=isset($data['reviews']) ? $data['reviews'] : ''?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="simpleinput">Jobs done</label>
+                                        <input required type="text" id="jobs_done" name="jobs_done" class="form-control" placeholder="Enter jobs_done" value="<?=isset($data['jobs_done']) ? $data['jobs_done'] : ''?>">
+                                    </div>
+                                </div>    
+                            </div>  
+                            <br>  
+                            <div class="form-group">
+                                <label class="form-label" for="simpleinput">Description</label>
+                                <textarea name="description" id="description" class="form-control " rows="4"><?=isset($data['description']) ? $data['description'] : ''?></textarea>
+                            </div>
+                            <div class="work_div">
+                                    <?php 
+                                    if(!empty($id) && !empty($worklinks)){
+                                        $i=0;
+                                        foreach($worklinks as $val){
+                                            $i++;
+                                        ?>
+                                            <div class="row worklinks_row" id="worklink_row_<?=$i?>" >
+                                            
+                                                <div class="col-md-10 mt-3">
+                                                    <div class="row work_row ">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                            <input type="hidden" name="worklink_id[]" value="<?=$val['worklink_id']?>">
+                                                                <label class="form-label <?=($i>1)?'d-none':''?> " for="simpleinput">Worklink Name</label>
+                                                                <input required type="text" id="worklink_name_<?=$i?>" name="worklink_name[]" class="form-control" placeholder="Enter worklink Name" value="<?=$val['worklink_name']?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <label class="form-label <?=($i>1)?'d-none':''?> " for="simpleinput">Work links</label>
+                                                                <input required type="text" id="worklink_url_<?=$i?>" name="worklink_url[]" class="form-control" placeholder="Enter work links" value="<?=$val['worklink_url']?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            <?php
+                                            if($i == 1 ){
+                                                echo '<div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <button type="button" onclick="add_worklink_row()" class="btn btn-primary btn-sm waves-effect waves-themed mt-4"> Add More </button>
+                                                            </div>
+                                                        </div>';
+
+                                            }else{
+                                                echo '<div class="col-md-2 mt-3">
+                                                            <div class="form-group">
+                                                            <a href="javascript:void(0);" onclick="remove_worklink_row('.$i.')" data-sl="`+sl+`" class="btn btn-danger btn-icon rounded-circle waves-effect waves-themed">
+                                                            <i class="fal fa-times"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>';
+                                            }
+                                        echo '</div>';
+                                        }
+                                    
+                                    }else{?>
+                                        <div class="row worklinks_row" id="worklink_row_1" >
+                                            <div class="col-md-10">
+                                                <div class="row work_row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Worklink Name</label>
+                                                            <input required type="text" id="worklink_name_1" name="worklink_name[]" class="form-control" placeholder="Enter worklink Name" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Work links</label>
+                                                            <input required type="text" id="worklink_url_1" name="worklink_url[]" class="form-control" placeholder="Enter work links" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <button type="button" onclick="add_worklink_row()" class="btn btn-primary btn-sm waves-effect waves-themed mt-4"> Add More </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     <?php        
+                                    }
+                                    ?>
+                                </div>
+                            <br>
                             <div class="form-group">
                                 <label class="form-label text-muted">Category</label>
                                 <select class="custom-select form-control" name="cat_id" required>

@@ -24,6 +24,11 @@ const CAT = array(
     'self' => 'Self',
     'company' => 'Company'
 );
+const CATEGORY_TYPE = array(
+    '0' => 'Actor',
+    '1' => 'Casting',
+    '2' => 'Others'
+);
 
 const PLANS = array(
     'month' => 'Monthly',

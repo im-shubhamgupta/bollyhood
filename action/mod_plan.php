@@ -48,10 +48,10 @@ $data = executeSelectSingle('subscription_plan',array(),array('plan_id'=>$id));
                             <div class="form-group">
                                 <label class="form-label text-muted">Type</label>
                                 <select class="custom-select form-control" name="type" required>
-                                    <option selected value="">--Select type--</option>
+                                    <option value="">--Select type--</option>
                                     <?php
                                     foreach(PLANS as $k => $val){
-                                        $selected = (isset($_GET['id']) &&  $val == $data['type']) ? 'selected' : ''; 
+                                        $selected = (isset($_GET['id']) &&  $k == $data['type']) ? 'selected' : ''; 
                                         echo "<option value='".$k."' ".$selected.">".$val."</option>";
                                     }
                                     ?>

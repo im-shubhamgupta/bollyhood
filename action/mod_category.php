@@ -52,6 +52,21 @@ $data = executeSelectSingle('category',array(),array('id' => $id));
                         <form action="<?=url('?controller=form-controller')?>" method="POST" enctype="multipart/form-data" id="mod_category"  >
                             <input type="hidden" name='submit_action' value="add_category">
                             <input type="hidden" name='id' value="<?=$id?>">
+                            <div class="frame-wrap">
+                            <label class="form-label mb-3" for="simpleinput">Choose Type:</label>
+                                <div class="form-group">
+                                    <?php
+                                        foreach(CATEGORY_TYPE as $k =>$val){
+
+                                            echo '<div class="custom-control custom-radio custom-control-inline">
+                                                    <input required type="radio" '.((isset($data['type']) && $k == $data['type'])? 'checked' : '').' class="custom-control-input" id="defaultInline1Radio_'.$k.'" name="type" value="'.$k.'">
+                                                    <label class="custom-control-label" for="defaultInline1Radio_'.$k.'">'.$val.'</label>
+                                                </div>';
+                                        }
+                                        ?>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Text</label>

@@ -39,7 +39,7 @@ $(document).ready(function(){
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
         }
-    $('#summernote').summernote();    
+      
     //login form validate
     $("#js-login-btn").click(function(event){
         // Fetch form to apply custom Bootstrap validation

@@ -45,13 +45,23 @@ class DB_Controller extends DB_Function{
         return '';
     }
     public function send_otp($data){
-        $result = $this->executeSelectSingle('users',array(),array('mobile' => $data['mobile'],'otp'=>$data['otp']));
+        // $result = $this->executeSelectSingle('users',array(),array('mobile' => $data['mobile'],'otp'=>$data['otp']));
+        $usql = "SELECT * ,CONCAT('".USER_IMAGE_PATH."', `image`) as image,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,     IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where mobile='".$data['mobile']."' and otp='".$data['otp']."'    ";
+        $result = $this->getSingleResult($usql);
         if(!empty($result)){
+            $category = $this->getResultAsArray("SELECT `category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$result['catt'].") ");
+            $sub_category = $this->getResultAsArray("SELECT `sub_cat_name` from sub_category where sub_cat_id IN (".$result['sub_catt'].") ");
             $temp = array(
                 'id' => $result['id'],
                 'name' => $result['name'],
                 'email' => $result['email'],
                 'mobile' => $result['mobile'],
+                // 'reviews' => $result['reviews'],
+                // 'description' => $result['description'],
+                // 'jobs_done' => $result['jobs_done'],
+                // 'experience' => $result['experience'],
+                'categories' => $category,
+                'sub_categories' => $sub_category,
                 'status' => $result['status'],
                 'is_verify' => $result['is_verify'],
                 'is_subscription' => $result['is_subscription'],
@@ -75,6 +85,29 @@ class DB_Controller extends DB_Function{
             $error_note = "Email id already exist";
         }
         if(!isset($error_note)){
+            $image_flag = 0;
+            if(isset($_FILES['image']) && !empty(($_FILES['image']['name']) )){
+                $imageFileType = strtolower(pathinfo(basename($_FILES['image']['name']),PATHINFO_EXTENSION));
+                $valid_imgname = date('YmdHis')."_".rand('1000','9999').".".$imageFileType; 
+                if(in_array($imageFileType, VALID_IMG_EXT)){
+                    $image_flag = 1;
+                }else{
+                    //echo $msg  = "Accept only .png, .jpg, .jpeg Extension Image only";
+                }   
+            }
+            //'../../resources/image/users/'
+            if($image_flag == 1) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], UPLOAD_USER_IMAGE_PATH.$valid_imgname)) {
+                    //echo "image uploaded";   
+                }else{
+                    //echo "can,t upload Image"; 
+                }
+            }
+            $data['modify_date'] = date("Y-m-d H:i:s");
+            if(!empty($_FILES['image']['name'])){
+                $data['image'] = !empty($valid_imgname) ? $valid_imgname : 'no_image.png' ;
+            }
+
             $data['create_date'] = date("Y-m-d H:i:s");
             $data['is_verify'] = 1;
             $result = $this->executeInsert('users',$data);
@@ -177,7 +210,6 @@ class DB_Controller extends DB_Function{
     public function expertise_list(){
         $exp = $this->executeSelect('expertise',array('id','name','user_image','categories','is_verify'),array(),'name');
         if(count($exp) > 0){
-            
             $map_exp = array_map(function($item){
                 $item['user_image'] = !empty($item['user_image']) ? EXPERTISE_IMAGE_PATH.$item['user_image'] : '';
                     $item['categories'] = !empty($item['categories']) ? $this->getResultAsArray("SELECT `category_name` from category where id IN ( ".$item['categories']." )") : array();
@@ -251,9 +283,22 @@ class DB_Controller extends DB_Function{
     }
     public function get_profile($data){
         $res['check'] = 'failed';
-        $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=>$data['id']));
+        $usql = "SELECT * ,CONCAT('".USER_IMAGE_PATH."', `image`) as image,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,     IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where id='".$data['id']."'";
+        $user = $this->getSingleResult($usql);
+        
         if(!empty($user)){
-            return $user;
+            $category =!empty($user)? $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$user['catt'].") ") : array() ;
+            $sub_category =!empty($user)?  $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$user['sub_catt'].") ") : array();
+                    // $this->debugSql();  
+            $user['categories'] = $category;       
+            $user['sub_categories'] = $sub_category; 
+        }
+        $trim_user = array_map(function($it){
+            return is_null($it) ? '' : $it;
+        },$user);
+
+        if(!empty($trim_user)){
+            return $trim_user;
         }else{
             return '';
         }  
@@ -287,21 +332,53 @@ class DB_Controller extends DB_Function{
                     //echo "can,t upload Image"; 
                 }
             }
-            $data['modify_date'] = date("Y-m-d H:i:s");
+            // $data['modify_date'] = date("Y-m-d H:i:s");
+            $currentDateTime = new DateTime();
+            $data['modify_date']  = $currentDateTime->format('Y-m-d H:i:s');
             if(!empty($_FILES['image']['name'])){
                 $data['image'] = !empty($valid_imgname) ? $valid_imgname : 'no_image.png' ;
             }
             
             $uid= $data['id'];
+            $work_links =$data['worklinks'];
             unset($data['id']);
-            // print_r($data);
+            unset($data['worklinks']);
+            
             $result = $this->executeUpdate('users',$data,array('id'=>$uid));
-            $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=> $uid));
+            // $this->debugSql();
+            //save worklinks
+            $workArr = !empty($work_links) ? explode(',',$work_links) : array();
+            
+            foreach($workArr as $val){
+                $this->executeInsert('users_worklink',array('uid'=>$uid,'worklink_name'=>'','worklink_url'=>$val,'date_added'=>date('Y-m-d H:i:s')));
+            }
+
+            // $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=> $uid));
+
+            $user = $this->getSingleResult("SELECT *,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
+            IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where id='".$uid."'");
+            if(!empty($user)){
+    
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$user['catt'].") ");
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$user['sub_catt'].") ");
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$uid."' ";
+
+                $user['image'] = !empty($user['image']) ? USER_IMAGE_PATH.$user['image'] : '';
+                
+                $user['work_links'] = $this->getResultAsArray($wSql);
+
+                $user['categories'] = $category;
+                $user['sub_categories'] = $sub_category;
+            }    
+                $trim_user = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$user);
             
             // $this->debugSql;
             if($result){
                 $res['check'] = 'success';
-                $res['result'] = $user;
+                $res['result'] = $trim_user;
             }
         }else{
             $res['msg'] = $error_note;
@@ -400,6 +477,69 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }    
+    }
+    public function all_users_list($data){
+        $exp = $this->getResultAsArray("SELECT *,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt ,
+        IF(`sub_categories` = '' || `sub_categories` IS NULL, '0', `sub_categories`) as sub_catt  from users where id!='".$data['uid']."' ");
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
+                // $this->debugSql();      
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
+
+                $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
+                
+                $item['work_links'] = $this->getResultAsArray($wSql);
+
+                $item['categories'] = $category;
+                $item['sub_categories'] = $sub_category;
+                   
+                return $item;
+            },$exp);
+
+            foreach($map_exp as $val){
+                $trim_exp[] = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }
+    }
+    public function recent_users_list($data){
+        $exp = $this->getResultAsArray("SELECT *,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
+        IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where id!='".$data['uid']."' limit 3 ");
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
+                // $this->debugSql();      
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
+
+                $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
+                
+                $item['work_links'] = $this->getResultAsArray($wSql);
+
+                $item['categories'] = $category;
+                $item['sub_categories'] = $sub_category;
+                   
+                return $item;
+            },$exp);
+            foreach($map_exp as $val){
+                $trim_exp[] = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }
     }
     
     

@@ -18,7 +18,7 @@ switch($submit_action){
 		}
 		$password = escapeStringTrim($_POST['password']);
 
-		$data = executeSelectSingle('users',array(),$temp);
+		$data = executeSelectSingle('backend_users',array(),$temp);
 		if(count($data) > 0){
 			//put value in session
 			// $json_data = array(

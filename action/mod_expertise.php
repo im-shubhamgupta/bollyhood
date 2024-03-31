@@ -94,8 +94,6 @@ if(!empty($data['id'])){
                                 <textarea name="description" id="description" class="form-control " rows="4"><?=isset($data['description']) ? $data['description'] : ''?></textarea>
                             </div>
                             <div class="work_div">
-                           
-                                    
                                     <?php 
                                     if(!empty($id) && !empty($worklinks)){
                                         $i=0;

@@ -1,5 +1,8 @@
 <?php
 include('../constant.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $ajax_action = isset($_POST['ajax_action']) ? $_POST['ajax_action'] : '';
 $response = array('check' => 'failed', 'msg' => 'Something error, Please try again!!');
 switch ($ajax_action) {
@@ -10,6 +13,9 @@ switch ($ajax_action) {
 			'name' => escapeStringTrim($_POST['name']),
 			'email' => escapeStringTrim($_POST['email']),
 			'mobile' => escapeStringTrim($_POST['mobile']),
+			'reviews' => escapeStringTrim($_POST['reviews']),
+			'jobs_done' => escapeStringTrim($_POST['jobs_done']),
+			'description' => escapeStringTrim($_POST['description']),
 			'status' => escapeStringTrim($_POST['status']),
 			'cat_id' => escapeStringTrim($_POST['cat_id']),
 			'image' => escapeStringTrim($_POST['user_image']),
@@ -51,6 +57,19 @@ switch ($ajax_action) {
 		if ($response['check'] != 'already') {
 			if (!empty($id)) {
 				$up = executeUpdate('users', $temp, array('id' => $id));
+				if (!empty($_POST['worklink_name'])) {
+
+					executeDelete('users_worklink', array('uid' => $id));
+					foreach ($_POST['worklink_name'] as $k => $val) {
+						$work_arr = array(
+							'uid' => $id,
+							'worklink_name' => $_POST['worklink_name'][$k],
+							'worklink_url' => $_POST['worklink_url'][$k],
+							'date_added' => date("Y-m-d H:i:s"),
+						);
+						$exp_insert = executeInsert('users_worklink', $work_arr);
+					}
+				}
 				if ($up) {
 					$response['check'] = 'success';
 					$response['msg'] = 'Data Updated Successfully';
@@ -59,6 +78,19 @@ switch ($ajax_action) {
 				$temp['create_date'] = date("Y-m-d H:i:s");
 				$temp['password'] = 123456;
 				$insert = executeInsert('users', $temp);
+				//insert_worklinks
+				if (!empty($_POST['worklink_name'])) {
+					foreach ($_POST['worklink_name'] as $k => $val) {
+						$work_arr = array(
+							'uid' => $insert,
+							'worklink_name' => $_POST['worklink_name'][$k],
+							'worklink_url' => $_POST['worklink_url'][$k],
+							'date_added' => date("Y-m-d H:i:s"),
+						);
+						// print_R($work_arr);
+						$exp_insert = executeInsert('users_worklink', $work_arr);
+					}
+				}
 				if ($insert > 0) {
 					$response['check'] = 'success';
 					$response['msg'] = 'Data Inserted Successfully';
@@ -313,13 +345,22 @@ switch ($ajax_action) {
 				'price' => escapeStringTrim($_POST['price']),
 				'description' => escapeStringTrim($_POST['description']),
 			);
-			//  {
+			$temp['date_modified'] = date('Y-m-d H:i:s');
+			if(!empty($plan_id)){
+				$up = executeUpdate('subscription_plan', $temp,array('plan_id'=>$plan_id));
+				if ($up) {
+					$response['check'] = 'success';
+					$response['msg'] = 'Data Inserted Successfully';
+				}
+			}else{
 				$temp['date_added'] = date('Y-m-d H:i:s');
 				$insert = executeInsert('subscription_plan', $temp);
 				if ($insert) {
 					$response['check'] = 'success';
 					$response['msg'] = 'Data Inserted Successfully';
 				}
+			}
+				
 			// }
 			echo json_encode($response);
 			die;
