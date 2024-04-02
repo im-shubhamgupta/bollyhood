@@ -3,7 +3,8 @@ require_once 'include/db_controller.php';
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
-if (isset($_REQUEST['uid']) && isset($_REQUEST['name']) && isset($_REQUEST['mobile']) && isset($_REQUEST['email']) && isset($_REQUEST['reviews']) && isset($_REQUEST['description']) && isset($_REQUEST['jobs_done']) && isset($_REQUEST['experience']) && isset($_REQUEST['categories']) && isset($_REQUEST['sub_categories']) ) {
+
+if (isset($_REQUEST['uid']) && isset($_REQUEST['name']) && isset($_REQUEST['mobile']) && isset($_REQUEST['email'])) {
 
     $data= array(
         'id' => $db->escapeStringTrim($_REQUEST['uid']),
@@ -11,14 +12,14 @@ if (isset($_REQUEST['uid']) && isset($_REQUEST['name']) && isset($_REQUEST['mobi
         'mobile' => $db->escapeStringTrim($_REQUEST['mobile']),
         'email' => $db->escapeStringTrim($_REQUEST['email']),
         // 'cat_id' => $db->escapeStringTrim($_REQUEST['cat_id']),
-        'cat_id' => '',
-        'reviews' => $db->escapeStringTrim($_REQUEST['reviews']),
-        'description' => $db->escapeStringTrim($_REQUEST['description']),
-        'jobs_done' => $db->escapeStringTrim($_REQUEST['jobs_done']),
-        'experience' => $db->escapeStringTrim($_REQUEST['experience']),
-        'categories' => $db->escapeStringTrim($_REQUEST['categories']),
-        'sub_categories' => $db->escapeStringTrim($_REQUEST['sub_categories']),
-        'worklinks' => $db->escapeStringTrim($_REQUEST['worklinks']),
+        // 'cat_id' => '',
+        'reviews' =>isset($_REQUEST['reviews']) ?  $db->escapeStringTrim($_REQUEST['reviews']) : '',
+        'description' => isset($_REQUEST['description']) ? $db->escapeStringTrim($_REQUEST['description']) : '',
+        'jobs_done' => isset($_REQUEST['jobs_done']) ? $db->escapeStringTrim($_REQUEST['jobs_done']): '',
+        'experience' =>isset($_REQUEST['experience']) ?  $db->escapeStringTrim($_REQUEST['experience']): '',
+        'categories' =>isset($_REQUEST['categories']) ?  $db->escapeStringTrim($_REQUEST['categories']): '',
+        'sub_categories' =>isset($_REQUEST['sub_categories']) ?  $db->escapeStringTrim($_REQUEST['sub_categories']): '',
+        'worklinks' =>isset($_REQUEST['worklinks']) ? $_REQUEST['worklinks']: '',
     );
     if($_SERVER['REQUEST_METHOD'] != 'POST'){
         $error_msg = "This is POST API";

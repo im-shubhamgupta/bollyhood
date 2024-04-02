@@ -52,3 +52,6 @@ aside > .page-logo {
     width:100px;
 
 }
+.chosen-container-multi .chosen-choices {
+    background-image: linear-gradient(#eee 1%, #4e4a4a 15%);
+}

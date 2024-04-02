@@ -3,6 +3,8 @@
 $id = isset($_GET['id']) ? escapeString($_GET['id']) : '';
 $data = executeSelectSingle('users',array(),array('id' => $id));
 $category = executeSelect('category',array(),array(),'category_name');
+// $cat_ids = !empty($data['categories']) ? $data['categories'] : 0;
+// $category = getSingleResult("SELECT * from category where id IN ($cat_ids) ");
 if(!empty($data['id'])){
     $worklinks = getResultAsArray("SELECT `worklink_id`,`worklink_name`,`worklink_url` from users_worklink where uid = '".$data['id']."' ");
 }else{
@@ -68,21 +70,33 @@ if(!empty($data['id'])){
                                 <label class="form-label" for="simpleinput">Email</label>
                                 <input required type="email" id="email" name="email"  placeholder="Enter Email"  class="form-control" value="<?=isset($data['email']) ? $data['email'] : ''?>">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" for="simpleinput">Mobile</label>
-                                <input required type="number" id="mobile" name="mobile" class="form-control" placeholder="Enter Mobile" value="<?=isset($data['mobile']) ? $data['mobile'] : ''?>">
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="simpleinput">Mobile</label>
+                                            <input required type="number" id="mobile" name="mobile" class="form-control" placeholder="Enter Mobile" value="<?=isset($data['mobile']) ? $data['mobile'] : ''?>">
+                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="simpleinput">Experience</label>
+                                            <input  type="text" id="experience" name="experience" class="form-control" placeholder="Enter Experience" value="<?=isset($data['experience']) ? $data['experience'] : ''?>">
+                                        </div>
+                                </div>    
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="simpleinput">Reviews</label>
-                                        <input required type="text" id="reviews" name="reviews" class="form-control" placeholder="Enter reviews" value="<?=isset($data['reviews']) ? $data['reviews'] : ''?>">
+                                        <input  type="text" id="reviews" name="reviews" class="form-control" placeholder="Enter reviews" value="<?=isset($data['reviews']) ? $data['reviews'] : ''?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="simpleinput">Jobs done</label>
-                                        <input required type="text" id="jobs_done" name="jobs_done" class="form-control" placeholder="Enter jobs_done" value="<?=isset($data['jobs_done']) ? $data['jobs_done'] : ''?>">
+                                        <input type="text" id="jobs_done" name="jobs_done" class="form-control" placeholder="Enter jobs_done" value="<?=isset($data['jobs_done']) ? $data['jobs_done'] : ''?>">
                                     </div>
                                 </div>    
                             </div>  
@@ -168,11 +182,12 @@ if(!empty($data['id'])){
                             <br>
                             <div class="form-group">
                                 <label class="form-label text-muted">Category</label>
-                                <select class="custom-select form-control" name="cat_id" required>
-                                    <option selected value="">--Select Category--</option>
+                                <!-- <select class="chosen-select form-control" multiple name="cat_id" required> -->
+                                <select  data-placeholder="Choose a category..." multiple class="chosen-select form-control"  name="categories[]" >
                                     <?php
                                     foreach($category as $val){
-                                        $selected = (isset($_GET['id']) &&  $val['id']==$data['cat_id']) ? 'selected' : ''; 
+                                        // $selected = (isset($_GET['id']) &&  $val['id']==$data['cat_id']) ? 'selected' : ''; 
+                                        $selected = (isset($_GET['id']) && !empty($data['categories']) &&  in_array($val['id'],explode(',',$data['categories']))) ? 'selected' : ''; 
                                         echo "<option value='".$val['id']."' ".$selected.">".$val['category_name']."</option>";
                                     }
                                     ?>
@@ -213,3 +228,9 @@ if(!empty($data['id'])){
         </div>
     </div>
 </main>
+
+<script>
+
+
+
+</script>

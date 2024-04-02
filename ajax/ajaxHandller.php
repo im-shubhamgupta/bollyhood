@@ -17,7 +17,8 @@ switch ($ajax_action) {
 			'jobs_done' => escapeStringTrim($_POST['jobs_done']),
 			'description' => escapeStringTrim($_POST['description']),
 			'status' => escapeStringTrim($_POST['status']),
-			'cat_id' => escapeStringTrim($_POST['cat_id']),
+			'categories' => !empty($_POST['categories']) ? implode(',',$_POST['categories']) : '',
+			'experience' => escapeStringTrim($_POST['experience']),
 			'image' => escapeStringTrim($_POST['user_image']),
 			'is_subscription' => (isset($_POST['is_subscription']) && $_POST['is_subscription'] == 'on') ? '1' : '0',
 			'modify_date' => date("Y-m-d H:i:s")

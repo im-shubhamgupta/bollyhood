@@ -66,7 +66,7 @@ class DB_Controller extends DB_Function{
                 'is_verify' => $result['is_verify'],
                 'is_subscription' => $result['is_subscription'],
                 'user_type' => $result['user_type'],
-                'image' => ($result['image']== 'no_image.png' || empty($result['image']))  ? '': USER_IMAGE_PATH.$result['image']  ,
+                'image' => ($result['image']== 'no_image.png' || empty($result['image']))  ? '': $result['image']  ,
             );
             return $temp;
         }else{
@@ -289,9 +289,12 @@ class DB_Controller extends DB_Function{
         if(!empty($user)){
             $category =!empty($user)? $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$user['catt'].") ") : array() ;
             $sub_category =!empty($user)?  $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$user['sub_catt'].") ") : array();
+
+            $user_worklink =!empty($user)?  $this->getResultAsArray("SELECT worklink_name,worklink_url from users_worklink where uid ='".$user['id']."' ") : array();
                     // $this->debugSql();  
             $user['categories'] = $category;       
             $user['sub_categories'] = $sub_category; 
+            $user['work_links'] = $user_worklink; 
         }
         $trim_user = array_map(function($it){
             return is_null($it) ? '' : $it;
@@ -339,20 +342,25 @@ class DB_Controller extends DB_Function{
                 $data['image'] = !empty($valid_imgname) ? $valid_imgname : 'no_image.png' ;
             }
             
+
             $uid= $data['id'];
             $work_links =$data['worklinks'];
             unset($data['id']);
-            unset($data['worklinks']);
             
-            $result = $this->executeUpdate('users',$data,array('id'=>$uid));
-            // $this->debugSql();
-            //save worklinks
-            $workArr = !empty($work_links) ? explode(',',$work_links) : array();
-            
-            foreach($workArr as $val){
-                $this->executeInsert('users_worklink',array('uid'=>$uid,'worklink_name'=>'','worklink_url'=>$val,'date_added'=>date('Y-m-d H:i:s')));
+
+            // echo $data['worklinks'];
+
+            if(!empty($data['worklinks'])){
+                $worklinkArr = json_decode($data['worklinks'],1);
+                $this->executeDelete('users_worklink',array('uid'=>$uid));
+                foreach($worklinkArr as $val){
+                    $this->executeInsert('users_worklink',array('uid'=>$uid,'worklink_name'=>$val['worklink_name'],'worklink_url'=>$val['worklink_url'],'date_added'=>date('Y-m-d H:i:s')));
+                }
             }
 
+            unset($data['worklinks']);
+            $result = $this->executeUpdate('users',$data,array('id'=>$uid));
+            
             // $user = $this->executeSelectSingle('users',array('*,CONCAT("'.USER_IMAGE_PATH.'", `image`) as image'),array('id'=> $uid));
 
             $user = $this->getSingleResult("SELECT *,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
@@ -370,6 +378,7 @@ class DB_Controller extends DB_Function{
 
                 $user['categories'] = $category;
                 $user['sub_categories'] = $sub_category;
+                unset($user['sub_categories']);
             }    
                 $trim_user = array_map(function($it){
                     return is_null($it) ? '' : $it;

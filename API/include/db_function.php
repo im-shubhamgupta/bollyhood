@@ -278,6 +278,7 @@ class DB_Function extends DB {
 					$clausenew = implode(" AND ", $clause_array);
 				}
 			}
+			$this->exeutedSql = "DELETE FROM {$table} WHERE {$clausenew}";
 			$result = mysqli_query($mysqli, "DELETE FROM {$table} WHERE {$clausenew}");
 			return $result;
 		}
