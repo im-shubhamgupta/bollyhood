@@ -33,7 +33,7 @@
                 
             </div>
             <ul id="js-nav-menu" class="nav-menu">
-                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','mod_user','mod_expertise','')) ? 'active open' : '' )?>">
+                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','mod_user','mod_expertise','bookings','')) ? 'active open' : '' )?>">
                     <a href="#" title="Application Intel" data-filter-tags="application intel">
                         <i class="fal fa-info-circle"></i>
                         <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
@@ -58,6 +58,16 @@
                         <li class="<?=($action =='plans' ||$action == 'mod_plan') ? 'active' : '' ?>">
                             <a href="<?=urlAction('plans')?>" title="All Plans" data-filter-tags="application intel marketing dashboard">
                                 <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Plans </span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='bookings') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('bookings')?>" title="All Booking" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Bookings </span>
+                            </a>
+                        </li>
+                        <li class="<?=($action =='casting') ? 'active' : '' ?>">
+                            <a href="<?=urlAction('casting')?>" title="All Casting" data-filter-tags="application intel marketing dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_marketing_dashboard">All Casting </span>
                             </a>
                         </li>
                     </ul>

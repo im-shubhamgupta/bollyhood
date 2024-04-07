@@ -65,3 +65,71 @@ function load_all_subscription_plans(){
         },
     });
 }
+function load_all_bookings(){
+    $('#booking_datatable').dataTable({
+        "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
+        // 'order':[0,'DESC'],
+        "ordering" : false,
+        responsive: true,
+        lengthChange: false,
+        dom:
+            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "columnDefs": [
+            {"className": "text-center", "targets": "_all"}
+            ],
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Print',
+                titleAttr: 'Print Table',
+                className: 'btn-outline-primary btn-sm'
+            }
+        ],
+        "processing": true,
+            "serverSide": true,
+            "scrollX": true,
+            "ajax":{
+                'url' : ajax_url('ajaxDatatable.php'), 
+                'type': "post",
+                'data' : {
+                    'ajax_action' : 'fetch_all_bookings' 
+                }
+        },
+    });
+}
+function load_all_casting(){
+    $('#casting_datatable').dataTable({
+        "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],
+        // 'order':[0,'DESC'],
+        "ordering" : false,
+        responsive: true,
+        lengthChange: false,
+        dom:
+            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "columnDefs": [
+            {"className": "text-center", "targets": "_all"}
+            ],
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Print',
+                titleAttr: 'Print Table',
+                className: 'btn-outline-primary btn-sm'
+            }
+        ],
+        "processing": true,
+            "serverSide": true,
+            "scrollX": true,
+            "ajax":{
+                'url' : ajax_url('ajaxDatatable.php'), 
+                'type': "post",
+                'data' : {
+                    'ajax_action' : 'fetch_all_castings' 
+                }
+        },
+    });
+}

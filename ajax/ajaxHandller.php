@@ -310,7 +310,35 @@ switch ($ajax_action) {
 		} else {
 			$response['msg'] = 'Delete id not found';
 		}
-		break;		
+		break;	
+	case "delete_booking":
+			$id = escapeString($_POST['id']);
+			if (!empty($id)) {
+				$del = executeDelete('users_booking', array('id' => $id));
+				if ($del) {
+					$response['check'] = 'success';
+					$response['msg'] = 'Delete Successfully';
+				} else {
+					$response['msg'] = 'Error Happend';
+				}
+			} else {
+				$response['msg'] = 'Delete id not found';
+			}
+			break;
+		case "delete_casting":
+			$id = escapeString($_POST['id']);
+			if (!empty($id)) {
+				$del = executeDelete('casting', array('id' => $id));
+				if ($del) {
+					$response['check'] = 'success';
+					$response['msg'] = 'Delete Successfully';
+				} else {
+					$response['msg'] = 'Error Happend';
+				}
+			} else {
+				$response['msg'] = 'Delete id not found';
+			}
+			break;			
 	case 'add_sub_category':
 		// echoPrint($_POST);
 		$sub_cat_id = isset($_POST['id'])?  escapeString($_POST['id']) : '' ;
@@ -384,7 +412,62 @@ switch ($ajax_action) {
 		}
 		echo json_encode($response);
 		die;
-		break;		
+		break;
+	case 'mod_casting':
+		// echoPrint($_POST);
+		$temp = array(
+			'company_name' => escapeStringTrim($_POST['company_name']),
+			'organization' => escapeStringTrim($_POST['organization']),
+			'shifting' => escapeStringTrim($_POST['shifting']),
+			'date' => escapeStringTrim($_POST['date']),
+			'description' => escapeStringTrim($_POST['description']),
+			'requirement' => escapeStringTrim($_POST['requirement']),
+			'skill' => escapeStringTrim($_POST['skill']),
+			'role' =>  escapeStringTrim($_POST['role']),
+			'price_discussed' => escapeStringTrim($_POST['price_discussed']),
+			'price' => escapeStringTrim($_POST['price']),
+			'company_logo' => escapeStringTrim($_POST['company_logo']),
+			'document' => escapeStringTrim($_POST['document']),
+			'modify_date' => date("Y-m-d H:i:s")
+		);
+		// $temp['image'] = 'no_image.png';
+
+		/*$image = $_FILES['image'];
+		$image_flag = 0;
+		if (isset($_FILES['image']) && !empty(($_FILES['image']['name']))) {
+			$imageFileType = strtolower(pathinfo(basename($_FILES['image']['name']), PATHINFO_EXTENSION));
+			$valid_imgname = date('YmdHis') . "_" . rand('1000', '9999') . "." . $imageFileType;
+			if (in_array($imageFileType, VALID_IMG_EXT)) {
+				$image_flag = 1;
+			} else {
+				$response['msg'] = "Accept only .png, .jpg, .jpeg Extension Image only";
+			}
+		}
+		if ($image_flag == 1) {
+			if (move_uploaded_file($_FILES["image"]["tmp_name"], '../resources/image/users/' . $valid_imgname)) {
+				$temp['image'] = $valid_imgname;
+			}
+		}*/
+		$id = isset($_POST['id']) ? escapeString($_POST['id']) : '';
+		
+			if (!empty($id)) {
+				$up = executeUpdate('casting', $temp, array('id' => $id));
+				if ($up) {
+					$response['check'] = 'success';
+					$response['msg'] = 'Data Inserted Successfully';
+				}
+			}else{
+				$temp['create_date'] = date("Y-m-d H:i:s");
+				$insert = executeInsert('casting', $temp);
+				if ($insert > 0) {
+					$response['check'] = 'success';
+					$response['msg'] = 'Data Inserted Successfully';
+				}
+			}
+		
+		echo json_encode($response);
+		die;
+		break;			
 	default:
 		echo json_encode(array('check' => 'failed', 'msg' => 'Bad Request'));
 		break;

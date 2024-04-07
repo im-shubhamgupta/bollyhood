@@ -255,6 +255,36 @@ $(document).on('submit',"#mod_subscription_plan",function(e){
             }
     });
 })
+$(document).on('submit',"#mod_casting",function(e){
+    e.preventDefault();    
+   var formData = new FormData(this);
+   formData.append("ajax_action",'mod_casting');
+   var btn_name = $('button[type="submit"]').text(); 
+   $.ajax({
+            url:ajax_url("ajaxHandller.php "),
+            type:"POST",
+            data:formData,
+            dataType: 'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend: function() {
+                $('button[type="submit"]').html("Please wait...").attr("disabled", true);  
+            },
+            complete: function() {
+                $('button[type="submit"]').html(btn_name).attr("disabled", false); 
+            },
+            success:function(data) {
+                if(data.check == 'success' ){
+                    // toastr.options.onHidden = function() { alert(123); }
+                    toastr["success"](data.msg);
+                    redirect('casting');
+                }else{
+                    Command: toastr["error"](data.msg);
+                }
+            }
+    });
+})
 function delete_banner(self){
     var id = $(self).data('id');
     if(confirm("Are you sure want to delete")){
@@ -411,6 +441,59 @@ function delete_subscription_plan(self){
         });
     }    
 }	
+function delete_booking(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_booking"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        location.reload();
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
+}
+function delete_casting(self){
+    var id = $(self).data('id');
+    if(confirm("Are you sure want to delete")){
+        if(!is_valid_number(id)){
+            return false;
+        }
+        $.ajax({
+                url:ajax_url("ajaxHandller.php "),
+                type:"POST",
+                data:{
+                    id : id,
+                    ajax_action: "delete_casting"
+                },
+                dataType: 'JSON',
+                success:function(data) {
+                    if(data.check == 'success' ){
+                        toastr["success"](data.msg);
+                        // location.reload();
+                        //$('#banner_Datatable').DataTable().destroy();
+                        $('#casting_datatable').dataTable().fnDestroy();
+                        load_all_casting()
+                    }else{
+                        Command: toastr["error"](data.msg);
+                    }
+                }
+        });
+    }    
+}
 function all_documents_datatable(){
     $('#document_datatable').dataTable({
         "lengthMenu": [ [10, 25, 50, 100,-1], [10, 25, 50, 100,'All'] ],

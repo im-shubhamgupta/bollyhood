@@ -34,7 +34,10 @@ const PLANS = array(
     'month' => 'Monthly',
     'year' => 'Yearly',
 );
-
+const SHIFTING = array(
+    '6' => '6 Hours',
+    '12' => '12 Hours',
+);
 
 class admin{
     const name = 'Admin';

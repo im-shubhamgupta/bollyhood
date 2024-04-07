@@ -402,7 +402,7 @@ class DB_Controller extends DB_Function{
             return '';
         }    
     } 
-    public function all_bookmark($data){
+    /*public function all_bookmark($data){
         $cat = $this->getResultAsArray("SELECT expertise_id,e.name,e.is_verify,
         CASE
             WHEN e.user_image = '' THEN ''
@@ -416,8 +416,8 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }    
-    }
-    public function mod_bookmark($data){
+    }*/
+    /*public function mod_bookmark($data){
         $response = array('check' => 'failed', 'msg'=> 'Error Happend');
         if($data['bookmark_mode'] == 1){
             $res = $this->getAffectedRowCount("SELECT * from bookmark where `uid`='".$data['uid']."' and expertise_id = '".$data['expertise_id']."' ");
@@ -432,7 +432,7 @@ class DB_Controller extends DB_Function{
             $response['msg'] = 'Removed Successfully';
         }
         return $response;
-    }
+    }*/
     public function expertise_book($data){
         $response = array('check' => 'failed', 'msg'=> 'Error Happend');
         $res = $this->getAffectedRowCount("SELECT * from expertise_book where `uid`='".$data['uid']."' and expertise_id = '".$data['expertise_id']."' ");
@@ -490,8 +490,9 @@ class DB_Controller extends DB_Function{
     public function all_users_list($data){
         $exp = $this->getResultAsArray("SELECT *,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt ,
         IF(`sub_categories` = '' || `sub_categories` IS NULL, '0', `sub_categories`) as sub_catt  from users where id!='".$data['uid']."' ");
+        $uid = $data['uid'];
         if(count($exp) > 0){
-            $map_exp = array_map(function($item){
+            $map_exp = array_map(function($item) use($uid){
 
                 $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
                 $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
@@ -501,10 +502,16 @@ class DB_Controller extends DB_Function{
 
                 $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
                 
-                $item['work_links'] = $this->getResultAsArray($wSql);
+                
 
+                $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+                // $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  category = '".$item['id']."' ");
+
+                $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
+                $item['is_book'] = 0 ;
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
+                $item['work_links'] = $this->getResultAsArray($wSql);
                    
                 return $item;
             },$exp);
@@ -521,22 +528,28 @@ class DB_Controller extends DB_Function{
     }
     public function recent_users_list($data){
         $exp = $this->getResultAsArray("SELECT *,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
-        IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where id!='".$data['uid']."' limit 3 ");
+        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt  from users where id!='".$data['uid']."' limit 3 ");
+        $uid = $data['uid'];
         if(count($exp) > 0){
-            $map_exp = array_map(function($item){
+            $map_exp = array_map(function($item) use($uid){
 
                 $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+                
                 $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
                 // $this->debugSql();      
 
                 $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
-
                 $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
                 
-                $item['work_links'] = $this->getResultAsArray($wSql);
+
+                $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+
+                $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
+                $item['is_book'] = 0 ;
 
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
+                $item['work_links'] = $this->getResultAsArray($wSql);
                    
                 return $item;
             },$exp);
@@ -550,6 +563,185 @@ class DB_Controller extends DB_Function{
             return '';
         }
     }
-    
+    public function mod_booking($data){
+        $response = array('check' => 'failed', 'msg'=> 'Error Happend');
+            $data['date_added'] = date('Y-m-d H:i:s');
+            $res = $this->getAffectedRowCount("SELECT * from users_booking where `uid`='".$data['uid']."' and category_id = '".$data['category_id']."' and `booking_uid`='".$data['booking_uid']."' ");
+            if($res <1){  
+                $in = $this->executeInsert('users_booking', $data);
+                if($in > 0){
+                    $response['check'] = 'success';
+                    $response['msg'] = 'Booking Successfully';
+                    // $result = $this->getResultAsArray("SELECT users.name,ub.id as booking_id,ub.uid,ub.w_mobile,ub.purpose,ub.booking_date from users_booking as ub Inner join users ON ub.uid=users.id where ub.uid='".$data['uid']."'");
+
+                    // $response['result'] = $result;
+                }
+            } else{
+                $response['msg'] = 'Already Booked';
+            }   
+        return $response;
+    }
+    /*public function all_booking($data){
+        $exp = $this->getResultAsArray("SELECT *,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
+        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt  from users where id ='".$data['uid']."'");
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item){
+
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+             
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
+                // $this->debugSql();      
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
+
+                $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
+                
+                $item['work_links'] = $this->getResultAsArray($wSql);
+                // echo "SELECT 'w_mobile',purpose,category_id from users_booking where uid='".$item['id']."'  group by category_id";
+                $booking = $this->getResultAsArray("SELECT w_mobile,purpose,category_id from users_booking where uid='".$item['id']."' ");
+
+                $item['categories'] = $category;
+                $item['sub_categories'] = $sub_category;
+                $item['booking'] = $booking;
+                   
+                return $item;
+            },$exp);
+            foreach($map_exp as $val){
+                $trim_exp = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }
+    }*/
+    public function all_booking($data){
+        $exp = $this->getResultAsArray("SELECT users.*,ub.w_mobile,ub.purpose,c.category_name,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
+        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt  from users INNER JOIN users_booking ub ON users.id= ub.uid LEFT JOIN category c ON ub.category_id= c.id where users.id ='".$data['uid']."'");
+        $uid = $data['uid'];
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item) use ($uid){
+
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+             
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
+                // $this->debugSql();      
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
+
+                $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
+
+                $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+
+                $item['categories'] = $category;
+                $item['sub_categories'] = $sub_category;
+                $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
+                $item['is_book'] = 0 ;
+                
+                $item['work_links'] = $this->getResultAsArray($wSql);
+
+                
+
+                unset($item['catt']);
+                unset($item['sub_catt']);
+                // $item['booking'] = $booking;
+                   
+                return $item;
+            },$exp);
+            foreach($map_exp as $val){
+                $trim_exp[] = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }
+    }
+    public function mod_bookmark($data){
+        $response = array('check' => 'failed', 'msg'=> 'Error Happend');
+        if($data['bookmark_mode'] == 1){
+            $res = $this->getAffectedRowCount("SELECT * from users_bookmark where `uid`='".$data['uid']."' and bookmark_uid = '".$data['bookmark_uid']."' ");
+            if($res < 1){  
+                $this->executeInsert('users_bookmark', array('uid'=>$data['uid'],'bookmark_uid'=>$data['bookmark_uid'],'date_added'=>date('Y-m-d H:i:s')));
+            }
+            $response['check'] = 'success';
+            $response['msg'] = 'Bookmarked Successfully';
+        }elseif($data['bookmark_mode'] == 2){
+            $this->executeDelete('users_bookmark', array('uid'=>$data['uid'],'bookmark_uid'=>$data['bookmark_uid']));
+            $response['check'] = 'success';
+            $response['msg'] = 'Removed Successfully';
+        }
+        return $response;
+    }
+    public function all_bookmark($data){
+        $exp = $this->getResultAsArray("SELECT users.*,ub.w_mobile,ub.purpose,c.category_name,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
+        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt
+        from users 
+        LEFT JOIN users_booking ub ON users.id= ub.uid
+        LEFT JOIN category c ON ub.category_id= c.id 
+        INNER JOIN users_bookmark ub_mark ON ub_mark.bookmark_uid= users.id   
+        
+        where users.id !='".$data['uid']."' AND ub_mark.uid='".$data['uid']."' ");
+        //join only bookmarked person
+        $uid = $data['uid'];
+        if(count($exp) > 0){
+            $map_exp = array_map(function($item) use ($uid) {
+                $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$item['catt'].") ");
+             
+                $sub_category = $this->getResultAsArray("SELECT sub_cat_id,category_id,`sub_cat_name` from sub_category where sub_cat_id IN (".$item['sub_catt'].") ");
+                // $this->debugSql();      
+
+                $wSql = "SELECT worklink_name,worklink_url from users_worklink where uid = '".$item['id']."' ";
+                $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
+                $item['work_links'] = $this->getResultAsArray($wSql);
+
+                $bookmark = $this->getResultAsArray("SELECT uid,bookmark_uid from users_bookmark where uid ='".$item['id']."' ");
+
+                $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+
+                $item['categories'] = $category;
+                $item['sub_categories'] = $sub_category;
+                $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
+                if(!empty($is_bookmarked)){
+                    $item['bookmark'] = $bookmark;
+                }
+                $item['is_book'] = 0 ;
+                
+                unset($item['catt']);
+                unset($item['sub_catt']);
+                   
+                return $item;
+            },$exp);
+            foreach($map_exp as $val){
+                $trim_exp[] = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }   
+    }
+    public function all_casting(){
+        
+        $exp = $this->getResultAsArray("SELECT * from casting where 1 ");
+        if(count($exp) > 0){
+            $map_exp= array_map(function($item){
+                unset($item['create_date']);
+                unset($item['modify_date']);
+                return $item;
+            },$exp);
+            foreach($map_exp as $val){
+                $trim_exp[] = array_map(function($it){
+                    return is_null($it) ? '' : $it;
+                },$val);
+            }
+            return $trim_exp;
+        }else{
+            return '';
+        }   
+    }
     
 }

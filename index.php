@@ -40,6 +40,9 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'mod_category':
 			include_once('action/mod_category.php');
 		break;
+		case 'bookings':
+			include_once('action/all_booking.php');
+		break;
 		case 'expertise':
 			include_once('action/all_expertise.php');
 		break;
@@ -57,6 +60,15 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		break;
 		case 'mod_plan':
 			include_once('action/mod_plan.php');
+		break;
+		case 'casting':
+			include_once('action/all_casting.php');
+		break;
+		case 'mod_casting':
+			include_once('action/mod_casting.php');
+		break;
+		case 'user_details':
+			include_once('action/user_details.php');
 		break;
 		case 'privacy-policy':
 			include_once('action/privacy-policy.php');

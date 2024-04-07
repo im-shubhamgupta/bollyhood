@@ -7,9 +7,9 @@ $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 if (isset($_REQUEST['uid'])) {
 
     $data= array(
-        'id' => $db->escapeStringTrim($_REQUEST['uid']),
+        'uid' => $db->escapeStringTrim($_REQUEST['uid']),
     );
-    if(empty($data['id'])){
+    if(empty($data['uid'])){
         $error_msg = "uid required";
     }
    
@@ -27,6 +27,6 @@ if (isset($_REQUEST['uid'])) {
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter id";
+    $response["msg"] = "Required parameter uid";
 }
 echo json_encode($response);
