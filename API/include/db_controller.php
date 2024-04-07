@@ -707,6 +707,7 @@ class DB_Controller extends DB_Function{
                 $bookmark = $this->getResultAsArray("SELECT uid,bookmark_uid from users_bookmark where bookmark_uid ='".$item['id']."' ");
 
                 $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+               
                 $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  booking_uid = '".$item['id']."' ");
 
                 $item['categories'] = $category;
@@ -716,7 +717,6 @@ class DB_Controller extends DB_Function{
                 if(!empty($is_bookmarked)){
                     $item['bookmark'] = $bookmark;
                 }
-                $item['is_book'] = 0 ;
                 
                 unset($item['catt']);
                 unset($item['sub_catt']);
