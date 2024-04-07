@@ -505,10 +505,10 @@ class DB_Controller extends DB_Function{
                 
 
                 $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
-                // $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  category = '".$item['id']."' ");
+                $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  booking_uid = '".$item['id']."' ");
 
                 $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
-                $item['is_book'] = 0 ;
+                $item['is_book'] =  ($is_booking > 0) ? 1 : 0 ;
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
                 $item['work_links'] = $this->getResultAsArray($wSql);
@@ -543,9 +543,10 @@ class DB_Controller extends DB_Function{
                 
 
                 $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+                $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  booking_uid = '".$item['id']."' ");
 
                 $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
-                $item['is_book'] = 0 ;
+                $item['is_book'] = ($is_booking > 0) ? 1 : 0 ;
 
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
@@ -618,7 +619,12 @@ class DB_Controller extends DB_Function{
     }*/
     public function all_booking($data){
         $exp = $this->getResultAsArray("SELECT users.*,ub.w_mobile,ub.purpose,c.category_name,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,
-        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt  from users INNER JOIN users_booking ub ON users.id= ub.uid LEFT JOIN category c ON ub.category_id= c.id where users.id ='".$data['uid']."'");
+        IF(`sub_categories` = ''|| `sub_categories` IS NULL , '0', `sub_categories`) as sub_catt 
+        from users 
+        INNER JOIN users_booking ub ON users.id= ub.booking_uid 
+        LEFT JOIN category c ON ub.category_id= c.id 
+        where users.id !='".$data['uid']."'  AND ub.uid='".$data['uid']."' ");
+
         $uid = $data['uid'];
         if(count($exp) > 0){
             $map_exp = array_map(function($item) use ($uid){
@@ -633,11 +639,12 @@ class DB_Controller extends DB_Function{
                 $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
 
                 $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+                $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  booking_uid = '".$item['id']."' ");
 
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
                 $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
-                $item['is_book'] = 0 ;
+                $item['is_book'] = ($is_booking > 0) ? 1 : 0 ;
                 
                 $item['work_links'] = $this->getResultAsArray($wSql);
 
@@ -697,13 +704,15 @@ class DB_Controller extends DB_Function{
                 $item['image'] = !empty($item['image']) ? USER_IMAGE_PATH.$item['image'] : '';
                 $item['work_links'] = $this->getResultAsArray($wSql);
 
-                $bookmark = $this->getResultAsArray("SELECT uid,bookmark_uid from users_bookmark where uid ='".$item['id']."' ");
+                $bookmark = $this->getResultAsArray("SELECT uid,bookmark_uid from users_bookmark where bookmark_uid ='".$item['id']."' ");
 
                 $is_bookmarked = $this->getAffectedRowCount("SELECT id from users_bookmark where uid = '".$uid."' AND  bookmark_uid = '".$item['id']."' ");
+                $is_booking = $this->getAffectedRowCount("SELECT id from users_booking where uid = '".$uid."' AND  booking_uid = '".$item['id']."' ");
 
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
                 $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
+                $item['is_book'] = ($is_booking > 0) ? 1 : 0 ;
                 if(!empty($is_bookmarked)){
                     $item['bookmark'] = $bookmark;
                 }
