@@ -33,7 +33,7 @@
                 
             </div>
             <ul id="js-nav-menu" class="nav-menu">
-                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','mod_user','mod_expertise','bookings','')) ? 'active open' : '' )?>">
+                <li class="<?=(in_array($action,array('users','banner','expertise','plans','mod_plan','mod_user','mod_expertise','bookings','casting','mod_casting','')) ? 'active open' : '' )?>">
                     <a href="#" title="Application Intel" data-filter-tags="application intel">
                         <i class="fal fa-info-circle"></i>
                         <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>

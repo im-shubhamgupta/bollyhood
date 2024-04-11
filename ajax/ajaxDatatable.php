@@ -347,9 +347,7 @@ switch($ajax_action){
 			$sql.=" AND (  ";
 			$sql.="  `company_name` LIKE '%".$requestData['search']['value']."%' ";
 			$sql.=" OR `organization` LIKE '%".$requestData['search']['value']."%' ";
-			// $sql.=" OR `w_mobile` LIKE '%".$requestData['search']['value']."%' ";
-			// $sql.=" OR `purpose` LIKE '%".$requestData['search']['value']."%' ";
-			// $sql.=" OR `booking_date` LIKE '%".$requestData['search']['value']."%' ";
+			
 			$sql.= " )";
 		}
 		$totalFiltered = getAffectedRowCount($sql); 
@@ -366,8 +364,10 @@ switch($ajax_action){
 		$data = array();
 		foreach($arr as $list) {  // preparing an array
 			$td = array();
-			// $img_path = "<img class='user_img' src='".USER_IMAGE_PATH.$list['image']."' >";
+			$logo_path = "<img class='user_img' src='".COMPANY_LOGO_PATH.$list['company_logo']."' >";
+			$doc_path = "<a href='".COMPANY_DOC_PATH.$list['document']."' target='_blank' > Doc.. </a>";
 			$td[] = $i;
+			$td[] = '<span>'.$logo_path.'</span>' ;
 			$td[] = ucwords($list['company_name']);
 			$td[] = $list['organization'];
 			$td[] = SHIFTING[$list['shifting']];
@@ -376,6 +376,7 @@ switch($ajax_action){
 			$td[] = $list['skill'];
 			$td[] = $list['role'];
 			$td[] = $list['price'];
+			$td[] = !empty($list['document']) ? '<span>'.$doc_path.'</span>' : '' ;
 			$action = '  <span><a href="'.urlAction('mod_casting&id='.$list['id'].'').'" class="btn btn-info btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-edit"></i></a></span>';	
 			$action .= '  &nbsp;&nbsp;&nbsp;<span><a href="#" onclick="delete_casting(this)" data-id="'.$list['id'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></span>';	
 			$td[] = $action;									

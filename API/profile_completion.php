@@ -1,7 +1,7 @@
 <?php
-require_once 'controller/casting_controller.php';
+require_once 'include/db_controller.php';
 
-$db = new casting_Controller();
+$db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
 
 if (isset($_REQUEST['uid'])) {
@@ -14,19 +14,19 @@ if (isset($_REQUEST['uid'])) {
     }
    
     if(!isset( $error_msg)){
-        $Result = $db->all_casting($data);
-        if (!empty($Result)) {
+        $Result = $db->profile_completion($data);
+        if ($Result['check'] == 'success') {
             $response["status"] = '1';
-            $response["result"] = $Result;
-            $response["msg"] = 'success';
+            $response["result"] = $Result['result'];
+            $response["msg"] = $Result['msg'];
 
         } else {
-            $response["msg"] = 'Not found';
+            $response["msg"] = 'Please check input';
         }
     }else{
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter id";
+    $response["msg"] = "Required parameter uid";
 }
 echo json_encode($response);

@@ -732,12 +732,16 @@ class DB_Controller extends DB_Function{
             return '';
         }   
     }
-    /*public function all_casting(){
+    public function all_casting($data){
         $exp = $this->getResultAsArray("SELECT * from casting where 1 ");
         if(count($exp) > 0){
             $map_exp= array_map(function($item){
                 $item['company_logo'] = !empty($item['company_logo']) ? COMPANY_LOGO_PATH.$item['company_logo'] : '';
                 $item['document'] = !empty($item['document']) ? COMPANY_DOC_PATH.$item['document'] : '';
+
+                $item['is_casting_apply'] = '';
+                $item['is_casting_bookmark'] = '';
+
 
                 return $item;
             },$exp);
@@ -755,8 +759,8 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }   
-    }*/
-    /*public function casting_apply($data){
+    }
+    public function casting_apply($data){
         $file_arr = array();
         if (!empty($data['images'][0]['name'])) {
             $uploadedFiles = $data['images'][0];
@@ -814,67 +818,55 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }   
-    }*/
-    public function profile_completion($data){
-        $res = array('check' => 'success', 'msg'=> '50% Profile Completed ');
-        // $hundred = $this->getAffectedRowCount("select * from users where name!='' and email!= '' and mobile!='' and image !='' and description!='' and reviews!='' and job_done!='' and experience!='' and id='".$data['uid']."' ") ;
+    }
+    public function all_cating_apply(){
+//         ini_set('display_errors', 1); 
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+        // SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting_apply';
+        // $all_columns = $this->getSingleResult("SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting'");
+        // SELECT * , (SELECT CONCAT('id' ) FROM casting LIMIT 1) as casting_data from casting_apply ca inner join users u on u.id =ca.uid where 1;
+        // $this->echoPrint($all_columns);
 
-        // if($hundred > 0){
 
-        //     $res['msg'] = "100 % Profile Completed";
-        //     $res['result'] = 100;
-        //     return $res;
-        // }
-        // $fifty = $this->getAffectedRowCount("select * from users where name!='' and email!= '' and mobile!='' and image !='' and description!='' and reviews!='' and job_done!='' and experience!='' and id='".$data['uid']."'  ") ;
-        // if($fifty > 0){
-        //     $res['msg'] = "50 % Profile Completed";
-        //     $res['result'] = 50;
-        //     return $res;
-        // }
-        $user = $this->executeSelectSingle( 'users',array(),array('id'=>$data['uid']));
-        $name = $user['name'];
-        $email = $user['email'];
-        $mobile = $user['mobile'];
-        $image = $user['image'];
-        $description = $user['description'];
-        $reviews = $user['reviews'];
-        $jobs_done = $user['jobs_done'];
-        $experience = $user['experience'];
+        // $exp = $this->getResultAsArray("SELECT u.*,ca.casting_id  from casting_apply ca inner join users u on u.id =ca.uid where 1 group by ca.uid ");
+        $uids = "SELECT DISTINCT(`uid`) from casting_apply  ";
+        
+        // $this->debugSql();
+        $exp = $this->getResultAsArray("SELECT * from users where `id` IN ($uids) ");
+        if(count($exp) > 0){
 
-        // if(!empty($image) && !empty($description) && !empty($reviews) && !(empty($job_done))){
+            foreach($exp as $k => $val){
+                // unset($exp[$k][$val['create_date']]);
+                // unset($exp[$k][$val['modify_date']]);
+                // $temp['image'] =  !empty($val['images']) 
+                //     ? array_map(function($img){
+                //             return  CASTING_IMAGES_PATH.$img;
+                //         },explode(',',$val['images'])) 
+                //     : '';
+                // $temp['video'] = !empty($val['video']) ? CASTING_DOCUMENT_PATH.$val['video'] :'';  
 
-        //     $data = empty($image)
-        // }
-        $x = 0;
-        if(!empty($name)){
-            $x += 20;
-        }
-        if(!empty($email)){
-            $x += 20;
-        }
-        if(!empty($mobile)){
-            $x += 10;
-        }
-        if(!empty($image)){
-            $x += 10;
-        }
-        if(!empty($description)){
-            $x += 10;
-        }
-        if(!empty($reviews)){
-            $x += 10;
-        }
-        if(!empty($jobs_done)){
-            $x += 10;
-        }
-        if(!empty($experience)){
-            $x += 10;
-        }
-        if($x > 0){
-            $res['msg'] = $x." % Profile Completed";
-            $res['result'] = $x;
-            return $res;
-        }
+                $casting =  $this->getResultAsArray("SELECT * from casting  INNER JOIN casting_apply ca ON casting.id =ca.casting_id   where ca.uid = '".$val['id']."' "); 
+                // $casting =  $this->getResultAsArray("SELECT * from casting_apply  where uid = '".$val['id']."' "); 
+                $cast = array(); 
+                foreach($casting as $casting_key => $casting_value){
+                    // $temp = array();
+                    $casting_value['images'] =  !empty($casting_value['images']) 
+                            ? array_map(function($img){
+                                    return  CASTING_IMAGES_PATH.$img;
+                                },explode(',',$casting_value['images'])) 
+                            : '';
+                    $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
+
+                    array_push($cast,$casting_value);
+
+                }
+                $exp[$k]['casting_apply']  = $cast;
+            }
+            return $exp;
+        }else{
+            return '';
+        }   
     }
     
 }

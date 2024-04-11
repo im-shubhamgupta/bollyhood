@@ -1,8 +1,8 @@
 <?php
 include('../constant.php');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 $ajax_action = isset($_POST['ajax_action']) ? $_POST['ajax_action'] : '';
 $response = array('check' => 'failed', 'msg' => 'Something error, Please try again!!');
 switch ($ajax_action) {
@@ -424,30 +424,45 @@ switch ($ajax_action) {
 			'requirement' => escapeStringTrim($_POST['requirement']),
 			'skill' => escapeStringTrim($_POST['skill']),
 			'role' =>  escapeStringTrim($_POST['role']),
+			'location' =>  escapeStringTrim($_POST['location']),
 			'price_discussed' => escapeStringTrim($_POST['price_discussed']),
-			'price' => escapeStringTrim($_POST['price']),
-			'company_logo' => escapeStringTrim($_POST['company_logo']),
-			'document' => escapeStringTrim($_POST['document']),
+			'price' => !empty($_POST['price']) ? escapeStringTrim($_POST['price']) : '0',
+			
+			// 'document' => escapeStringTrim($_POST['document']),
 			'modify_date' => date("Y-m-d H:i:s")
 		);
-		// $temp['image'] = 'no_image.png';
+		// echoPrint($_POST);
+		// echoPrint($_FILES);
 
-		/*$image = $_FILES['image'];
-		$image_flag = 0;
-		if (isset($_FILES['image']) && !empty(($_FILES['image']['name']))) {
-			$imageFileType = strtolower(pathinfo(basename($_FILES['image']['name']), PATHINFO_EXTENSION));
-			$valid_imgname = date('YmdHis') . "_" . rand('1000', '9999') . "." . $imageFileType;
-			if (in_array($imageFileType, VALID_IMG_EXT)) {
-				$image_flag = 1;
-			} else {
-				$response['msg'] = "Accept only .png, .jpg, .jpeg Extension Image only";
-			}
+		//upload image
+			$image = isset($_FILES['logo_image']) ? $_FILES['logo_image'] : '';
+			$params = array();
+			$params['file_type'] = VALID_IMG_EXT;
+			$params['file_upload'] = '../resources/image/casting/';
+			$img_data = uploadCustomFile($image,$params);
+
+		if($img_data['check'] == 1){
+			$temp['company_logo'] = $img_data['file_name'];
+		}else{
+			$temp['company_logo'] = escapeStringTrim($_POST['company_logo']);
+		}	
+		// echoPrint($img_data);
+		//upload document
+		$doc = isset($_FILES['doc_image']) ? $_FILES['doc_image'] : '';
+		$params = array();
+		$params['file_type'] = VALID_DOC_EXT;
+		$params['file_upload'] = '../resources/image/casting/document/';
+		$doc_data = uploadCustomFile($doc,$params);
+
+		if($doc_data['check'] == 1){
+			$temp['document'] = $doc_data['file_name'];
+		}else{
+			$temp['document'] = escapeStringTrim($_POST['document']);
 		}
-		if ($image_flag == 1) {
-			if (move_uploaded_file($_FILES["image"]["tmp_name"], '../resources/image/users/' . $valid_imgname)) {
-				$temp['image'] = $valid_imgname;
-			}
-		}*/
+
+		
+		// echoPrint($temp);
+		// echoPrint($doc_data);
 		$id = isset($_POST['id']) ? escapeString($_POST['id']) : '';
 		
 			if (!empty($id)) {

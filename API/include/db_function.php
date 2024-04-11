@@ -23,22 +23,6 @@ class DB_Function extends DB {
 			// $mysqli->close();
 		}
 	
-				
-		public function get_company_list($id){
-            $db = new DB();
-			$conn = $db->Db_Connect();
-			// $conn = $this->Db_Connect();
-            $ComSql = "SELECT * from companies where `id`='$id'";
-            $Cquery = $conn->query($ComSql);
-            if($Cquery->num_rows>0){
-                $row = $Cquery->fetch_assoc();
-                $response['id']=$row['id'];
-                $response['name']=$row['name'];
-                return $response;
-            }else{
-                return '';
-            }
-        }
 		//$link = connectme();
 	   public function echoPrint($data)
 		{
@@ -327,6 +311,7 @@ class DB_Function extends DB {
 			return $new_url;
 		}
 		public function separator_to_array($string, $separator = ','){
+			$this->echoPrint($string);
 			//Explode on comma
 			$vals = explode($separator, $string);
 			//Trim whitespace
@@ -393,6 +378,80 @@ class DB_Function extends DB {
 				}
 			}
 			return $result;
+		}
+		public function uploadCustomFile($FILES,$params=array()){
+			// echo "<pre>";
+			// print_r($FILES);
+			// print_r($params);
+			$flag = false;
+			$response['check'] = false;
+			$response['msg'] = "Something error";
+			// $result = array();
+			if(!empty($FILES)){
+				$imageFileType = strtolower(pathinfo(basename($FILES['name']),PATHINFO_EXTENSION));
+				$valid_imgname = date('YmdHis')."_".rand('1000','9999').".".$imageFileType;
+		
+				$result['file_ext'] = !empty($imageFileType) ? $imageFileType : '';
+				$result['file_name'] = !empty($valid_imgname) ? $valid_imgname : '';
+				$result['file_size'] = !empty($FILES['size']) ? $FILES['size'] : '0';
+				
+				//file type not set then skip
+				if(isset($params['file_type']) && !empty($params['file_type'])){
+					if(in_array($imageFileType, $params['file_type'])){
+						$flag = true;
+						$result['check'] = true;
+						$result['msg'] = $imageFileType." Extension Matched";
+						$result['file_type'] = array(
+							'check' => true,
+							'msg' => $imageFileType." Extension Matched",
+						);
+					}else{
+						$result['file_type'] = array(
+							'check' => false,
+							'msg' => "Accept only ".implode(', ',$params['file_type'])." Extension Image only",
+						);
+						$result['check'] = false;
+						$result['msg'] = "Accept only ".implode(', ',$params['file_type'])." Extension Image only";
+					}	
+				}else{
+					$flag = true;
+				}
+				if(isset($params['file_upload']) && !empty($params['file_upload']) && !empty($valid_imgname) && $flag == true){
+					if (move_uploaded_file($FILES["tmp_name"], $params['file_upload'].$valid_imgname)){
+						$flag = true;
+						$result['check'] = true;
+						$result['msg'] = "File Uploaded";
+						$result['file_upload'] = array(
+							'check' => true,
+							'msg' => "File Uploaded",
+						);
+					}else{
+						$result['file_upload'] = array(
+							'check' => false,
+							'msg' => "Problem on Image uploading",
+						);
+						$result['check'] = false;
+						$result['msg'] = "Image not Uploaded";
+					}	
+				}
+				// $result['file_tmp_name'] = !empty($FILES['tmp_name']) ? $FILES['tmp_name'] : '';
+				if(!empty($result['file_type']) ){
+					if(!empty($result['file_type']) && ($result['file_type']) && $result['file_type']['check'] == true && $result['check'] == true &&  $flag== true && !empty($result['file_name']) && !empty($result['file_size']) ){
+						$response['check'] = true;
+					}
+				}
+				else{//if file type not defined
+					if(!empty($result['file_type']) && $result['check'] == true &&  $flag== true && !empty($result['file_name']) && !empty($result['file_size']) ){
+						$response['check'] = true;
+					}
+
+				}
+				
+			}
+		
+			return $result;
+			
+		
 		}
 }		
 ?>

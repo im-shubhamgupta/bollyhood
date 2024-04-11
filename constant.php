@@ -13,9 +13,11 @@ define("BANNER_IMAGE_PATH",SITE_URL.'resources/image/banners/');
 define("USER_IMAGE_PATH",SITE_URL.'resources/image/users/');
 define("EXPERTISE_IMAGE_PATH",SITE_URL.'resources/image/expertise/');
 define("CATEGORY_IMAGE_PATH",SITE_URL.'resources/image/category/');
-
+define("COMPANY_LOGO_PATH",SITE_URL.'resources/image/casting/');
+define("COMPANY_DOC_PATH",SITE_URL.'resources/image/casting/document/');
 
 define("VALID_IMG_EXT", array('png','jpg','jpeg','PNG','JPG','JPEG'));
+define("VALID_DOC_EXT", array('pdf'));
 
 define('IMAGE_URL',DIR."/resources/css/img/");
 

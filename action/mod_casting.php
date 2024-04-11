@@ -40,12 +40,12 @@ $data = executeSelectSingle('casting',array(),array('id' => $id));
                             <div class="row form-group" > 
                                 <div class=" col-md-6 ">
                                     <label class="form-label" for="simpleinput">Company Name</label>
-                                    <input required type="text" id="company_logo" name="company_name"  placeholder="Enter Company Name" class="form-control" value="<?=isset($data['company_name']) ? $data['company_name'] : ''?>">
+                                    <input required type="text" maxlength="220"  id="company_logo" name="company_name"  placeholder="Enter Company Name" class="form-control" value="<?=isset($data['company_name']) ? $data['company_name'] : ''?>">
                                 </div>
                                 
                                 <div class=" col-md-6">
                                     <label class="form-label" for="simpleinput">Organization</label>
-                                    <input required type="text" id="organization" name="organization"  placeholder="Enter Organization"  class="form-control" value="<?=isset($data['organization']) ? $data['organization'] : ''?>">
+                                    <input required type="text" maxlength="220"  id="organization" name="organization"  placeholder="Enter Organization"  class="form-control" value="<?=isset($data['organization']) ? $data['organization'] : ''?>">
                                 </div>
                             </div>
                             <div class="row form-group" > 
@@ -72,21 +72,27 @@ $data = executeSelectSingle('casting',array(),array('id' => $id));
                             </div>
                             <div class="row form-group" > 
                                 <div class=" col-md-6 ">Requirement</label>
-                                    <input required type="text" id="requirement" name="requirement"  placeholder="Enter requirement Name" class="form-control" value="<?=isset($data['requirement']) ? $data['requirement'] : ''?>">
+                                    <input required type="text" maxlength="220"  id="requirement" name="requirement"  placeholder="Enter requirement Name" class="form-control" value="<?=isset($data['requirement']) ? $data['requirement'] : ''?>">
                                 </div>
                                 
                                 <div class=" col-md-6">
                                     <label class="form-label" for="simpleinput">Skill</label>
-                                    <input required type="text" id="skill" name="skill"  placeholder="Enter skill"  class="form-control" value="<?=isset($data['skill']) ? $data['skill'] : ''?>">
+                                    <input required type="text" maxlength="220"  id="skill" name="skill"  placeholder="Enter skill"  class="form-control" value="<?=isset($data['skill']) ? $data['skill'] : ''?>">
                                 </div>
                             </div>
                             <div class="row form-group" > 
                                 <div class=" col-md-6 ">Role</label>
-                                    <input required type="text" id="role" name="role"  placeholder="Enter Role" class="form-control" value="<?=isset($data['role']) ? $data['role'] : ''?>">
+                                    <input required type="text" maxlength="220"  id="role" name="role"  placeholder="Enter Role" class="form-control" value="<?=isset($data['role']) ? $data['role'] : ''?>">
                                 </div>
                                 <div class=" col-md-6">
+                                    <label class="">Location</label>
+                                    <input type="text" maxlength="220"  name="location" class="form-control"  placeholder="Enter Location" id="location" value="<?=isset($data['location']) ? $data['location'] : ''?>">
+                                </div>
+                            </div>
+                            <div class="row form-group" > 
+                                <div class=" col-md-12">
                                     <label class="">Upload Documents</label>
-                                    <input type="file" name="doc_image" class="custom-file-input " id="doc_image" >
+                                    <input type="file" name="doc_image" accept="application/pdf" class="custom-file-input " id="doc_image" >
                                     <input type="hidden" name="document" class="custom-file-input" id="document" value="<?=isset($data['document']) ? $data['document'] : ''?>">
                                     <label class="custom-file-label mt-4" for="customFile">Choose file</label>
                                 </div>
@@ -106,7 +112,7 @@ $data = executeSelectSingle('casting',array(),array('id' => $id));
                                          <label class="custom-control-label" for="defaultInline1Radio_">To Be Discussed</label>
                                     </div>
                                     <div class=" col-md-3  mt-5 price_div <?=(isset($data['price_discussed']) && $data['price_discussed'] == 1) ? 'd-none' : ''?>" id="price_div">
-                                        <input type="text"  placeholder="Enter Price"   class="form-control" id="price" name="price" value="<?=isset($data['price']) ? $data['price'] : ''?>" >
+                                        <input type="text" maxlength="220"   placeholder="Enter Price"   class="form-control" id="price" name="price" value="<?=isset($data['price']) ? $data['price'] : ''?>" >
                                         
                                     </div>
                                 </div>

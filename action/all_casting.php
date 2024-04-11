@@ -30,6 +30,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Sl</th>
+                                                        <th>Company Logo</th>
                                                         <th>Company Name</th>
                                                         <th>Organization</th>
                                                         <th>Shifting</th>
@@ -38,6 +39,7 @@
                                                         <th>Skill</th>
                                                         <th>Role</th>
                                                         <th>Price</th>
+                                                        <th>Document</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -46,6 +48,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>Sl</th>
+                                                        <th>Company Logo</th>
                                                         <th>Company Name</th>
                                                         <th>Organization</th>
                                                         <th>Shifting</th>
@@ -54,6 +57,7 @@
                                                         <th>Skill</th>
                                                         <th>Role</th>
                                                         <th>Price</th>
+                                                        <th>Document</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </tfoot>

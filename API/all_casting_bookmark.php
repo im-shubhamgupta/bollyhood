@@ -14,19 +14,19 @@ if (isset($_REQUEST['uid'])) {
     }
    
     if(!isset( $error_msg)){
-        $Result = $db->all_casting($data);
+        $Result = $db->all_casting_bookmark($data);
         if (!empty($Result)) {
             $response["status"] = '1';
             $response["result"] = $Result;
             $response["msg"] = 'success';
 
         } else {
-            $response["msg"] = 'Not found';
+            $response["msg"] = 'Not Found';
         }
     }else{
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter id";
+    $response["msg"] = "Required parameter uid";
 }
 echo json_encode($response);
