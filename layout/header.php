@@ -22,7 +22,7 @@
     <link rel="stylesheet" media="screen, print" href= "<?=asset('/css/miscellaneous/reactions/reactions.css')?>">
     <!-- <link rel="stylesheet" media="screen, print" href="<?=asset('/css/miscellaneous/fullcalendar/fullcalendar.bundle.css')?>"> -->
     <link rel="stylesheet" media="screen, print" href="<?=asset('/css/miscellaneous/jqvmap/jqvmap.bundle.css')?>">
-    <link rel="stylesheet" media="screen, print" href="<?=asset('css/datagrid/datatables/datatables.bundle.css')?>">
+    <!-- <link rel="stylesheet" media="screen, print" href="<?=asset('css/datagrid/datatables/datatables.bundle.css')?>"> -->
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/datagrid/datatables/datatables.bundle.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/sweet-alert/sweetalert2.bundle.css')?>">
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/notifications/toastr/toastr.css')?>">
@@ -30,11 +30,12 @@
     <link rel="stylesheet" media="screen, print" href="<?=asset('css/formplugins/summernote/summernote.css')?>">
     <link href="https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" media="screen, print" href="<?=asset('/css/custom_css.scss')?>">
+    <link rel="stylesheet" media="screen, print" href="<?=asset('css/custom_css.scss?v=').RESOURCE_VERSION?>">
         <!-- <script src="<?=asset('/js/header_setting.js')?>"></script> -->
 </head>
 <body class="desktop chrome webkit pace-done mod-skin-dark blur">
-   
+<?php 
+// echo "filetime: ".filemtime('js/main.js');?>
 <div class="page-wrapper">
     <div class="page-inner">
     <!--Both  div close on footer -->

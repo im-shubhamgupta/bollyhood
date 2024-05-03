@@ -448,10 +448,51 @@ class DB_Function extends DB {
 				}
 				
 			}
-		
 			return $result;
+		}
+		function push_notification_android($device_id,$Title, $Remarks,$type=''){
+			$response = array('check' => 'failed', 'msg'=> 'Something error');
+			//API URL of FCM
+			$url = 'https://fcm.googleapis.com/fcm/send';
+	
+			$api_key = FCM_KEY;
 			
-		
+			if(!empty($device_id) && !empty($api_key)){
+				$fields = array (
+					'fcmtoken' => array (
+							$device_id
+					),
+					'data' => array (
+							"title" => $Title,
+							"body" => $Remarks,
+							"type"=>$type
+						)
+				);
+				//header includes Content type and api key
+				$headers = array(
+					'Content-Type:application/json',
+					'Authorization:key='.$api_key
+				);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+				$result = curl_exec($ch);
+				if ($result === FALSE) {
+					$response['msg'] = "FCM Send Error: " . curl_error($ch);
+					// die('FCM Send Error: ' . curl_error($ch));
+				}
+				curl_close($ch);
+				$response['check'] = 'success';
+				$response['msg'] = $result;
+			}else{
+				$response['msg'] = 'Id Not Found';
+			}	
+			return $response;
 		}
 }		
 ?>

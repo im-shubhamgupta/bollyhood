@@ -1,5 +1,5 @@
 <?php
-require_once 'include/db_controller.php';
+require_once 'controller/db_controller.php';
 
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
@@ -14,7 +14,7 @@ if (isset($_REQUEST['id'])) {
         $error_msg = "Id required";
     }
    
-
+    
     if(!isset( $error_msg)){
         $Result = $db->login($data);
 

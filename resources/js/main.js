@@ -552,7 +552,7 @@ function all_documents_datatable(){
         },
     });
     
-}    
+}      
 
 function all_users_datatable(){
     $('#datas_datatable').dataTable({

@@ -1,0 +1,908 @@
+[22-Feb-2024 21:02:27 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'cat_id' doesn't have a default value in /home/bollyhood123/public_html/admin/API/include/db_function.php:144
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(144): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(73): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(31): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 144
+[22-Feb-2024 17:00:48 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:00:57 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:01:10 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:03:05 UTC] PHP Warning:  Undefined variable $cat in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:03:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/bollyhood123/public_html/admin/API/include/db_controller.php:84
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:04:00 UTC] PHP Warning:  Undefined variable $cat in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:04:00 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/bollyhood123/public_html/admin/API/include/db_controller.php:84
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:04:03 UTC] PHP Warning:  Undefined variable $cat in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:04:03 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/bollyhood123/public_html/admin/API/include/db_controller.php:84
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 84
+[22-Feb-2024 17:05:01 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:05:25 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:07:37 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[22-Feb-2024 17:07:40 UTC] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/bollyhood123/public_html/admin/API/include/db_function.php:221
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(221): mysqli_query(NULL, 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(83): DB_Function->executeSelect('category', Array, Array, 'category_name')
+#2 /home/bollyhood123/public_html/admin/API/category.php(8): DB_Controller->category_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 221
+[29-Feb-2024 22:19:55 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Data too long for column 'mobile' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(157): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/update_profile.php(35): DB_Controller->update_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[29-Feb-2024 22:20:01 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Data too long for column 'mobile' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(157): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/update_profile.php(35): DB_Controller->update_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[29-Feb-2024 22:23:02 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Data too long for column 'mobile' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(157): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/update_profile.php(35): DB_Controller->update_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[29-Feb-2024 23:50:06 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.banners' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:90
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(90): mysqli->query('SELECT CONCAT('...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(167): DB_Function->getResultAsArray('SELECT CONCAT('...')
+#2 /home/bollyhood123/public_html/admin/API/banner.php(8): DB_Controller->banner_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 90
+[29-Feb-2024 23:51:55 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.banners' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:90
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(90): mysqli->query('SELECT CONCAT('...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(167): DB_Function->getResultAsArray('SELECT CONCAT('...')
+#2 /home/bollyhood123/public_html/admin/API/banner.php(8): DB_Controller->banner_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 90
+[01-Mar-2024 23:04:31 Asia/Kolkata] PHP Warning:  Undefined array key "id" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 106
+[01-Mar-2024 23:07:08 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'otp' in 'field list' in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(40): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/login.php(19): DB_Controller->login(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[01-Mar-2024 23:07:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'otp' in 'field list' in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(40): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/login.php(19): DB_Controller->login(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[01-Mar-2024 23:08:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'otp' in 'field list' in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(40): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/login.php(19): DB_Controller->login(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[01-Mar-2024 23:08:56 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'otp' in 'field list' in /home/bollyhood123/public_html/admin/API/include/db_function.php:179
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(179): mysqli_query(Object(mysqli), 'UPDATE users SE...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(40): DB_Function->executeUpdate('users', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/login.php(19): DB_Controller->login(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 179
+[02-Mar-2024 10:06:46 Asia/Kolkata] PHP Warning:  Undefined array key "id" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 108
+[02-Mar-2024 15:08:20 Asia/Kolkata] PHP Warning:  Undefined property: DB_Controller::$debugSql in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 179
+[02-Mar-2024 15:09:43 Asia/Kolkata] PHP Warning:  Undefined property: DB_Controller::$debugSql in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 181
+[07-Mar-2024 23:32:22 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/2024_03_07_233222_2954.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:32:22 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/phpEfMG5q&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/2024_03_07_233222_2954.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:32:49 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/2024_03_07_233249_1818.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:32:49 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/php1bH72q&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/2024_03_07_233249_1818.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:37:19 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233719_9516.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:37:19 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/php2CioC7&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233719_9516.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:38:26 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233826_7279.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:38:26 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/php2aM4FS&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233826_7279.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 173
+[07-Mar-2024 23:39:47 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233947_1670.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 174
+[07-Mar-2024 23:39:47 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/phpcaH02a&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307233947_1670.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 174
+[07-Mar-2024 23:45:56 Asia/Kolkata] PHP Warning:  move_uploaded_file(/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307234556_7353.png): Failed to open stream: No such file or directory in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 174
+[07-Mar-2024 23:45:56 Asia/Kolkata] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/phpeH37l3&quot; to &quot;/home/bollyhood123/public_html/admin/API/include/resources/image/users/20240307234556_7353.png&quot; in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 174
+[07-Mar-2024 18:17:36 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/bollyhood123/public_html/admin/config.php on line 17
+[11-Mar-2024 00:11:03 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.expertise' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:222
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(222): mysqli_query(Object(mysqli), 'SELECT id, name...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): DB_Function->executeSelect('expertise', Array, Array, 'name')
+#2 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 222
+[11-Mar-2024 00:11:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.expertise' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:222
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(222): mysqli_query(Object(mysqli), 'SELECT *  FROM ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(133): DB_Function->executeSelect('expertise', Array, Array)
+#2 /home/bollyhood123/public_html/admin/API/expertise_profile.php(17): DB_Controller->get_expertise_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 222
+[17-Mar-2024 21:47:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(151): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(149): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[17-Mar-2024 21:50:12 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(151): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(149): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[17-Mar-2024 21:50:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(151): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(149): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[17-Mar-2024 21:50:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(151): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(149): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[17-Mar-2024 21:53:34 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(151): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(149): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[18-Mar-2024 23:23:47 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(158): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(156): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[18-Mar-2024 23:40:44 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(162): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(160): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[18-Mar-2024 23:47:42 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Select Category--,1,2 )' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(164): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(161): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[19-Mar-2024 23:17:27 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\n) > 0 THEN '1' 
+            ELSE '0'
+        END AS `is_bookmark`,
+        CAS' at line 3 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT e.*, \n  ...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(135): DB_Function->getResultAsArray('SELECT e.*, \n  ...')
+#2 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:51:18 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:51:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(169): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(167): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:52:52 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:53:17 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:53:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:53:54 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:54:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:55:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:55:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 22:55:43 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(169): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(167): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise.php(8): DB_Controller->expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:00:21 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:02:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:95
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(95): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(182): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(180): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 95
+[21-Mar-2024 23:05:12 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(185): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(183): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:07:03 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(185): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(183): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_expertise.php(8): DB_Controller->recent_expertise_list()
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:33:52 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:34:08 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:35:55 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:37:35 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:38:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:39:07 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:39:11 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:39:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:40:50 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[21-Mar-2024 23:53:05 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(152): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(147): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/expertise_profile.php(21): DB_Controller->get_expertise_profile(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[23-Mar-2024 15:40:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.sub_category' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sc.sub_c...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(126): DB_Function->getResultAsArray('SELECT sc.sub_c...')
+#2 /home/bollyhood123/public_html/admin/API/sub_category.php(17): DB_Controller->sub_category_list(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[23-Mar-2024 19:23:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'bollyhood123_bollyhood.subscription_plan' doesn't exist in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT * from s...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(376): DB_Function->getResultAsArray('SELECT * from s...')
+#2 /home/bollyhood123/public_html/admin/API/plan.php(17): DB_Controller->all_subscription_plans()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[28-Mar-2024 23:59:37 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'categories' doesn't have a default value in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(80): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(39): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 00:00:11 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'description' doesn't have a default value in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(80): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(39): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 22:27:57 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(409): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(407): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_users.php(19): DB_Controller->all_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[29-Mar-2024 22:30:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(409): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(407): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_users.php(19): DB_Controller->all_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[29-Mar-2024 22:33:53 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(409): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(406): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_users.php(19): DB_Controller->all_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[29-Mar-2024 22:35:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(409): DB_Function->getResultAsArray('SELECT `categor...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(406): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_users.php(19): DB_Controller->all_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[29-Mar-2024 23:28:11 Asia/Kolkata] PHP Warning:  Undefined array key "cat_id" in /home/bollyhood123/public_html/admin/API/sign_up.php on line 13
+[29-Mar-2024 23:28:11 Asia/Kolkata] PHP Deprecated:  trim(): Passing null to parameter #1 ($string) of type string is deprecated in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 68
+[29-Mar-2024 23:29:03 Asia/Kolkata] PHP Warning:  Undefined array key "cat_id" in /home/bollyhood123/public_html/admin/API/sign_up.php on line 13
+[29-Mar-2024 23:29:03 Asia/Kolkata] PHP Deprecated:  trim(): Passing null to parameter #1 ($string) of type string is deprecated in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 68
+[29-Mar-2024 23:29:52 Asia/Kolkata] PHP Warning:  Undefined array key "cat_id" in /home/bollyhood123/public_html/admin/API/sign_up.php on line 13
+[29-Mar-2024 23:29:52 Asia/Kolkata] PHP Deprecated:  trim(): Passing null to parameter #1 ($string) of type string is deprecated in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 68
+[29-Mar-2024 23:31:00 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect integer value: '' for column 'cat_id' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(90): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(41): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 23:31:31 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect integer value: '' for column 'cat_id' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(90): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(41): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 23:32:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect integer value: '' for column 'cat_id' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(90): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(41): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 23:33:03 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect integer value: '' for column 'cat_id' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(90): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(41): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[29-Mar-2024 23:34:43 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect integer value: '' for column 'cat_id' at row 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(90): DB_Function->executeInsert('users', Array)
+#2 /home/bollyhood123/public_html/admin/API/sign_up.php(42): DB_Controller->sign_up(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[31-Mar-2024 00:10:10 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:10:10 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:10:10 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:10:29 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:10:29 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:10:29 Asia/Kolkata] PHP Warning:  Array to string conversion in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 502
+[31-Mar-2024 00:23:40 Asia/Kolkata] PHP Warning:  Undefined array key "catt" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 289
+[31-Mar-2024 00:23:40 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(289): DB_Function->getResultAsArray('SELECT `categor...')
+#2 /home/bollyhood123/public_html/admin/API/profile.php(17): DB_Controller->get_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[31-Mar-2024 00:26:16 Asia/Kolkata] PHP Warning:  Undefined array key "catt" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 289
+[31-Mar-2024 00:26:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(289): DB_Function->getResultAsArray('SELECT `categor...')
+#2 /home/bollyhood123/public_html/admin/API/profile.php(17): DB_Controller->get_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[31-Mar-2024 00:27:45 Asia/Kolkata] PHP Warning:  Undefined array key "catt" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 291
+[31-Mar-2024 00:27:45 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `categor...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(291): DB_Function->getResultAsArray('SELECT `categor...')
+#2 /home/bollyhood123/public_html/admin/API/profile.php(17): DB_Controller->get_profile(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[30-Mar-2024 19:09:40 UTC] PHP Fatal error:  Uncaught Error: Class "DB_Controller" not found in /home/bollyhood123/public_html/admin/API/recent_users.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/recent_users.php on line 5
+[31-Mar-2024 00:41:30 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: Cannot access offset of type string on string in /home/bollyhood123/public_html/admin/API/include/db_controller.php:532
+Stack trace:
+#0 [internal function]: DB_Controller->{closure}('59')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): array_map(Object(Closure), Array)
+#2 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 532
+[01-Apr-2024 23:44:27 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:44:27 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:45:15 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:45:15 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:50:08 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:50:08 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:54:28 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:54:28 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:55:03 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:55:03 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:56:24 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[01-Apr-2024 23:56:24 Asia/Kolkata] PHP Warning:  Undefined array key "worklink_url" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 354
+[03-Apr-2024 12:01:50 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `sub_cat...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(53): DB_Function->getResultAsArray('SELECT `sub_cat...')
+#2 /home/bollyhood123/public_html/admin/API/send_otp.php(25): DB_Controller->send_otp(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[03-Apr-2024 12:02:18 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `sub_cat...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(53): DB_Function->getResultAsArray('SELECT `sub_cat...')
+#2 /home/bollyhood123/public_html/admin/API/send_otp.php(25): DB_Controller->send_otp(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[03-Apr-2024 12:02:46 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT `sub_cat...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(53): DB_Function->getResultAsArray('SELECT `sub_cat...')
+#2 /home/bollyhood123/public_html/admin/API/send_otp.php(25): DB_Controller->send_otp(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[03-Apr-2024 22:05:18 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:06:41 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:07:32 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:07:52 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:08:14 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:10:12 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 22:10:15 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: date(): Argument #2 ($timestamp) must be of type ?int, string given in /home/bollyhood123/public_html/admin/API/mod_booking.php:12
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/mod_booking.php(12): date('Y-m-d H:i:s', '')
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 12
+[03-Apr-2024 16:40:38 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/bollyhood123/public_html/admin/config.php on line 17
+[03-Apr-2024 22:10:38 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'booking_date' doesn't have a default value in /home/bollyhood123/public_html/admin/API/include/db_function.php:148
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(148): mysqli->query('INSERT INTO use...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(558): DB_Function->executeInsert('users_booking', Array)
+#2 /home/bollyhood123/public_html/admin/API/mod_booking.php(31): DB_Controller->mod_booking(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 148
+[03-Apr-2024 16:42:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/bollyhood123/public_html/admin/config.php on line 17
+[03-Apr-2024 16:42:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/bollyhood123/public_html/admin/config.php on line 17
+[04-Apr-2024 17:24:55 UTC] PHP Parse error:  syntax error, unexpected token "," in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 9
+[04-Apr-2024 17:25:00 UTC] PHP Parse error:  syntax error, unexpected token "," in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 9
+[04-Apr-2024 17:25:23 UTC] PHP Parse error:  syntax error, unexpected token "," in /home/bollyhood123/public_html/admin/API/mod_booking.php on line 9
+[04-Apr-2024 22:58:19 Asia/Kolkata] PHP Warning:  Undefined array key "uid" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 587
+[04-Apr-2024 22:58:19 Asia/Kolkata] PHP Warning:  Undefined array key "uid" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 587
+[04-Apr-2024 18:24:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Connection refused in /home/bollyhood123/public_html/admin/config.php:24
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/config.php(24): mysqli->__construct('localhost', 'bollyhood123_bo...', Object(SensitiveParameterValue), 'bollyhood123_bo...')
+#1 /home/bollyhood123/public_html/admin/API/include/connection.php(10): require_once('/home/bollyhood...')
+#2 /home/bollyhood123/public_html/admin/API/include/db_function.php(68): DB->Db_Connect()
+#3 /home/bollyhood123/public_html/admin/API/user_details.php(10): DB_Function->escapeStringTrim('62')
+#4 {main}
+  thrown in /home/bollyhood123/public_html/admin/config.php on line 24
+[05-Apr-2024 21:01:33 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(578): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/user_details.php(17): DB_Controller->user_details(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 21:03:36 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(578): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/user_details.php(17): DB_Controller->user_details(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 21:06:55 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(578): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/user_details.php(17): DB_Controller->user_details(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 23:28:01 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bollyhood123_bollyhood.users_booking.purpose' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT 'w_mobil...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(588): DB_Function->getResultAsArray('SELECT 'w_mobil...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_booking.php(17): DB_Controller->all_booking(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 23:29:13 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bollyhood123_bollyhood.users_booking.purpose' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT 'w_mobil...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(588): DB_Function->getResultAsArray('SELECT 'w_mobil...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_booking.php(17): DB_Controller->all_booking(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 23:30:16 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bollyhood123_bollyhood.users_booking.purpose' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT 'w_mobil...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(588): DB_Function->getResultAsArray('SELECT 'w_mobil...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(575): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/all_booking.php(17): DB_Controller->all_booking(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[05-Apr-2024 18:03:53 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 556
+[05-Apr-2024 18:03:58 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 556
+[05-Apr-2024 23:34:21 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'category_id' in 'where clause' in /home/bollyhood123/public_html/admin/API/include/db_function.php:79
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(79): mysqli->query('SELECT * from u...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(556): DB_Function->getAffectedRowCount('SELECT * from u...')
+#2 /home/bollyhood123/public_html/admin/API/mod_booking.php(38): DB_Controller->mod_booking(Array)
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 79
+[06-Apr-2024 13:07:36 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 13:08:28 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 13:10:25 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 13:10:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 13:10:47 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 20:17:22 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 20:18:33 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 20:19:18 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 20:19:22 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[06-Apr-2024 20:21:08 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/bollyhood123/public_html/admin/API/include/db_function.php:94
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(94): mysqli->query('SELECT sub_cat_...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(529): DB_Function->getResultAsArray('SELECT sub_cat_...')
+#2 [internal function]: DB_Controller->{closure}(Array)
+#3 /home/bollyhood123/public_html/admin/API/include/db_controller.php(526): array_map(Object(Closure), Array)
+#4 /home/bollyhood123/public_html/admin/API/recent_users.php(18): DB_Controller->recent_users_list(Array)
+#5 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 94
+[07-Apr-2024 15:51:38 Asia/Kolkata] PHP Warning:  Undefined array key "booking_uid" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 569
+[07-Apr-2024 16:01:34 Asia/Kolkata] PHP Warning:  Undefined array key "booking_uid" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 508
+[07-Apr-2024 16:01:34 Asia/Kolkata] PHP Warning:  Undefined array key "booking_uid" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 508
+[07-Apr-2024 10:51:31 UTC] PHP Fatal error:  Uncaught Error: Class "DB_Controller" not found in /home/bollyhood123/public_html/admin/API/recent_users.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/recent_users.php on line 5
+[07-Apr-2024 10:51:31 UTC] PHP Fatal error:  Uncaught Error: Class "DB_Controller" not found in /home/bollyhood123/public_html/admin/API/banner.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/banner.php on line 4
+[07-Apr-2024 10:51:31 UTC] PHP Fatal error:  Uncaught Error: Class "DB_Controller" not found in /home/bollyhood123/public_html/admin/API/recent_category.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/recent_category.php on line 4
+[07-Apr-2024 21:14:34 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Undefined constant "CASTING_COLOR" in /home/bollyhood123/public_html/admin/API/include/db_controller.php:752
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/all_casting.php(17): DB_Controller->all_casting()
+#1 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 752
+[10-Apr-2024 00:55:45 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, string given in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 765
+[10-Apr-2024 00:57:58 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, string given in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 765
+[10-Apr-2024 01:00:23 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, string given in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 765
+[10-Apr-2024 01:04:44 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, string given in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 765
+[10-Apr-2024 07:40:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Expression #21 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bollyhood123_bollyhood.ca.casting_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /home/bollyhood123/public_html/admin/API/include/db_function.php:78
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(78): mysqli->query('SELECT u.*,ca.c...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(824): DB_Function->getResultAsArray('SELECT u.*,ca.c...')
+#2 /home/bollyhood123/public_html/admin/API/get_agency.php(7): DB_Controller->all_cating_apply()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 78
+[10-Apr-2024 07:41:37 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Expression #21 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bollyhood123_bollyhood.ca.casting_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /home/bollyhood123/public_html/admin/API/include/db_function.php:78
+Stack trace:
+#0 /home/bollyhood123/public_html/admin/API/include/db_function.php(78): mysqli->query('SELECT u.*,ca.c...')
+#1 /home/bollyhood123/public_html/admin/API/include/db_controller.php(827): DB_Function->getResultAsArray('SELECT u.*,ca.c...')
+#2 /home/bollyhood123/public_html/admin/API/get_agency.php(7): DB_Controller->all_cating_apply()
+#3 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/include/db_function.php on line 78
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "name" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 884
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "email" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 885
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "mobile" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 886
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "image" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 887
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "description" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 888
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "reviews" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 889
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "jobs_done" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 890
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Undefined array key "experience" in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 891
+[11-Apr-2024 00:33:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home/bollyhood123/public_html/admin/API/profile_completion.php on line 18
+[11-Apr-2024 20:53:46 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, string given in /home/bollyhood123/public_html/admin/API/include/db_controller.php on line 765
+[11-Apr-2024 21:10:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method DB_Controller::casting_apply() in /home/bollyhood123/public_html/admin/API/casting_apply.php:27
+Stack trace:
+#0 {main}
+  thrown in /home/bollyhood123/public_html/admin/API/casting_apply.php on line 27

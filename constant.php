@@ -2,11 +2,13 @@
 include_once("config.php");
 
 $action = isset($_GET['action']) ? $_GET['action'] : '' ;
-define("RESOURCE_URL",SITE_URL.'/resources/');
+define("RESOURCE_URL",SITE_URL.'resources/');
 define("DIR",__DIR__);//constant path
 
 define("FILE_NAME", basename(parse_url($actual_link)['path'],'.php') );//remove.php
 
+
+define("RESOURCE_VERSION",1);
 
 define("IMAGE_PATH",SITE_URL.'resources/image/');
 define("BANNER_IMAGE_PATH",SITE_URL.'resources/image/banners/');
@@ -15,6 +17,8 @@ define("EXPERTISE_IMAGE_PATH",SITE_URL.'resources/image/expertise/');
 define("CATEGORY_IMAGE_PATH",SITE_URL.'resources/image/category/');
 define("COMPANY_LOGO_PATH",SITE_URL.'resources/image/casting/');
 define("COMPANY_DOC_PATH",SITE_URL.'resources/image/casting/document/');
+define("CASTING_APPLY_IMAGES",SITE_URL.'resources/image/casting/apply/');
+define("CASTING_APPLY_VIDEO",SITE_URL.'resources/image/casting/video/');
 
 define("VALID_IMG_EXT", array('png','jpg','jpeg','PNG','JPG','JPEG'));
 define("VALID_DOC_EXT", array('pdf'));

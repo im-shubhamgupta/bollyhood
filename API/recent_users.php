@@ -1,6 +1,6 @@
 <?php
 //verify OTP by this api 
-require_once 'include/db_controller.php';
+require_once 'controller/db_controller.php';
 
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');

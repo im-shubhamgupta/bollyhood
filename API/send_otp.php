@@ -1,6 +1,6 @@
 <?php
 //verify OTP by this api 
-require_once 'include/db_controller.php';
+require_once 'controller/db_controller.php';
 
 $db = new DB_Controller();
 $response = array('status' => '0', 'msg'=> 'Something went wrong!!');
@@ -10,6 +10,7 @@ if (isset($_REQUEST['mobile']) && isset($_REQUEST['otp'])  ) {
     $data= array(
         'mobile' => $db->escapeStringTrim($_REQUEST['mobile']),
         'otp' => $db->escapeStringTrim($_REQUEST['otp']),
+        'fcmtoken' => isset($_REQUEST['fcmtoken']) ? $db->escapeStringTrim($_REQUEST['fcmtoken']) : '',
     );
     if(empty($data['mobile'])){
         $error_msg = "Mobile no required";
@@ -36,6 +37,6 @@ if (isset($_REQUEST['mobile']) && isset($_REQUEST['otp'])  ) {
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter mobile , otp";
+    $response["msg"] = "Required parameter mobile , otp,fcmtoken";
 }
 echo json_encode($response);

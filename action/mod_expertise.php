@@ -205,7 +205,7 @@ if(!empty($data['id'])){
                                         <select class="custom-select form-control" name="status" required>
                                             <?php
                                             if(!isset($_GET['id'])) echo "<option selected=''>--Select Status--</option>";
-                                            $selected = ($data['cat_id']== 1 ) ? 'selected' : '';
+                                            $selected = (isset($data['cat_id']) && ($data['cat_id']== 1) ) ? 'selected' : '';
                                             ?>
                                                 <option value='1' <?=(isset($data['status']) && $data['status']== 1 ) ? 'selected' : ''?>>Active</option>
                                                 <option value='0' <?=(isset($data['status']) && $data['status']== 0 ) ? 'selected' : ''?>>Deactive</option>

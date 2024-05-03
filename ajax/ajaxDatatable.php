@@ -128,7 +128,8 @@ switch($ajax_action){
 			$sql .=" ORDER BY ". $columns[$requestData['order'][0]['column']]."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
 		}else{
 			$sql .="ORDER BY id desc";
-		}	
+		}
+		// $sql .= "  LIMIT ".$requestData['start']." ,".$requestData['length']." ";	
 		$i=1;
 		$arr = executeQuery($sql);
 		foreach($arr as $list) {  // preparing an array
@@ -394,6 +395,74 @@ switch($ajax_action){
 		echo json_encode($json_data);  
 		die;
 	break;
+	case 'fetch_all_casting_apply':
+		$requestData= $_REQUEST;
+		$columns = array( 
+			0 =>'id',
+		
+		);
+		// $this->debugSql();
+		$sql = "SELECT `users`.`id` as uid,users.name,users.email,users.mobile,users.image,c.company_name,c.company_logo,c.organization from users 
+		inner join casting_apply ca ON users.id = ca.uid 
+		inner join casting c ON c.id = ca.casting_id
+		where `users`.`id` IN (SELECT DISTINCT(`uid`) from casting_apply  ) ";
+		$totalData = getAffectedRowCount($sql);
+		$totalFiltered = $totalData;  
+
+		if($requestData['search']['value'] ) {  
+			$sql.=" AND (  ";
+			$sql.="  users.name LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR users.email LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR users.mobile LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR c.company_name LIKE '%".$requestData['search']['value']."%' ";
+			$sql.=" OR c.`organization` LIKE '%".$requestData['search']['value']."%' ";
+			
+			$sql.= " )";
+		}
+		$totalFiltered = getAffectedRowCount($sql); 
+
+		// 
+		if(isset($requestData['order'][0]['column'])){
+			$sql .=" ORDER BY ". $columns[$requestData['order'][0]['column']]."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		}else{
+			$sql .="ORDER BY users.id DESC ";
+		}
+		// echo $sql;	
+		$i=1;
+		$arr = getResultAsArray($sql);
+		$data = array();
+		foreach($arr as $list) {  // preparing an array
+			$td = array();
+			$logo_path = "<img class='user_img' src='".USER_IMAGE_PATH.$list['image']."' >";
+			$company_logo = "<img class='user_img' src='".COMPANY_LOGO_PATH.$list['company_logo']."' >";
+			
+			$td[] = $i;
+			$td[] = '<span>'.$logo_path.'</span>';
+			$td[] = ucwords($list['name']);
+			$td[] = $list['email'];
+			$td[] = $list['mobile'];
+			$td[] = '<span>'.$company_logo.'</span>';
+			$td[] = $list['company_name'];
+			$td[] = $list['organization'];
+			
+			$action = '<div><a href="'.urlAction('applied_users&id='.$list['uid'].'').'" target="_blank"  class="btn btn-info btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-info"></i></a></div>';		
+			// $action .= '  <div><a href="#" onclick="delete_casting_apply_records(this)" data-id="'.$list['uid'].'" class="btn btn-danger btn-sm btn-icon waves-effect waves-themed"><i class="fal fa-times"></i></a></div>';	
+			$td[] = $action;									
+			$data[] = $td;
+			$i ++;
+		}
+
+		$json_data = array(
+			"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside ,
+			"recordsTotal"    => intval( $totalData ),  // total number of records
+			"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+			"data"            => $data   // total data array
+		);
+
+		echo json_encode($json_data);  
+		die;
+	break;
+
  
 	default:
 		echo json_encode(array('check' => 'failed' , 'msg'=>'Bad Request' ));

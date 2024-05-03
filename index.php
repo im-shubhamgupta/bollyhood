@@ -67,6 +67,13 @@ if(isset($_SESSION['login']) && $_SESSION['login']=='y'){
 		case 'mod_casting':
 			include_once('action/mod_casting.php');
 		break;
+		case 'casting_apply':
+			include_once('action/casting_apply.php');
+		break;
+		case 'applied_users':
+			include_once('action/applied_users.php');
+		break;
+		
 		case 'user_details':
 			include_once('action/user_details.php');
 		break;

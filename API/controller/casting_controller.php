@@ -12,13 +12,14 @@ class casting_Controller extends DB_Function{
     public function all_casting($data){
         $exp = $this->getResultAsArray("SELECT * from casting where 1 ");
         if(count($exp) > 0){
-            $map_exp= array_map(function($item){
+            $map_exp= array_map(function($item)use($data){
                 $item['company_logo'] = !empty($item['company_logo']) ? COMPANY_LOGO_PATH.$item['company_logo'] : '';
                 $item['document'] = !empty($item['document']) ? COMPANY_DOC_PATH.$item['document'] : '';
 
-                $castingApply = $this->getAffectedRowCount("select id from casting_apply where casting_id = '".$item['id']."'");
+                $castingApply = $this->getAffectedRowCount("select id from casting_apply where casting_id = '".$item['id']."' and uid = '".$data['uid']."'");
+                // $this->debugSql();
 
-                $castingBookmark = $this->getAffectedRowCount("select id from casting_bookmark where casting_id = '".$item['id']."'");
+                $castingBookmark = $this->getAffectedRowCount("select id from casting_bookmark where casting_id = '".$item['id']."' and uid = '".$data['uid']."'");
 
                 $item['is_casting_apply'] = ($castingApply > 0) ? 1 : 0;
                 $item['is_casting_bookmark'] = ($castingBookmark > 0) ? 1 : 0;;
@@ -100,52 +101,6 @@ class casting_Controller extends DB_Function{
             return '';
         }   
     }
-   /* public function all_cating_apply(){
-        // SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting_apply';
-        // $all_columns = $this->getSingleResult("SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting'");
-        // SELECT * , (SELECT CONCAT('id' ) FROM casting LIMIT 1) as casting_data from casting_apply ca inner join users u on u.id =ca.uid where 1;
-        // $this->echoPrint($all_columns);
-
-
-        // $exp = $this->getResultAsArray("SELECT u.*,ca.casting_id  from casting_apply ca inner join users u on u.id =ca.uid where 1 group by ca.uid ");
-        $uids = "SELECT DISTINCT(`uid`) from casting_apply  ";
-        
-        // $this->debugSql();
-        $exp = $this->getResultAsArray("SELECT * from users where `id` IN ($uids) ");
-        if(count($exp) > 0){
-
-            foreach($exp as $k => $val){
-                // unset($exp[$k][$val['create_date']]);
-                // unset($exp[$k][$val['modify_date']]);
-                // $temp['image'] =  !empty($val['images']) 
-                //     ? array_map(function($img){
-                //             return  CASTING_IMAGES_PATH.$img;
-                //         },explode(',',$val['images'])) 
-                //     : '';
-                // $temp['video'] = !empty($val['video']) ? CASTING_DOCUMENT_PATH.$val['video'] :'';  
-
-                $casting =  $this->getResultAsArray("SELECT * from casting  INNER JOIN casting_apply ca ON casting.id =ca.casting_id   where ca.uid = '".$val['id']."' "); 
-                // $casting =  $this->getResultAsArray("SELECT * from casting_apply  where uid = '".$val['id']."' "); 
-                $cast = array(); 
-                foreach($casting as $casting_key => $casting_value){
-                    // $temp = array();
-                    $casting_value['images'] =  !empty($casting_value['images']) 
-                            ? array_map(function($img){
-                                    return  CASTING_IMAGES_PATH.$img;
-                                },explode(',',$casting_value['images'])) 
-                            : '';
-                    $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
-
-                    array_push($cast,$casting_value);
-
-                }
-                $exp[$k]['casting_apply']  = $cast;
-            }
-            return $exp;
-        }else{
-            return '';
-        }   
-    }*/
     public function mod_casting_bookmark($data){
         $response = array('check' => 'failed', 'msg'=> 'Error Happend');
         if($data['bookmark_mode'] == 1){
@@ -162,29 +117,43 @@ class casting_Controller extends DB_Function{
         }
         return $response;
     }
+    /*
     public function all_casting_bookmark($data){
         // $uids = "SELECT DISTINCT(`uid`) from casting_apply  ";
-        
-        // $this->debugSql();
-        $exp = $this->getResultAsArray("SELECT users.* from casting_bookmark cb inner join users ON cb.uid=users.id where 1");
+       
+        // $exp = $this->getResultAsArray("SELECT users.*,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt from casting_bookmark cb inner join users ON cb.uid=users.id where cb.uid='".$data['uid']."' group by cb.uid");
+        // $exp = $this->getResultAsArray("SELECT users.*,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt from users where id IN (SELECT uid from casting_bookmark where uid = ".$data['uid'].") ");
+        $exp = $this->getResultAsArray("SELECT users.*,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt from users where id = ".$data['uid']." ");
         if(count($exp) > 0){
-
+            
             foreach($exp as $k => $val){
+                $exp[$k]['image'] = !empty($val['image']) ? USER_IMAGE_PATH.$val['image'] : '';
 
-                $casting =  $this->getResultAsArray("SELECT * from casting  INNER JOIN casting_apply ca ON casting.id =ca.casting_id   where ca.uid = '".$val['id']."' "); 
+                //join casting with casting_apply and if casting apply is null then pass empty value
+
+                $casting =  $this->getResultAsArray("SELECT casting.*,ca.images,ca.video from casting  LEFT JOIN casting_apply ca ON casting.id =ca.casting_id and ca.uid = ".$val['id']."  where casting.id IN (SELECT casting_id from casting_bookmark where uid = ".$val['id']." ) ");//ca.uid = '".$val['id']."'
+                // $this->debugSql();
                  
-                $cast = array(); 
+                $cast = array(); $i=0;
                 foreach($casting as $casting_key => $casting_value){
+                    if($i == 3) $i = 0;
+                    $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$val['catt'].") ");
+
+                    $casting_value['category'] = $category;
                     // $temp = array();
+                    $casting_value['document'] = !empty($casting_value['document']) ? CASTING_DOCUMENT_PATH.$casting_value['document'] : '';
                     $casting_value['images'] =  !empty($casting_value['images']) 
                             ? array_map(function($img){
                                     return  CASTING_IMAGES_PATH.$img;
                                 },explode(',',$casting_value['images'])) 
-                            : '';
+                            : array();
                     $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
 
-                    array_push($cast,$casting_value);
+                    $casting_value['company_logo'] = !empty($casting_value['company_logo']) ? COMPANY_LOGO_PATH.$casting_value['company_logo'] : '';
+                    $casting_value['type'] = CASTING_COLOR[$i];
 
+                    array_push($cast,$casting_value);
+                    $i++;                
                 }
                 $exp[$k]['casting_apply']  = $cast;
             }
@@ -192,52 +161,80 @@ class casting_Controller extends DB_Function{
         }else{
             return '';
         } 
+    }*/
+    public function all_casting_bookmark($data){
+
+        $casting =  $this->getResultAsArray("SELECT casting.*,ca.images,ca.video from casting  LEFT JOIN casting_apply ca ON casting.id =ca.casting_id and ca.uid = ".$data['uid']."  where casting.id IN (SELECT casting_id from casting_bookmark where uid = ".$data['uid']." ) ");
+            
+        $cast = array(); $i=0;
+        foreach($casting as $casting_key => $casting_value){
+            if($i == 3) $i = 0;
+            // $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$val['catt'].") ");
+
+            // $casting_value['category'] = $category;
+            
+            $casting_value['document'] = !empty($casting_value['document']) ? CASTING_DOCUMENT_PATH.$casting_value['document'] : '';
+            $casting_value['images'] =  !empty($casting_value['images']) 
+                    ? array_map(function($img){
+                            return  CASTING_IMAGES_PATH.$img;
+                        },explode(',',$casting_value['images'])) 
+                    : array();
+            $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
+
+            $casting_value['company_logo'] = !empty($casting_value['company_logo']) ? COMPANY_LOGO_PATH.$casting_value['company_logo'] : '';
+            $casting_value['type'] = CASTING_COLOR[$i];
+
+            array_push($cast,$casting_value);
+            $i++;                
+        }
+    return $cast;
+       
     }
-    public function all_cating_apply(){
-                // SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting_apply';
+    public function all_cating_apply(){//getagency
+               
+        $uids = "SELECT DISTINCT(`uid`) from casting_apply  ";
+        $exp = $this->getResultAsArray("SELECT users.*,IF(`categories` = '' || `categories` IS NULL, '0', `categories`) as catt from users where `id` IN ($uids) ");
+        if(count($exp) > 0){
+            foreach($exp as $k => $val){
+                $exp[$k]['image'] = !empty($val['image']) ? USER_IMAGE_PATH.$val['image'] : '';
+
+                $casting =  $this->getResultAsArray("SELECT * from casting  INNER JOIN casting_apply ca ON casting.id =ca.casting_id   where ca.uid = '".$val['id']."' "); 
+                
+                $cast = array(); $i=0;
+                foreach($casting as $casting_key => $casting_value){
+                    if($i == 3) $i = 0;
+                    $category = $this->getResultAsArray("SELECT id as category_id,`category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$val['catt'].") ");
+
+                    $casting_value['category'] = $category;
+
+                    $casting_value['document'] = !empty($casting_value['document']) ? CASTING_DOCUMENT_PATH.$casting_value['document'] : '';
+
+                    $casting_value['images'] =  !empty($casting_value['images']) 
+                            ? array_map(function($img){
+                                    return  CASTING_IMAGES_PATH.$img;
+                                },explode(',',$casting_value['images'])) 
+                            : array();
+                    $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
+
+                    $casting_value['company_logo'] = !empty($casting_value['company_logo']) ? COMPANY_LOGO_PATH.$casting_value['company_logo'] : '';
+
+                    $casting_value['type'] = CASTING_COLOR[$i];
+
+                    array_push($cast,$casting_value);
+                    $i++;
+                }
+                $exp[$k]['casting_apply']  = $cast;
+            }
+            return $exp;
+        }else{
+            return '';
+        }   
+    }
+    
+}
+
+
+// SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting_apply';
                 // $all_columns = $this->getSingleResult("SELECT GROUP_CONCAT(column_name SEPARATOR ',') AS all_columns FROM information_schema.columns WHERE table_name = 'casting'");
                 // SELECT * , (SELECT CONCAT('id' ) FROM casting LIMIT 1) as casting_data from casting_apply ca inner join users u on u.id =ca.uid where 1;
                 // $this->echoPrint($all_columns);
-        
-        
-                // $exp = $this->getResultAsArray("SELECT u.*,ca.casting_id  from casting_apply ca inner join users u on u.id =ca.uid where 1 group by ca.uid ");
-                $uids = "SELECT DISTINCT(`uid`) from casting_apply  ";
-                
-                // $this->debugSql();
-                $exp = $this->getResultAsArray("SELECT * from users where `id` IN ($uids) ");
-                if(count($exp) > 0){
-        
-                    foreach($exp as $k => $val){
-                        // unset($exp[$k][$val['create_date']]);
-                        // unset($exp[$k][$val['modify_date']]);
-                        // $temp['image'] =  !empty($val['images']) 
-                        //     ? array_map(function($img){
-                        //             return  CASTING_IMAGES_PATH.$img;
-                        //         },explode(',',$val['images'])) 
-                        //     : '';
-                        // $temp['video'] = !empty($val['video']) ? CASTING_DOCUMENT_PATH.$val['video'] :'';  
-        
-                        $casting =  $this->getResultAsArray("SELECT * from casting  INNER JOIN casting_apply ca ON casting.id =ca.casting_id   where ca.uid = '".$val['id']."' "); 
-                        // $casting =  $this->getResultAsArray("SELECT * from casting_apply  where uid = '".$val['id']."' "); 
-                        $cast = array(); 
-                        foreach($casting as $casting_key => $casting_value){
-                            // $temp = array();
-                            $casting_value['images'] =  !empty($casting_value['images']) 
-                                    ? array_map(function($img){
-                                            return  CASTING_IMAGES_PATH.$img;
-                                        },explode(',',$casting_value['images'])) 
-                                    : '';
-                            $casting_value['video'] = !empty($casting_value['video']) ? CASTING_DOCUMENT_PATH.$casting_value['video'] :'';
-        
-                            array_push($cast,$casting_value);
-        
-                        }
-                        $exp[$k]['casting_apply']  = $cast;
-                    }
-                    return $exp;
-                }else{
-                    return '';
-                }   
-            }
-    
-}
