@@ -12,7 +12,8 @@ class message_Controller extends DB_Function{
     public function send_message($data){
         $temp = array();
         $file_arr = array();
-        if (!empty($data['image'][0]['name'])) {
+        $push = array();
+        if (!empty($data['image']['name'])) {
             
                 //upload video
                 $image = isset($data['image']) ? $data['image'] : '';
@@ -21,6 +22,8 @@ class message_Controller extends DB_Function{
                 $params['file_upload'] = UPLOAD_CHATTING_IMAGE_PATH;
                 $params['file_type'] = VALID_IMG_EXT;
                 $img_data = $this->uploadCustomFile($image, $params);
+
+                // $this->echoPrint($img_data);
 
                 if($img_data['check'] == 1){
                     $temp['image'] = $img_data['file_name'];
@@ -35,9 +38,19 @@ class message_Controller extends DB_Function{
         $temp['other_uid'] = $data['other_uid'];
         $temp['text'] = $data['text'];
         $temp['added_on'] = date('Y-m-d H:i:s');
-        $user = $this->executeSelectSingle('users',array(),array('id'=>$data['uid']));
+        $user = $this->executeSelectSingle('users',array(),array('id'=>$data['other_uid']));
+        
+        $push['uid'] = $data['uid'];
+        $push['other_uid'] = $data['other_uid'];
+        $push['title'] = 'BollyHood';
+        $push['body'] = !empty($temp['text']) 
+            ? substr($temp['text'],0,30) 
+            : (!empty($temp['image']) ? 'Sent Image' : '');
+        $user['fcmtoken'] = isset($user['fcmtoken']) ? $user['fcmtoken'] : '';    
 
-        $this->push_notification_android($user['fcmtoken'],'BollyHood',substr($temp['text'],0,30));
+        $pp= $this->push_notification_android($user['fcmtoken'],$push);
+        // echo "46654";
+        // print_R($pp);
         
         $in= $this->executeInsert('users_chatting',$temp);
         if($in > 0){

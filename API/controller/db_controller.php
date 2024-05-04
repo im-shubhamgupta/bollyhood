@@ -31,11 +31,13 @@ class DB_Controller extends DB_Function{
         // $result = $this->executeSelectSingle('users',array(),array('mobile' => $data['mobile'],'otp'=>$data['otp']));
         $usql = "SELECT * ,CONCAT('".USER_IMAGE_PATH."', `image`) as image,IF(`categories` = '' || `categories` IS NULL , '0', `categories`) as catt ,     IF(`sub_categories` = '', '0', `sub_categories`) as sub_catt  from users where mobile='".$data['mobile']."' and otp='".$data['otp']."'    ";
         $result = $this->getSingleResult($usql);
-
+        $fcmArr = array();
         if(!empty($result)){
             if(empty($result['fcmtoken'])){
-                $this->executeUpdate('users',array('fcmtoken'=>$data['fcmtoken']),array('id'=>$result['id']));
+
+                $this->executeUpdate('users',array('fcmtoken'=>$data['fcmtoken'],'is_online'=>$data['is_online']),array('id'=>$result['id']));
             }
+            $this->executeUpdate('users',array('is_online'=>$data['is_online']),array('id'=>$result['id']));
             $category = $this->getResultAsArray("SELECT `category_name`,`type`,IF(`category_image` = '' , '',CONCAT('".CATEGORY_IMAGE_PATH."',`category_image`)) as `cat_image` from category where id IN (".$result['catt'].") ");
             $sub_category = $this->getResultAsArray("SELECT `sub_cat_name` from sub_category where sub_cat_id IN (".$result['sub_catt'].") ");
             $temp = array(
@@ -53,6 +55,7 @@ class DB_Controller extends DB_Function{
                 'status' => $result['status'],
                 'is_verify' => $result['is_verify'],
                 'is_subscription' => $result['is_subscription'],
+                'is_online' => $result['is_online'],
                 'user_type' => $result['user_type'],
                 'image' => ($result['image']== 'no_image.png' || empty($result['image']))  ? '': $result['image']  ,
             );
@@ -60,6 +63,12 @@ class DB_Controller extends DB_Function{
         }else{
             return '';
         }    
+    }
+    public function logout($data){
+        $res= array('check' => 'failed', 'msg'=> 'Error');
+            $this->executeUpdate('users',array('is_online'=>$data['is_online']),array('id'=>$data['uid']));
+            return $res['check']= 'success';
+           
     }
 
     public function sign_up($data){
@@ -497,13 +506,17 @@ class DB_Controller extends DB_Function{
                 $category_type_arr = array_map(function($val){ //send category in comma seperated
                     return isset($val['type']) ? $val['type'] : '';  
                },$category);
-               
+
+               //show last message
+               $message = $this->getSingleResult("Select text from users_chatting where other_uid = '".$item['id']."' order by id desc limit 1");
+
                 $item['is_bookmarked'] = ($is_bookmarked > 0) ? 1 : 0 ;
                 $item['is_book'] =  ($is_booking > 0) ? 1 : 0 ;
                 $item['category_type'] = !empty($category_type_arr) ? implode(',',array_unique($category_type_arr)) : '';
                 $item['categories'] = $category;
                 $item['sub_categories'] = $sub_category;
                 $item['work_links'] = $this->getResultAsArray($wSql);
+                $item['last_message'] = !empty($message['text']) ? $message['text'] : '';
                    
                 return $item;
             },$exp);

@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST'){
     echo json_encode($response); die();
 }
 
-if (isset($_REQUEST['uid']) && isset($_REQUEST['other_uid']) && isset($_REQUEST['text']) && isset($_FILES['image'])){//$_FILES['image']
+if (isset($_REQUEST['uid']) && isset($_REQUEST['other_uid'])){// && isset($_REQUEST['text']) && isset($_FILES['image'])//$_FILES['image']
 
     $data= array(
         'uid' => $db->escapeStringTrim($_REQUEST['uid']),
@@ -42,6 +42,6 @@ if (isset($_REQUEST['uid']) && isset($_REQUEST['other_uid']) && isset($_REQUEST[
         $response["msg"] = $error_msg;
     }    
 }else{
-    $response["msg"] = "Required parameter uid,other_uid,text,image";
+    $response["msg"] = "Total parameter uid,other_uid,text,image";
 }
 echo json_encode($response);

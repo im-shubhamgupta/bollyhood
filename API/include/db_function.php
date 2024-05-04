@@ -450,7 +450,7 @@ class DB_Function extends DB {
 			}
 			return $result;
 		}
-		function push_notification_android($device_id,$Title, $Remarks,$type=''){
+		function push_notification_android($device_id,$data){
 			$response = array('check' => 'failed', 'msg'=> 'Something error');
 			//API URL of FCM
 			$url = 'https://fcm.googleapis.com/fcm/send';
@@ -463,11 +463,14 @@ class DB_Function extends DB {
 							$device_id
 					),
 					'data' => array (
-							"title" => $Title,
-							"body" => $Remarks,
-							"type"=>$type
+							'uid' => isset($data['uid']) ? : '',
+							'other_uid' => isset($data['other_uid']) ? $data['other_uid'] : '',
+							"title" => isset($data['title']) ? $data['title'] : '',
+							"body" => isset($data['body']) ? $data['body'] : '',
+							"type"=>'chat'
 						)
 				);
+				// print_r($fields);
 				//header includes Content type and api key
 				$headers = array(
 					'Content-Type:application/json',
